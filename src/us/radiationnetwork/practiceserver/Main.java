@@ -14,6 +14,7 @@ import us.radiationnetwork.practiceserver.command.commands.CommandZone;
 import us.radiationnetwork.practiceserver.fish.SpeedFish;
 import us.radiationnetwork.practiceserver.health.HealthHandler;
 import us.radiationnetwork.practiceserver.menus.FVendor;
+import us.radiationnetwork.practiceserver.menus.IVendor;
 import us.radiationnetwork.practiceserver.player.PlayerListener;
 import us.radiationnetwork.practiceserver.utils.APIUtils;
 import us.radiationnetwork.practiceserver.utils.BossBarUtils;
@@ -50,6 +51,7 @@ public class Main extends JavaPlugin {
 
 	private void registerListeners() {
 		APIUtils.registerListener(new FVendor());
+		APIUtils.registerListener(new IVendor());
 		APIUtils.registerListener(new PlayerListener());
 		APIUtils.registerListener(new SpeedFish());
 		APIUtils.registerListener(new ZoneHandler());
