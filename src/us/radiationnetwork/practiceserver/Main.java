@@ -1,5 +1,7 @@
 package us.radiationnetwork.practiceserver;
 
+import org.bukkit.Bukkit;
+import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import us.radiationnetwork.practiceserver.command.commands.CommandFVendor;
@@ -11,6 +13,7 @@ import us.radiationnetwork.practiceserver.fish.SpeedFish;
 import us.radiationnetwork.practiceserver.menus.FVendor;
 import us.radiationnetwork.practiceserver.player.PlayerListener;
 import us.radiationnetwork.practiceserver.utils.APIUtils;
+import us.radiationnetwork.practiceserver.utils.BossBarUtils;
 
 public class Main extends JavaPlugin {
 	
@@ -20,6 +23,7 @@ public class Main extends JavaPlugin {
 		plugin = this;
 		registerListeners();
 		registerCommands();
+		task();
 		
 	}
 
@@ -41,5 +45,15 @@ public class Main extends JavaPlugin {
 
 	public static Main getInstance() {
 		return plugin;
+	}
+	
+	public void task() {
+		Bukkit.getScheduler().scheduleSyncRepeatingTask(this, new Runnable() {
+			public void run() {
+				for (Player pl : Bukkit.getServer().getOnlinePlayers()) {
+					BossBarUtils.sendBar(pl);
+				}
+			}
+		}, 5L, 5L);
 	}
 }
