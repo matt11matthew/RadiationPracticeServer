@@ -14,6 +14,7 @@ import us.radiationnetwork.practiceserver.menus.FVendor;
 import us.radiationnetwork.practiceserver.player.PlayerListener;
 import us.radiationnetwork.practiceserver.utils.APIUtils;
 import us.radiationnetwork.practiceserver.utils.BossBarUtils;
+import us.radiationnetwork.practiceserver.zones.ZoneHandler;
 
 public class Main extends JavaPlugin {
 	
@@ -46,6 +47,7 @@ public class Main extends JavaPlugin {
 		APIUtils.registerListener(new FVendor());
 		APIUtils.registerListener(new PlayerListener());
 		APIUtils.registerListener(new SpeedFish());
+		APIUtils.registerListener(new ZoneHandler());
 	}
 
 	public static Main getInstance() {
