@@ -3,12 +3,19 @@ package us.radiationnetwork.practiceserver.menus;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
+import org.bukkit.event.EventHandler;
+import org.bukkit.event.Listener;
+import org.bukkit.event.inventory.InventoryClickEvent;
+import org.bukkit.event.inventory.InventoryType.SlotType;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 
+import us.radiationnetwork.practiceserver.fish.SpeedFish;
 import us.radiationnetwork.practiceserver.item.PSItem;
+import us.radiationnetwork.practiceserver.utils.StatUtils;
+import us.radiationnetwork.practiceserver.utils.Utils;
 
-public class FVendor {
+public class FVendor implements Listener {
 	
 	public static String NAME = "Fisherman";
 	public static int ROWS = 1;
@@ -110,4 +117,41 @@ public class FVendor {
 		p.openInventory(inv);
 	}
 
+	@EventHandler
+	public void onFVendorClickEvent(InventoryClickEvent e) {
+		if (e.getSlotType() == SlotType.OUTSIDE) return;
+		if (e.getClickedInventory().getTitle().equalsIgnoreCase(NAME)) {
+			e.setCancelled(true);
+			ItemStack cur = e.getCurrentItem();
+			if (cur.getType() == Material.AIR) return;
+			if (StatUtils.hasStat(cur, "Price")) {
+				double price = GemUtils.getPrice(cur);
+				Player p = (Player) e.getWhoClicked();
+				int tier = (int) (price / 100);
+				buy(p, SpeedFish.getFishRaw(tier), 100);
+			}
+		}
+	}
+
+	public void buy(Player p, ItemStack fishRaw, int i) {
+		double gems = 4259489;
+		if (gems >= i) {
+			gems -= i;
+			if (p.getInventory().firstEmpty() == -1) {
+				p.sendMessage(Utils.colorCodes("&c&lWarning &cYour inventory is full!"));
+				p.closeInventory();
+				return;
+			} else {
+				p.sendMessage(Utils.colorCodes("&c-" + i + "&lG"));
+				//p.playSound(p.getLocation(), Sound.ENTITY_EXPERIENCE_ORB_PICKUP, 1.0F, 1.0F);
+				p.getInventory().setItem(p.getInventory().firstEmpty(), fishRaw);
+				return;
+			}
+		} else {
+			p.sendMessage(Utils.colorCodes("&cYou don't have enough GEM(s) for 1x of this item."));
+			p.sendMessage(Utils.colorCodes("&cCOST: 100g"));
+			p.closeInventory();
+			return;
+		}
+	}
 }

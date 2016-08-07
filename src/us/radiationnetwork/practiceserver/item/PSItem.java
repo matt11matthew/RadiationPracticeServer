@@ -27,6 +27,8 @@ public class PSItem {
 	private PotionType potionEffect = PotionType.INSTANT_HEAL;
 	private int potionLevel = 1;
 	private boolean splash = false;
+	private boolean untradable = false;
+	private boolean soulbound = false;
 	
 	public PSItem(Material material, int amount, short durability) {
 		setType(material);
@@ -49,6 +51,12 @@ public class PSItem {
 	}
 	
 	public ItemStack build() {
+		if (soulbound) {
+			addLore("&4Soulbound");
+		}
+		if (untradable) {
+			addLore("&7&oUntradable");
+		}
 		if (potion) {
 			Potion pot = new Potion(potionEffect, potionLevel, splash);
 			ItemStack is = new ItemStack(pot.toItemStack(getAmount()));
@@ -209,5 +217,21 @@ public class PSItem {
 
 	public void setSplash(boolean splash) {
 		this.splash = splash;
+	}
+
+	public boolean isUntradable() {
+		return untradable;
+	}
+
+	public void setUntradable(boolean untradable) {
+		this.untradable = untradable;
+	}
+
+	public boolean isSoulbound() {
+		return soulbound;
+	}
+
+	public void setSoulbound(boolean soulbound) {
+		this.soulbound = soulbound;
 	}
 }

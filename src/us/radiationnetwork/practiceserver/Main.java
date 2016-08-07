@@ -3,6 +3,8 @@ package us.radiationnetwork.practiceserver;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import us.radiationnetwork.practiceserver.command.commands.CommandFVendor;
+import us.radiationnetwork.practiceserver.menus.FVendor;
+import us.radiationnetwork.practiceserver.player.PlayerListener;
 import us.radiationnetwork.practiceserver.utils.APIUtils;
 
 public class Main extends JavaPlugin {
@@ -22,7 +24,8 @@ public class Main extends JavaPlugin {
 	}
 
 	private void registerListeners() {
-		// TODO Auto-generated method stub
+		APIUtils.registerListener(new FVendor());
+		APIUtils.registerListener(new PlayerListener());
 		
 	}
 
