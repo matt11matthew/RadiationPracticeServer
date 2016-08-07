@@ -604,4 +604,138 @@ public class ItemGenerator {
 		Random r = new Random();
 		return r.nextInt((int) max) + min;
 	}
+	
+	public static ItemStack generateHelmet(int tier, ItemRarity rarity) {
+		Material type = Material.LEATHER_HELMET;
+		
+		double hp = 0;
+		String name = "";
+		boolean hasVit = false;
+		boolean hasHps = false;
+		
+		int hps_max = 0;
+		int vit_max = 0;
+		
+		PSItem sword = new PSItem(Material.LEATHER_HELMET);
+		sword.setUnbreakable(true);
+		switch (tier) {
+		case 1:
+			type = Material.LEATHER_HELMET;
+			sword.addLore("&cDPS: 1 - 1%");
+			switch (rarity) {
+			case COMMON:
+				hp = ir(5, 5);
+			case UNCOMMON:
+				hp = ir(10, 10);
+			case RARE:
+				hp = ir(30, 20);
+			case UNIQUE:
+				hp = ir(11, 50);
+			}
+			sword.addLore("&cHP: +" + hp);
+			hps_max = (int) ir(11, 5);
+			vit_max = (int) ir(5, 1);
+		case 2:
+			type = Material.CHAINMAIL_HELMET;
+			sword.addLore("&cDPS: 3 - 3%");
+			switch (rarity) {
+			case COMMON:
+				hp = ir(5, 5);
+			case UNCOMMON:
+				hp = ir(10, 10);
+			case RARE:
+				hp = ir(30, 20);
+			case UNIQUE:
+				hp = ir(11, 50);
+			}
+			sword.addLore("&cHP: +" + hp);
+			hps_max = (int) ir(11, 5);
+			vit_max = (int) ir(5, 1);
+		case 3:
+			type = Material.IRON_HELMET;
+			sword.addLore("&cDPS: 4 - 4%");
+			switch (rarity) {
+			case COMMON:
+				hp = ir(5, 5);
+			case UNCOMMON:
+				hp = ir(10, 10);
+			case RARE:
+				hp = ir(30, 20);
+			case UNIQUE:
+				hp = ir(11, 50);
+			}
+			sword.addLore("&cHP: +" + hp);
+			hps_max = (int) ir(11, 5);
+			vit_max = (int) ir(5, 1);
+		case 4:
+			type = Material.DIAMOND_HELMET;
+			sword.addLore("&cDPS: 6 - 6%");
+			switch (rarity) {
+			case COMMON:
+				hp = ir(5, 5);
+			case UNCOMMON:
+				hp = ir(10, 10);
+			case RARE:
+				hp = ir(30, 20);
+			case UNIQUE:
+				hp = ir(11, 50);
+			}
+			sword.addLore("&cHP: +" + hp);
+			hps_max = (int) ir(11, 5);
+			vit_max = (int) ir(5, 1);
+
+		case 5:
+			type = Material.GOLD_HELMET;
+			sword.addLore("&cDPS: 8 - 8%");
+			switch (rarity) {
+			case COMMON:
+				hp = ir(5, 5);
+			case UNCOMMON:
+				hp = ir(10, 10);
+			case RARE:
+				hp = ir(30, 20);
+			case UNIQUE:
+				hp = ir(11, 50);
+			}
+			sword.addLore("&cHP: +" + hp);
+			hps_max = (int) ir(11, 5);
+			vit_max = (int) ir(5, 1);
+		}
+		int stat = Utils.ir(0, 2);
+		if (stat == 1) {
+			hasHps = true;
+		}
+		else if (stat == 2) {
+			hasVit = true;
+		} else {
+			hasVit = true;
+		}
+		if (hasVit) {
+			switch (tier) {
+			case 1:
+				name = "&fLeather Coif of Fortitude";
+			case 2:
+			case 3:
+			case 4:
+			case 5:
+			}
+			sword.addLore("&cVIT: +" + Utils.ir(0, vit_max));
+		}
+		if (hasHps) {
+			switch (tier) {
+			case 1:
+				name = "&fMending Leather Coif";
+			case 2:
+			case 3:
+			case 4:
+			case 5:
+			}
+			sword.addLore("&cHP REGEN: +" + Utils.ir(0, hps_max) + "HP/s");
+		}
+		sword.setType(type);
+		sword.setName(name);
+		sword.setRarity(rarity);
+		return sword.build();
+	}
+	
 }
