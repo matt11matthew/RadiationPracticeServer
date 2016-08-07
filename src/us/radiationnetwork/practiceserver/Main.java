@@ -15,6 +15,7 @@ import us.radiationnetwork.practiceserver.fish.SpeedFish;
 import us.radiationnetwork.practiceserver.health.HealthHandler;
 import us.radiationnetwork.practiceserver.menus.FVendor;
 import us.radiationnetwork.practiceserver.menus.IVendor;
+import us.radiationnetwork.practiceserver.npcs.NPCHandler;
 import us.radiationnetwork.practiceserver.player.PlayerListener;
 import us.radiationnetwork.practiceserver.utils.APIUtils;
 import us.radiationnetwork.practiceserver.utils.BossBarUtils;
@@ -56,6 +57,7 @@ public class Main extends JavaPlugin {
 		APIUtils.registerListener(new SpeedFish());
 		APIUtils.registerListener(new ZoneHandler());
 		APIUtils.registerListener(new HealthHandler());
+		APIUtils.registerListener(new NPCHandler());
 	}
 
 	public static Main getInstance() {
