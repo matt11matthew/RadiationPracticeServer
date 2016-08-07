@@ -33,9 +33,9 @@ public class ItemGenerator {
 		boolean hasVS = false;
 		boolean hasAccuracy = false;
 		
-		int life_steal_max = 0;
+		int life_steal_max = 20;
 		int knockback_max = 0;
-		int crit_hit_max = 0;
+		int crit_hit_max = 11;
 		int blind_max = 0;
 		int edmg_max = 0;
 		int accuracy_max = 0;
@@ -62,19 +62,19 @@ public class ItemGenerator {
 
 			name = "&fHatchet";
 			
-			knockback_chance = 3;
+			//knockback_chance = 3;
 			crit_hit_chance = 2;
-			blind_chance = 3;
+			//blind_chance = 3;
 			edmg_chance = 6;
-			vs_modifier_chance = 6;
-			accuracy_chance = 8;
+			//vs_modifier_chance = 6;
+			//accuracy_chance = 8;
 			life_steal_chance = 2;
-			life_steal_max = 30;
-			knockback_max = 3;
-			crit_hit_max = 2;
-			blind_max = 5;
+			//life_steal_max = 30;
+			//knockback_max = 3;
+			//crit_hit_max = 2;
+			//blind_max = 5;
 			edmg_max = 4;
-			accuracy_max = 10;
+			//accuracy_max = 10;
 		case 2:
 			type = Material.STONE_AXE;
 			switch (rarity) {
@@ -93,17 +93,17 @@ public class ItemGenerator {
 			}
 			name = "&aGreat Axe";
 		    life_steal_chance = 4;
-		    knockback_chance = 10;
+		   // knockback_chance = 10;
 		    crit_hit_chance = 5;
-		    blind_chance = 5;
+		    //blind_chance = 5;
 		    edmg_chance = 9; 
-		    vs_modifier_chance = 9;
-		    accuracy_chance = 12;
-		    accuracy_max = 12;
-		    life_steal_max = 15;
-		    knockback_max = 6;
-		    crit_hit_max = 4;
-		    blind_max = 7;
+		   // vs_modifier_chance = 9;
+		    //accuracy_chance = 12;
+		    //accuracy_max = 12;
+		    //life_steal_max = 15;
+		    //knockback_max = 6;
+		    //crit_hit_max = 4;
+		   // blind_max = 7;
 		    edmg_max = 9;
 		case 3:
 			type = Material.IRON_AXE;
@@ -123,17 +123,17 @@ public class ItemGenerator {
 			}
 			name = "&bWar Axe";
 			life_steal_chance = 5;
-		    knockback_chance = 13;
+		    //knockback_chance = 13;
 		    crit_hit_chance = 8;
-		    blind_chance = 8;
+		    //blind_chance = 8;
 		    edmg_chance = 10;  
-		    vs_modifier_chance = 10; 
-		    accuracy_chance = 15;
-		    accuracy_max = 25;
-		    life_steal_max = 12;
-		    knockback_max = 12;
-		    crit_hit_max = 5;
-		    blind_max = 9;
+		   // vs_modifier_chance = 10; 
+		   // accuracy_chance = 15;
+		   // accuracy_max = 25;
+		    //life_steal_max = 12;
+		    //knockback_max = 12;
+		   // crit_hit_max = 5;
+		    //blind_max = 9;
 		    edmg_max = 15;
 		case 4:
 			type = Material.DIAMOND_AXE;
@@ -153,12 +153,12 @@ public class ItemGenerator {
 			}
 			name = "&dAncient Axe";
 			life_steal_chance = 10;
-		    knockback_chance = 16;
+		   // knockback_chance = 16;
 		    crit_hit_chance = 9;
-		    blind_chance = 9;
+		   // blind_chance = 9;
 		    edmg_chance = 15; 
-		    vs_modifier_chance = 12;		  
-		    accuracy_chance = 20;
+		   // vs_modifier_chance = 12;		  
+		  //  accuracy_chance = 20;
 		    accuracy_max = 28;
 		    life_steal_max = 7;
 		    knockback_max = 15;
@@ -183,12 +183,12 @@ public class ItemGenerator {
 			}
 			name = "&eLegendary Axe";
 			life_steal_chance = 8;
-		    knockback_chance = 20;
+		   // knockback_chance = 20;
 		    crit_hit_chance = 7;
-		    blind_chance = 11;
+		    //blind_chance = 11;
 		    edmg_chance = 20;     
-		    vs_modifier_chance = 15;	      
-		    accuracy_chance = 15;
+		    //vs_modifier_chance = 15;	      
+		    //accuracy_chance = 15;
 		    accuracy_max = 35;
 		    life_steal_max = 8;
 		    knockback_max = 20;
@@ -357,14 +357,14 @@ public class ItemGenerator {
 
 			name = "&fHatchet";
 			
-			knockback_chance = 3;
+			//knockback_chance = 3;
 			crit_hit_chance = 2;
-			blind_chance = 3;
+			//blind_chance = 3;
 			edmg_chance = 6;
-			vs_modifier_chance = 6;
-			accuracy_chance = 8;
+			//vs_modifier_chance = 6;
+			//accuracy_chance = 8;
 			life_steal_chance = 2;
-			life_steal_max = 30;
+			//life_steal_max = 30;
 			knockback_max = 3;
 			crit_hit_max = 2;
 			blind_max = 5;
@@ -388,14 +388,14 @@ public class ItemGenerator {
 			}
 			name = "&aBroadsword";
 		    life_steal_chance = 4;
-		    knockback_chance = 10;
+		   // knockback_chance = 10;
 		    crit_hit_chance = 5;
-		    blind_chance = 5;
+		   // blind_chance = 5;
 		    edmg_chance = 9; 
-		    vs_modifier_chance = 9;
-		    accuracy_chance = 12;
+		  //  vs_modifier_chance = 9;
+		  //  accuracy_chance = 12;
 		    accuracy_max = 12;
-		    life_steal_max = 15;
+		    //life_steal_max = 15;
 		    knockback_max = 6;
 		    crit_hit_max = 4;
 		    blind_max = 7;
@@ -418,14 +418,14 @@ public class ItemGenerator {
 			}
 			name = "&bMagic Sword";
 			life_steal_chance = 5;
-		    knockback_chance = 13;
+		  //  knockback_chance = 13;
 		    crit_hit_chance = 8;
-		    blind_chance = 8;
+		   // blind_chance = 8;
 		    edmg_chance = 10;  
-		    vs_modifier_chance = 10; 
-		    accuracy_chance = 15;
+		   // vs_modifier_chance = 10; 
+		   // accuracy_chance = 15;
 		    accuracy_max = 25;
-		    life_steal_max = 12;
+		   // life_steal_max = 12;
 		    knockback_max = 12;
 		    crit_hit_max = 5;
 		    blind_max = 9;
@@ -448,14 +448,14 @@ public class ItemGenerator {
 			}
 			name = "&dAncient Sword";
 			life_steal_chance = 10;
-		    knockback_chance = 16;
+		   // knockback_chance = 16;
 		    crit_hit_chance = 9;
-		    blind_chance = 9;
+		   // blind_chance = 9;
 		    edmg_chance = 15; 
-		    vs_modifier_chance = 12;		  
-		    accuracy_chance = 20;
+		   // vs_modifier_chance = 12;		  
+		   // accuracy_chance = 20;
 		    accuracy_max = 28;
-		    life_steal_max = 7;
+		  //  life_steal_max = 7;
 		    knockback_max = 15;
 		    crit_hit_max = 6;
 		    blind_max = 9;
@@ -478,14 +478,14 @@ public class ItemGenerator {
 			}
 			name = "&eLegendary Sword";
 			life_steal_chance = 8;
-		    knockback_chance = 20;
+		   // knockback_chance = 20;
 		    crit_hit_chance = 7;
-		    blind_chance = 11;
+		  //  blind_chance = 11;
 		    edmg_chance = 20;     
-		    vs_modifier_chance = 15;	      
-		    accuracy_chance = 15;
+		  //  vs_modifier_chance = 15;	      
+		  //  accuracy_chance = 15;
 		    accuracy_max = 35;
-		    life_steal_max = 8;
+		  //  life_steal_max = 8;
 		    knockback_max = 20;
 		    crit_hit_max = 10;
 		    blind_max = 11;

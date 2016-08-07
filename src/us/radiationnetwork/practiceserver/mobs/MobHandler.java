@@ -5,19 +5,208 @@ import java.util.Random;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.entity.LivingEntity;
+import org.bukkit.entity.Player;
 import org.bukkit.entity.Skeleton;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
+import org.bukkit.event.entity.EntityDeathEvent;
 import org.bukkit.event.entity.EntitySpawnEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 
+import us.radiationnetwork.practiceserver.enums.ItemRarity;
+import us.radiationnetwork.practiceserver.item.ItemGenerator;
 import us.radiationnetwork.practiceserver.item.PSItem;
 import us.radiationnetwork.practiceserver.utils.Utils;
 
 public class MobHandler implements Listener {
+	
+	public ItemRarity getRandomRarity() {
+		int rare = Utils.ir(0, 50);
+		if (rare <= 43) {
+			return ItemRarity.COMMON;
+		} else if ((rare == 44) || (rare == 45) || (rare == 46) || (rare == 47)) {
+			return ItemRarity.UNCOMMON;
+		} else if ((rare == 48) || (rare == 49)) {
+			return ItemRarity.RARE;
+		} else if (rare == 50) {
+			return ItemRarity.UNIQUE;
+		} else {
+			return ItemRarity.COMMON;
+		}
+	}
 
+	@EventHandler
+	public void onDeath(EntityDeathEvent e) {
+		if (!(e.getEntity() instanceof Player)) {
+			LivingEntity l = e.getEntity();
+			if (l.getCustomName() == null) return;
+			String name = l.getCustomName();
+			e.setDroppedExp(0);
+			e.getDrops().clear();
+			if (name.contains(ChatColor.WHITE.toString())) {
+				int drop = Utils.ir(0, 20);
+				int gems = Utils.ir(0, 2);
+				int amt = (int) ItemGenerator.ir(5, 1);
+				if (gems == 1) {
+					PSItem gem = new PSItem(Material.EMERALD);
+					gem.setName("&fGem");
+					gem.addLore("&7The currency of Andalucia");
+					gem.setAmount(amt);
+					e.getDrops().add(gem.build());
+				}
+				if (drop == 1) {
+					//helmet
+				}
+				if (drop == 2) {
+					//chestplate
+				}
+				if (drop == 3) {
+					//leggings
+				}
+				if (drop == 4) {
+					//boots
+				}
+				if ((drop == 5) || (drop == 6)) {
+					e.getDrops().add(ItemGenerator.generateAxe(1, getRandomRarity()));
+				}
+				if ((drop == 7) || (drop == 8)) {
+					e.getDrops().add(ItemGenerator.generateSword(1, getRandomRarity()));
+				}
+			}
+			if (name.contains(ChatColor.GREEN.toString())) {
+				int drop = Utils.ir(0, 40);
+				int gems = Utils.ir(0, 2);
+				int amt = (int) ItemGenerator.ir(7, 10);
+				if (gems == 1) {
+					PSItem gem = new PSItem(Material.EMERALD);
+					gem.setName("&fGem");
+					gem.addLore("&7The currency of Andalucia");
+					gem.setAmount(amt);
+					e.getDrops().add(gem.build());
+				}
+				if (drop == 1) {
+					//helmet
+				}
+				if (drop == 2) {
+					//chestplate
+				}
+				if (drop == 3) {
+					//leggings
+				}
+				if (drop == 4) {
+					//boots
+				}
+				if ((drop == 5) || (drop == 6)) {
+					e.getDrops().add(ItemGenerator.generateAxe(2, getRandomRarity()));
+				}
+				if ((drop == 7) || (drop == 8)) {
+					e.getDrops().add(ItemGenerator.generateSword(2, getRandomRarity()));
+				}
+			}
+			if (name.contains(ChatColor.AQUA.toString())) {
+				int drop = Utils.ir(0, 60);
+				int gems = Utils.ir(0, 2);
+				int amt = (int) ItemGenerator.ir(17, 16);
+				if (gems == 1) {
+					PSItem gem = new PSItem(Material.EMERALD);
+					gem.setName("&fGem");
+					gem.addLore("&7The currency of Andalucia");
+					gem.setAmount(amt);
+					e.getDrops().add(gem.build());
+				}
+				if (drop == 1) {
+					//helmet
+				}
+				if (drop == 2) {
+					//chestplate
+				}
+				if (drop == 3) {
+					//leggings
+				}
+				if (drop == 4) {
+					//boots
+				}
+				if ((drop == 5) || (drop == 6)) {
+					e.getDrops().add(ItemGenerator.generateAxe(3, getRandomRarity()));
+				}
+				if ((drop == 7) || (drop == 8)) {
+					e.getDrops().add(ItemGenerator.generateSword(3, getRandomRarity()));
+				}
+			}
+			if (name.contains(ChatColor.LIGHT_PURPLE.toString())) {
+				int drop = Utils.ir(0, 80);
+				int gems = Utils.ir(0, 2);
+				int amt = (int) ItemGenerator.ir(33, 32);
+				if (gems == 1) {
+					PSItem gem = new PSItem(Material.EMERALD);
+					gem.setName("&fGem");
+					gem.addLore("&7The currency of Andalucia");
+					gem.setAmount(amt);
+					e.getDrops().add(gem.build());
+				}
+				if (drop == 1) {
+					//helmet
+				}
+				if (drop == 2) {
+					//chestplate
+				}
+				if (drop == 3) {
+					//leggings
+				}
+				if (drop == 4) {
+					//boots
+				}
+				if ((drop == 5) || (drop == 6)) {
+					e.getDrops().add(ItemGenerator.generateAxe(4, getRandomRarity()));
+				}
+				if ((drop == 7) || (drop == 8)) {
+					e.getDrops().add(ItemGenerator.generateSword(4, getRandomRarity()));
+				}
+			}
+			if (name.contains(ChatColor.YELLOW.toString())) {
+				int drop = Utils.ir(0, 100);
+				int gems = Utils.ir(0, 2);
+				int stacks = Utils.ir(0, 3);
+				int amt = (int) ItemGenerator.ir(17, 16);
+				if (gems == 1) {
+					for (int i = 0; i < stacks; i++) {
+						PSItem gem = new PSItem(Material.EMERALD);
+						gem.setName("&fGem");
+						gem.addLore("&7The currency of Andalucia");
+						gem.setAmount(64);
+						e.getDrops().add(gem.build());
+					}
+					PSItem gem = new PSItem(Material.EMERALD);
+					gem.setName("&fGem");
+					gem.addLore("&7The currency of Andalucia");
+					gem.setAmount(amt);
+					e.getDrops().add(gem.build());
+				}
+				if (drop == 1) {
+					//helmet
+				}
+				if (drop == 2) {
+					//chestplate
+				}
+				if (drop == 3) {
+					//leggings
+				}
+				if (drop == 4) {
+					//boots
+				}
+				if ((drop == 5) || (drop == 6)) {
+					e.getDrops().add(ItemGenerator.generateAxe(5, getRandomRarity()));
+				}
+				if ((drop == 7) || (drop == 8)) {
+					e.getDrops().add(ItemGenerator.generateSword(5, getRandomRarity()));
+				}
+				
+			}
+		}
+	}
+	
 	@EventHandler
 	public void onSpawn(EntitySpawnEvent e) {
 		if (e.getEntity() instanceof Skeleton) {
