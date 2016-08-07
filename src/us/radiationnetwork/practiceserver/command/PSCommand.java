@@ -20,6 +20,11 @@ public abstract class PSCommand implements CommandExecutor {
 	@Override
 	public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
 		if (sender instanceof Player) {
+			if (getPermissions() == null) {
+				Player p = (Player) sender;
+				execute(p, args);
+				return true;
+			}
 			for (String permission : getPermissions()) {
 				Player p = (Player) sender;
 				if ((p.hasPermission(permission)) || (p.isOp())) {

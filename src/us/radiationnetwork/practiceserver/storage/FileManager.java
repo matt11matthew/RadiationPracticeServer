@@ -116,6 +116,28 @@ public class FileManager {
 		}
 	}
 	
+	public static void setDebug(String name, boolean debug) {
+		FileConfiguration c = getPlayerFile(name);
+		File f = new File(Main.getInstance().getDataFolder() + File.separator + "Players", getUUID(name) + ".yml");
+		c.set("Debug", debug);
+		try {
+			c.save(f);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public static void setTogglePvP(String name, boolean togglePvP) {
+		FileConfiguration c = getPlayerFile(name);
+		File f = new File(Main.getInstance().getDataFolder() + File.separator + "Players", getUUID(name) + ".yml");
+		c.set("TogglePvP", togglePvP);
+		try {
+			c.save(f);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	
 	public static boolean isCombat(String name) {
 		return (getCombatTime(name) > 0) ? true : false;
 	}
