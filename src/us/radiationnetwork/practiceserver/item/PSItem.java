@@ -8,6 +8,7 @@ import org.bukkit.enchantments.Enchantment;
 import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
+import org.bukkit.inventory.meta.SkullMeta;
 import org.bukkit.potion.Potion;
 import org.bukkit.potion.PotionType;
 
@@ -29,6 +30,8 @@ public class PSItem {
 	private boolean splash = false;
 	private boolean untradable = false;
 	private boolean soulbound = false;
+	private boolean skull = false;
+	private String skullOwner = "matt11matthew";
 	
 	public PSItem(Material material, int amount, short durability) {
 		setType(material);
@@ -106,6 +109,13 @@ public class PSItem {
 			}
 			is.setAmount(amount);
 			is.setDurability(durability);
+			if (skull) {
+				is.setType(Material.SKULL_ITEM);
+				is.setDurability((short) 3);
+				SkullMeta sm = (SkullMeta) im;
+				sm.setOwner(skullOwner);
+				is.setItemMeta(sm);
+			}
 			return is;
 		}
 	}
@@ -233,5 +243,21 @@ public class PSItem {
 
 	public void setSoulbound(boolean soulbound) {
 		this.soulbound = soulbound;
+	}
+
+	public boolean isSkull() {
+		return skull;
+	}
+
+	public void setSkull(boolean skull) {
+		this.skull = skull;
+	}
+
+	public String getSkullOwner() {
+		return skullOwner;
+	}
+
+	public void setSkullOwner(String skullOwner) {
+		this.skullOwner = skullOwner;
 	}
 }
