@@ -117,18 +117,23 @@ public class SpeedFish implements Listener {
 				String name = p.getItemInHand().getItemMeta().getDisplayName();
 				if (name.equalsIgnoreCase(getFishCooked(1).getItemMeta().getDisplayName())) {
 					eat(p, 1);
+					removeFish(p);
 				}
 				if (name.equalsIgnoreCase(getFishCooked(2).getItemMeta().getDisplayName())) {
 					eat(p, 2);
+					removeFish(p);
 				}
 				if (name.equalsIgnoreCase(getFishCooked(3).getItemMeta().getDisplayName())) {
 					eat(p, 3);
+					removeFish(p);
 				}
 				if (name.equalsIgnoreCase(getFishCooked(4).getItemMeta().getDisplayName())) {
 					eat(p, 4);
+					removeFish(p);
 				}
 				if (name.equalsIgnoreCase(getFishCooked(5).getItemMeta().getDisplayName())) {
 					eat(p, 5);
+					removeFish(p);
 				}
 			} else if ((p.getItemInHand() != null) && (p.getItemInHand().hasItemMeta()) && (p.getItemInHand().getType() == Material.RAW_FISH)) {
 				if ((block != null) && (block.getType() != Material.AIR)) {
@@ -145,6 +150,18 @@ public class SpeedFish implements Listener {
 	}
 	
 	
+	public void removeFish(Player p) {
+		ItemStack is = p.getItemInHand();
+		if (is.getAmount() > 1) {
+			is.setAmount((is.getAmount() - 1));
+		} else {
+			p.setItemInHand(new ItemStack(Material.AIR));
+		}
+		p.updateInventory();
+		
+		
+	}
+
 	public void eat(Player p, int i) {
 		if (p.hasPotionEffect(PotionEffectType.SPEED)) {
 			return;
@@ -162,12 +179,6 @@ public class SpeedFish implements Listener {
 			p.addPotionEffect(new PotionEffect(PotionEffectType.SPEED, (20 * 30), 2));
 		}
 		p.playSound(p.getLocation(), Sound.ENTITY_GENERIC_EAT, 1.0F, 1.0F);
-		if (p.getItemInHand().getAmount() > 1) {
-			p.getItemInHand().setAmount((p.getItemInHand().getAmount() - 1));
-		} else {
-			p.setItemInHand(new ItemStack(Material.AIR));
-		}
-		
 	}
 
 	@EventHandler
