@@ -8,8 +8,8 @@ import us.radiationnetwork.practiceserver.command.PSCommand;
 
 public class APIUtils {
 	
-	public static void registerCommand(String command, PSCommand ctCommand) {
-		Main.getInstance().getCommand(command).setExecutor(ctCommand);
+	public static void registerCommand(String command, PSCommand psCommand) {
+		Main.getInstance().getCommand(command).setExecutor(psCommand);
 	}
 	
 	public static void registerListener(Listener listener) {

@@ -2,6 +2,9 @@ package us.radiationnetwork.practiceserver;
 
 import org.bukkit.plugin.java.JavaPlugin;
 
+import us.radiationnetwork.practiceserver.command.commands.CommandFVendor;
+import us.radiationnetwork.practiceserver.utils.APIUtils;
+
 public class Main extends JavaPlugin {
 	
 	public static Main plugin;
@@ -14,7 +17,7 @@ public class Main extends JavaPlugin {
 	}
 
 	private void registerCommands() {
-		// TODO Auto-generated method stub
+		APIUtils.registerCommand("fvendor", new CommandFVendor());
 		
 	}
 

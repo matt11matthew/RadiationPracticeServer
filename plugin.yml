@@ -1,0 +1,6 @@
+name: RadiationPracticeServer 
+author: matt11matthew
+version: 1.0.0
+main: us.radiationnetwork.practiceserver.Main
+commands:
+    fvendor:

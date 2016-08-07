@@ -1,19 +1,13 @@
-package us.radiationnetwork.practiceserver.menus;
+package us.radiationnetwork.practiceserver.fish;
 
-import org.bukkit.Bukkit;
 import org.bukkit.Material;
-import org.bukkit.entity.Player;
-import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 
 import us.radiationnetwork.practiceserver.item.PSItem;
 
-public class FVendor {
+public class SpeedFish {
 	
-	public static String NAME = "Fisherman";
-	public static int ROWS = 1;
-	
-	public static ItemStack getFishRawPriced(int tier) {
+	public static ItemStack getFishRaw(int tier) {
 		switch (tier) {
 		case 1:
 			PSItem t1fish = new PSItem(Material.RAW_FISH);
@@ -21,7 +15,6 @@ public class FVendor {
 			t1fish.addLore("&cSPEED (I) BUFF &7(15s)");
 			t1fish.addLore("&c-10% HUNGER &7(instant)");
 			t1fish.addLore("&7&oA T1 Feesh.");
-			t1fish.addLore("&aPrice: &f" + "100g");
 			return t1fish.build();
 		case 2:
 			PSItem t2fish = new PSItem(Material.RAW_FISH);
@@ -29,7 +22,6 @@ public class FVendor {
 			t2fish.addLore("&cSPEED (I) BUFF &7(30s)");
 			t2fish.addLore("&c-20% HUNGER &7(instant)");
 			t2fish.addLore("&7&oA T3 Feesh.");
-			t2fish.addLore("&aPrice: &f" + "200g");
 			return t2fish.build();
 		case 3:
 			PSItem t3fish = new PSItem(Material.RAW_FISH);
@@ -37,7 +29,6 @@ public class FVendor {
 			t3fish.addLore("&cSPEED (I) BUFF &7(60s)");
 			t3fish.addLore("&c-30% HUNGER &7(instant)");
 			t3fish.addLore("&7&oA beautiful jumping fish.");
-			t3fish.addLore("&aPrice: &f" + "300g");
 			return t3fish.build();
 		case 4:
 			PSItem t4fish = new PSItem(Material.RAW_FISH);
@@ -45,7 +36,6 @@ public class FVendor {
 			t4fish.addLore("&cSPEED (III) BUFF &7(15s)");
 			t4fish.addLore("&c-40% HUNGER &7(instant)");
 			t4fish.addLore("&7&oA large red crustacean.");
-			t4fish.addLore("&aPrice: &f" + "400g");
 			return t4fish.build();
 		case 5:
 			PSItem t5fish = new PSItem(Material.RAW_FISH);
@@ -53,7 +43,6 @@ public class FVendor {
 			t5fish.addLore("&cSPEED (III) BUFF &7(30s)");
 			t5fish.addLore("&c-50% HUNGER &7(instant)");
 			t5fish.addLore("&7&oAn elongated fish with a long bill.");
-			t5fish.addLore("&aPrice: &f" + "500g");
 			return t5fish.build();
 		}
 		return null;
@@ -99,15 +88,5 @@ public class FVendor {
 		}
 		return null;
 	}
-	
-	public static void open(Player p) {
-		Inventory inv = Bukkit.createInventory(null, (9 * ROWS), NAME);
-		inv.addItem(getFishRawPriced(1));
-		inv.addItem(getFishRawPriced(2));
-		inv.addItem(getFishRawPriced(3));
-		inv.addItem(getFishRawPriced(4));
-		inv.addItem(getFishRawPriced(5));
-		p.openInventory(inv);
-	}
-
 }
+
