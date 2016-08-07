@@ -7,7 +7,7 @@ import us.radiationnetwork.practiceserver.command.PSCommand;
 
 
 public class APIUtils {
-
+	
 	public static void registerCommand(String command, PSCommand ctCommand) {
 		Main.getInstance().getCommand(command).setExecutor(ctCommand);
 	}
