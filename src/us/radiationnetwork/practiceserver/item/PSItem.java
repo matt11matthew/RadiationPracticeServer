@@ -12,6 +12,7 @@ import org.bukkit.inventory.meta.SkullMeta;
 import org.bukkit.potion.Potion;
 import org.bukkit.potion.PotionType;
 
+import us.radiationnetwork.practiceserver.enums.ItemRarity;
 import us.radiationnetwork.practiceserver.utils.Utils;
 
 
@@ -32,6 +33,7 @@ public class PSItem {
 	private boolean soulbound = false;
 	private boolean skull = false;
 	private String skullOwner = "matt11matthew";
+	private ItemRarity rarity;
 	
 	public PSItem(Material material, int amount, short durability) {
 		setType(material);
@@ -88,6 +90,9 @@ public class PSItem {
 		} else {
 			ItemStack is = new ItemStack(getType());
 			ItemMeta im = is.getItemMeta();
+			if (rarity != null) {
+				item_lore.add(rarity.getLore());
+			}
 			if (!item_lore.isEmpty()) {
 				List<String> new_lore = new ArrayList<String>();
 				for (String lore : item_lore) {
@@ -259,5 +264,13 @@ public class PSItem {
 
 	public void setSkullOwner(String skullOwner) {
 		this.skullOwner = skullOwner;
+	}
+
+	public ItemRarity getRarity() {
+		return rarity;
+	}
+
+	public void setRarity(ItemRarity rarity) {
+		this.rarity = rarity;
 	}
 }
