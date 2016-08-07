@@ -19,13 +19,13 @@ public class CommandTogglePvP extends PSCommand {
 			boolean togglepvp = FileManager.isTogglePvP(player.getName());
 			if (togglepvp) {
 				player.playSound(player.getLocation(), Sound.ENTITY_EXPERIENCE_ORB_PICKUP, 1.0F, 1.0F);
-				FileManager.setTogglePvP(player.getName(), true);
-				player.sendMessage(Utils.colorCodes("&cPvP - &lENABLED"));
+				FileManager.setTogglePvP(player.getName(), false);
+				player.sendMessage(Utils.colorCodes("&aOutgoing PVP Damage - &lENABLED"));
 				return;
 			} else {
 				player.playSound(player.getLocation(), Sound.ENTITY_EXPERIENCE_ORB_PICKUP, 1.0F, 1.0F);
-				FileManager.setTogglePvP(player.getName(), false);
-				player.sendMessage(Utils.colorCodes("&aPvP - &lDISABLED"));
+				FileManager.setTogglePvP(player.getName(), true);
+				player.sendMessage(Utils.colorCodes("&cOutgoing PVP Damage - &lDISABLED"));
 				return;
 			}
 		}

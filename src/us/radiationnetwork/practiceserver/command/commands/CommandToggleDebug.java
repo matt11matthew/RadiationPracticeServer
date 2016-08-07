@@ -25,7 +25,7 @@ public class CommandToggleDebug extends PSCommand {
 			} else {
 				player.playSound(player.getLocation(), Sound.ENTITY_EXPERIENCE_ORB_PICKUP, 1.0F, 1.0F);
 				FileManager.setDebug(player.getName(), true);
-				player.sendMessage(Utils.colorCodes("&aDebug Messages - &ENABLED"));
+				player.sendMessage(Utils.colorCodes("&aDebug Messages - &lENABLED"));
 				return;
 			}
 		}

@@ -6,3 +6,4 @@ commands:
     fvendor:
     debug:
     togglepvp:
+    sync:
