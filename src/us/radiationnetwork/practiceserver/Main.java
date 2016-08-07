@@ -3,6 +3,7 @@ package us.radiationnetwork.practiceserver;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import us.radiationnetwork.practiceserver.command.commands.CommandFVendor;
+import us.radiationnetwork.practiceserver.command.commands.CommandRoll;
 import us.radiationnetwork.practiceserver.command.commands.CommandSync;
 import us.radiationnetwork.practiceserver.command.commands.CommandToggleDebug;
 import us.radiationnetwork.practiceserver.command.commands.CommandTogglePvP;
@@ -28,7 +29,7 @@ public class Main extends JavaPlugin {
 		APIUtils.registerCommand("togglepvp", new CommandTogglePvP());
 		
 		APIUtils.registerCommand("sync", new CommandSync());
-		
+		APIUtils.registerCommand("roll", new CommandRoll());
 	}
 
 	private void registerListeners() {
