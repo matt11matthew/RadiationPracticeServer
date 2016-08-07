@@ -30,6 +30,13 @@ public class BossBarUtils {
 			bossbar.get(player).setTitle(Utils.colorCodes("&d" + hp + " &l/&d " + maxhp));
 		}
 	}
+	public static void removeBar(Player player) {
+		if (bossbar.containsKey(player)) {
+			bossbar.get(player).removeAll();
+			
+		}
+	}
+	
 	
 	
 

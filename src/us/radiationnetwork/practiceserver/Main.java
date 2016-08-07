@@ -26,6 +26,10 @@ public class Main extends JavaPlugin {
 		task();
 		
 	}
+	
+	public void onDisable() {
+		removeBossBar();
+	}
 
 	private void registerCommands() {
 		APIUtils.registerCommand("fvendor", new CommandFVendor());
@@ -45,6 +49,12 @@ public class Main extends JavaPlugin {
 
 	public static Main getInstance() {
 		return plugin;
+	}
+	
+	public void removeBossBar() {
+		for (Player pl : Bukkit.getServer().getOnlinePlayers()) {
+			BossBarUtils.removeBar(pl);
+		}
 	}
 	
 	public void task() {
