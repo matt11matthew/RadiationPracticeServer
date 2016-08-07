@@ -120,6 +120,14 @@ public class FileManager {
 		return (getCombatTime(name) > 0) ? true : false;
 	}
 	
+	public static boolean isTogglePvP(String name) {
+		return getPlayerFile(name).getBoolean("TogglePvP");
+	}
+	
+	public static boolean isDebug(String name) {
+		return getPlayerFile(name).getBoolean("Debug");
+	}
+	
 	public static int getCombatTime(String name) {
 		return getPlayerFile(name).getInt("CombatTime");
 	}
@@ -138,6 +146,8 @@ public class FileManager {
 			c.set("Heartstone", "none");
 			c.set("Guild", "none");
 			c.set("CombatTime", 0);
+			c.set("Debug", true);
+			c.set("TogglePvP", false);
 			c.save(f);
 		} catch (IOException e) {
 			e.printStackTrace();
