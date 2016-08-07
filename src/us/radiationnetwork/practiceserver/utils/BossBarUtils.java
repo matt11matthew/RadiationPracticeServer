@@ -8,6 +8,9 @@ import org.bukkit.boss.BarFlag;
 import org.bukkit.boss.BarStyle;
 import org.bukkit.boss.BossBar;
 import org.bukkit.entity.Player;
+import org.bukkit.scoreboard.DisplaySlot;
+import org.bukkit.scoreboard.Objective;
+import org.bukkit.scoreboard.Scoreboard;
 
 public class BossBarUtils {
 	
@@ -30,6 +33,7 @@ public class BossBarUtils {
 			bossbar.get(player).setTitle(Utils.colorCodes("&d" + hp + " &l/&d " + maxhp));
 		}
 	}
+	
 	public static void removeBar(Player player) {
 		if (bossbar.containsKey(player)) {
 			bossbar.get(player).removeAll();
@@ -37,8 +41,13 @@ public class BossBarUtils {
 		}
 	}
 	
-	
-	
-
-
+	public static void setHPAboveHead() {
+		Scoreboard s = Bukkit.getScoreboardManager().getMainScoreboard();
+		if (s.getObjective("hp") != null) {
+			s.getObjective("hp").unregister();
+		}
+		Objective o = s.registerNewObjective("hp", "health");
+		o.setDisplayName(Utils.colorCodes("&c" + Unicodes.COMMON_HEART.get()));
+		o.setDisplaySlot(DisplaySlot.BELOW_NAME);
+	}
 }

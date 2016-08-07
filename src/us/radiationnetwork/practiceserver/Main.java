@@ -24,6 +24,7 @@ public class Main extends JavaPlugin {
 		registerListeners();
 		registerCommands();
 		task();
+		BossBarUtils.setHPAboveHead();
 		
 	}
 	
