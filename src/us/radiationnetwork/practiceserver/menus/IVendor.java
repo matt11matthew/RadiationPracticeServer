@@ -128,7 +128,7 @@ public class IVendor implements Listener {
 	
 	public static void open(Player p) {
 		Inventory inv = Bukkit.createInventory(null, (9 * ROWS), NAME);
-		inv.addItem(getArmorEnchantPriced(0));
+		inv.addItem(getWeaponEnchantPriced(0));
 		inv.addItem(getArmorEnchantPriced(1));
 		inv.addItem(getWeaponEnchantPriced(1));
 		inv.addItem(getArmorEnchantPriced(2));
@@ -182,14 +182,14 @@ public class IVendor implements Listener {
 				p.closeInventory();
 				return;
 			} else {
-				p.sendMessage(Utils.colorCodes("&c-" + i + "&lG"));
+				p.sendMessage(Utils.colorCodes("&c-" + (int) i + "&lG"));
 				//p.playSound(p.getLocation(), Sound.ENTITY_EXPERIENCE_ORB_PICKUP, 1.0F, 1.0F);
 				p.getInventory().setItem(p.getInventory().firstEmpty(), item);
 				return;
 			}
 		} else {
 			p.sendMessage(Utils.colorCodes("&cYou don't have enough GEM(s) for 1x of this item."));
-			p.sendMessage(Utils.colorCodes("&cCOST: " + i + "g"));
+			p.sendMessage(Utils.colorCodes("&cCOST: " + (int) i + "g"));
 			p.closeInventory();
 			return;
 		}

@@ -144,14 +144,14 @@ public class FVendor implements Listener {
 				p.closeInventory();
 				return;
 			} else {
-				p.sendMessage(Utils.colorCodes("&c-" + i + "&lG"));
+				p.sendMessage(Utils.colorCodes("&c-" + (int) i + "&lG"));
 				//p.playSound(p.getLocation(), Sound.ENTITY_EXPERIENCE_ORB_PICKUP, 1.0F, 1.0F);
 				p.getInventory().setItem(p.getInventory().firstEmpty(), fishRaw);
 				return;
 			}
 		} else {
 			p.sendMessage(Utils.colorCodes("&cYou don't have enough GEM(s) for 1x of this item."));
-			p.sendMessage(Utils.colorCodes("&cCOST: " + i + "g"));
+			p.sendMessage(Utils.colorCodes("&cCOST: " + (int) i + "g"));
 			p.closeInventory();
 			return;
 		}
