@@ -19,7 +19,7 @@ public enum Unicodes {
 	EMPTY_CHECKBOX('☐'),
 	X_CHECKBOX('☒'),
 	CHECK_CHECKBOX('☑'),
-	COMMON_HEART('♥'),
+	COMMON_HEART('❤'),
 	X('☓'),
 	CLEAN_STAR('★'),
 	SKULL('☠'),
