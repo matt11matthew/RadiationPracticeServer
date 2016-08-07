@@ -7,6 +7,7 @@ import us.radiationnetwork.practiceserver.command.commands.CommandRoll;
 import us.radiationnetwork.practiceserver.command.commands.CommandSync;
 import us.radiationnetwork.practiceserver.command.commands.CommandToggleDebug;
 import us.radiationnetwork.practiceserver.command.commands.CommandTogglePvP;
+import us.radiationnetwork.practiceserver.fish.SpeedFish;
 import us.radiationnetwork.practiceserver.menus.FVendor;
 import us.radiationnetwork.practiceserver.player.PlayerListener;
 import us.radiationnetwork.practiceserver.utils.APIUtils;
@@ -35,7 +36,7 @@ public class Main extends JavaPlugin {
 	private void registerListeners() {
 		APIUtils.registerListener(new FVendor());
 		APIUtils.registerListener(new PlayerListener());
-		
+		APIUtils.registerListener(new SpeedFish());
 	}
 
 	public static Main getInstance() {

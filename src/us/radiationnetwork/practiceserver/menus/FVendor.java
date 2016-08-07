@@ -12,6 +12,7 @@ import org.bukkit.inventory.ItemStack;
 
 import us.radiationnetwork.practiceserver.fish.SpeedFish;
 import us.radiationnetwork.practiceserver.item.PSItem;
+import us.radiationnetwork.practiceserver.storage.FileManager;
 import us.radiationnetwork.practiceserver.utils.StatUtils;
 import us.radiationnetwork.practiceserver.utils.Utils;
 
@@ -134,9 +135,10 @@ public class FVendor implements Listener {
 	}
 
 	public void buy(Player p, ItemStack fishRaw, int i) {
-		double gems = 4259489;
+		double gems = FileManager.getGems(p.getName());
 		if (gems >= i) {
 			gems -= i;
+			FileManager.setGems(p.getName(), gems);
 			if (p.getInventory().firstEmpty() == -1) {
 				p.sendMessage(Utils.colorCodes("&c&lWarning &cYour inventory is full!"));
 				p.closeInventory();

@@ -72,7 +72,7 @@ public class FileManager {
 		return getPlayerFile(name).getInt("AlignmentTime");
 	}
 	
-	public static void setGems(String name, int gems) {
+	public static void setGems(String name, double gems) {
 		FileConfiguration c = getPlayerFile(name);
 		File f = new File(Main.getInstance().getDataFolder() + File.separator + "Players", getUUID(name) + ".yml");
 		c.set("Gems", gems);
