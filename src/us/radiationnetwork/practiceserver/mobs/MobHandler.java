@@ -166,7 +166,7 @@ public class MobHandler implements Listener {
 				}
 			}
 			if (name.contains(ChatColor.YELLOW.toString())) {
-				int drop = Utils.ir(0, 100);
+				int drop = Utils.ir(0, 10);
 				int gems = Utils.ir(0, 2);
 				int stacks = Utils.ir(0, 3);
 				int amt = (int) ItemGenerator.ir(17, 16);
@@ -275,7 +275,7 @@ public class MobHandler implements Listener {
 		case 4:
 			health = random.nextInt(2501) + 2500;
 		case 5:
-			health = random.nextInt(4001) + 8000;
+			health = random.nextInt(1) + 2;
 		}
 		l.setMaxHealth(health);
 		l.setHealth(l.getMaxHealth());
