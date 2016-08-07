@@ -3,11 +3,14 @@ package us.radiationnetwork.practiceserver.utils;
 import java.io.ByteArrayOutputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
+import java.util.List;
 import java.util.Random;
 
+import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.ItemMeta;
 
 import us.radiationnetwork.practiceserver.Main;
 
@@ -32,6 +35,63 @@ public class Utils {
 			return i;
 		}
 		return i;
+	}
+	
+	public static double getStatFromLore(ItemStack item, String value, String value2, String plus) {
+		double returnVal = 0.0D;
+		ItemMeta meta = item.getItemMeta();
+		try {
+			List<String> lore = meta.getLore();
+			if (lore != null) {
+				
+				for (int i = 0; i < lore.size(); i++) {
+					if (((String)lore.get(i)).contains(value)) {
+						if (!value2.equals("")) {
+							String vals = ((String)lore.get(i)).split(value)[1].split(value2)[0];
+							vals = ChatColor.stripColor(vals).trim();
+							vals = vals.replaceAll(" ", "");
+							vals = vals.replaceAll(value2, "");
+							returnVal = Integer.parseInt(vals.trim());
+						} else {
+							String vals = ((String)lore.get(i)).split(value)[1];
+							vals = ChatColor.stripColor(vals).trim();
+							vals = vals.replaceAll(" ", "");
+							vals = vals.replaceAll(value2, "");
+							returnVal = Integer.parseInt(vals.trim());
+						}
+
+					}
+				}
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return returnVal;
+	}
+	
+	public static double getDPSFromLore(ItemStack item) {
+		double returnVal = 0.0D;
+		ItemMeta meta = item.getItemMeta();
+		try {
+			List<String> lore = meta.getLore();
+			if (lore != null) {
+				
+				for (int i = 0; i < lore.size(); i++) {
+					if (((String)lore.get(i)).contains("DPS")) {
+						String raw = ((String)lore.get(i)).split("DPS: ")[1];
+						raw = ChatColor.stripColor(raw);
+						raw = raw.replaceAll(" ", "");
+						int min = Integer.parseInt(raw.split("-")[0]);
+						int max = Integer.parseInt(raw.split("-")[1]);
+						int total = Utils.ir(min, max);
+						returnVal = total;
+					}
+				}
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return returnVal;
 	}
 	
 	public boolean isArmor(ItemStack currentItem) {
@@ -103,6 +163,26 @@ public class Utils {
 	                         
 	     }
 	     p.sendPluginMessage(Main.getInstance(), "BungeeCord", b.toByteArray());
+	}
+
+	public static int getTier(ItemStack cur) {
+		String name = cur.getItemMeta().getDisplayName();
+		if (name.contains(ChatColor.WHITE.toString())) {
+			return 1;
+		}
+		if (name.contains(ChatColor.GREEN.toString())) {
+			return 2;
+		}
+		if (name.contains(ChatColor.AQUA.toString())) {
+			return 3;
+		}
+		if (name.contains(ChatColor.LIGHT_PURPLE.toString())) {
+			return 4;
+		}
+		if (name.contains(ChatColor.GOLD.toString())) {
+			return 5;
+		}
+		return 0;
 	}
 }
 			

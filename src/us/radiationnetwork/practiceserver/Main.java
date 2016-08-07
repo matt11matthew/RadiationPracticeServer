@@ -5,12 +5,14 @@ import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import us.radiationnetwork.practiceserver.command.commands.CommandFVendor;
+import us.radiationnetwork.practiceserver.command.commands.CommandIVendor;
 import us.radiationnetwork.practiceserver.command.commands.CommandRoll;
 import us.radiationnetwork.practiceserver.command.commands.CommandSync;
 import us.radiationnetwork.practiceserver.command.commands.CommandToggleDebug;
 import us.radiationnetwork.practiceserver.command.commands.CommandTogglePvP;
 import us.radiationnetwork.practiceserver.command.commands.CommandZone;
 import us.radiationnetwork.practiceserver.fish.SpeedFish;
+import us.radiationnetwork.practiceserver.health.HealthHandler;
 import us.radiationnetwork.practiceserver.menus.FVendor;
 import us.radiationnetwork.practiceserver.player.PlayerListener;
 import us.radiationnetwork.practiceserver.utils.APIUtils;
@@ -36,7 +38,8 @@ public class Main extends JavaPlugin {
 
 	private void registerCommands() {
 		APIUtils.registerCommand("fvendor", new CommandFVendor());
-	
+		APIUtils.registerCommand("ivendor", new CommandIVendor());
+		
 		APIUtils.registerCommand("debug", new CommandToggleDebug());
 		APIUtils.registerCommand("togglepvp", new CommandTogglePvP());
 		
@@ -50,6 +53,7 @@ public class Main extends JavaPlugin {
 		APIUtils.registerListener(new PlayerListener());
 		APIUtils.registerListener(new SpeedFish());
 		APIUtils.registerListener(new ZoneHandler());
+		APIUtils.registerListener(new HealthHandler());
 	}
 
 	public static Main getInstance() {

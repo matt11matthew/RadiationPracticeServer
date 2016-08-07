@@ -7,15 +7,15 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 import us.radiationnetwork.practiceserver.command.PSCommand;
-import us.radiationnetwork.practiceserver.menus.FVendor;
+import us.radiationnetwork.practiceserver.menus.IVendor;
 
-public class CommandFVendor extends PSCommand {
+public class CommandIVendor extends PSCommand {
 
 	@Override
 	public void execute(CommandSender sender, String[] args) {
 		if (sender instanceof Player) {
 			Player p = (Player) sender;
-			FVendor.open(p);
+			IVendor.open(p);
 			return;
 		}
 		
@@ -23,7 +23,7 @@ public class CommandFVendor extends PSCommand {
 
 	@Override
 	public List<String> getPermissions() {
-		return Arrays.asList("f.vendor");
+		return Arrays.asList("i.vendor");
 	}
 
 	@Override

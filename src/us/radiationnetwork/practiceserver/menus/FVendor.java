@@ -129,12 +129,12 @@ public class FVendor implements Listener {
 				double price = GemUtils.getPrice(cur);
 				Player p = (Player) e.getWhoClicked();
 				int tier = (int) (price / 100);
-				buy(p, SpeedFish.getFishRaw(tier), 100);
+				buy(p, SpeedFish.getFishRaw(tier), price);
 			}
 		}
 	}
 
-	public void buy(Player p, ItemStack fishRaw, int i) {
+	public void buy(Player p, ItemStack fishRaw, double i) {
 		double gems = FileManager.getGems(p.getName());
 		if (gems >= i) {
 			gems -= i;
@@ -151,7 +151,7 @@ public class FVendor implements Listener {
 			}
 		} else {
 			p.sendMessage(Utils.colorCodes("&cYou don't have enough GEM(s) for 1x of this item."));
-			p.sendMessage(Utils.colorCodes("&cCOST: 100g"));
+			p.sendMessage(Utils.colorCodes("&cCOST: " + i + "g"));
 			p.closeInventory();
 			return;
 		}
