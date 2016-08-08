@@ -14,7 +14,7 @@ public enum ItemRarity {
 	}
 	
 	public String getLore() {
-		return lore;
+		return this.lore;
 	}
 	
 }

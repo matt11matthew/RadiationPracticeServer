@@ -23,7 +23,7 @@ import us.radiationnetwork.practiceserver.utils.Utils;
 public class MobHandler implements Listener {
 	
 	public ItemRarity getRandomRarity() {
-		int rare = Utils.ir(0, 50);
+		int rare = new Random().nextInt(50);
 		if (rare <= 43) {
 			return ItemRarity.COMMON;
 		} else if ((rare == 44) || (rare == 45) || (rare == 46) || (rare == 47)) {
@@ -57,16 +57,16 @@ public class MobHandler implements Listener {
 					e.getDrops().add(gem.build());
 				}
 				if (drop == 1) {
-					//helmet
+					e.getDrops().add(ItemGenerator.generateHelmet(1, getRandomRarity()));
 				}
 				if (drop == 2) {
-					//chestplate
+					e.getDrops().add(ItemGenerator.generateChestplate(1, getRandomRarity()));
 				}
 				if (drop == 3) {
-					//leggings
+					e.getDrops().add(ItemGenerator.generateLeggings(1, getRandomRarity()));
 				}
 				if (drop == 4) {
-					//boots
+					e.getDrops().add(ItemGenerator.generateBoots(1, getRandomRarity()));
 				}
 				if ((drop == 5) || (drop == 6)) {
 					e.getDrops().add(ItemGenerator.generateAxe(1, getRandomRarity()));
@@ -87,16 +87,16 @@ public class MobHandler implements Listener {
 					e.getDrops().add(gem.build());
 				}
 				if (drop == 1) {
-					//helmet
+					e.getDrops().add(ItemGenerator.generateHelmet(2, getRandomRarity()));
 				}
 				if (drop == 2) {
-					//chestplate
+					e.getDrops().add(ItemGenerator.generateChestplate(2, getRandomRarity()));
 				}
 				if (drop == 3) {
-					//leggings
+					e.getDrops().add(ItemGenerator.generateLeggings(2, getRandomRarity()));
 				}
 				if (drop == 4) {
-					//boots
+					e.getDrops().add(ItemGenerator.generateBoots(2, getRandomRarity()));
 				}
 				if ((drop == 5) || (drop == 6)) {
 					e.getDrops().add(ItemGenerator.generateAxe(2, getRandomRarity()));
@@ -117,16 +117,16 @@ public class MobHandler implements Listener {
 					e.getDrops().add(gem.build());
 				}
 				if (drop == 1) {
-					//helmet
+					e.getDrops().add(ItemGenerator.generateHelmet(3, getRandomRarity()));
 				}
 				if (drop == 2) {
-					//chestplate
+					e.getDrops().add(ItemGenerator.generateChestplate(3, getRandomRarity()));
 				}
 				if (drop == 3) {
-					//leggings
+					e.getDrops().add(ItemGenerator.generateLeggings(3, getRandomRarity()));
 				}
 				if (drop == 4) {
-					//boots
+					e.getDrops().add(ItemGenerator.generateBoots(3, getRandomRarity()));
 				}
 				if ((drop == 5) || (drop == 6)) {
 					e.getDrops().add(ItemGenerator.generateAxe(3, getRandomRarity()));
@@ -147,16 +147,16 @@ public class MobHandler implements Listener {
 					e.getDrops().add(gem.build());
 				}
 				if (drop == 1) {
-					//helmet
+					e.getDrops().add(ItemGenerator.generateHelmet(4, getRandomRarity()));
 				}
 				if (drop == 2) {
-					//chestplate
+					e.getDrops().add(ItemGenerator.generateChestplate(4, getRandomRarity()));
 				}
 				if (drop == 3) {
-					//leggings
+					e.getDrops().add(ItemGenerator.generateLeggings(4, getRandomRarity()));
 				}
 				if (drop == 4) {
-					//boots
+					e.getDrops().add(ItemGenerator.generateBoots(4, getRandomRarity()));
 				}
 				if ((drop == 5) || (drop == 6)) {
 					e.getDrops().add(ItemGenerator.generateAxe(4, getRandomRarity()));
@@ -185,16 +185,16 @@ public class MobHandler implements Listener {
 					e.getDrops().add(gem.build());
 				}
 				if (drop == 1) {
-					//helmet
+					e.getDrops().add(ItemGenerator.generateHelmet(5, getRandomRarity()));
 				}
 				if (drop == 2) {
-					//chestplate
+					e.getDrops().add(ItemGenerator.generateChestplate(5, getRandomRarity()));
 				}
 				if (drop == 3) {
-					//leggings
+					e.getDrops().add(ItemGenerator.generateLeggings(5, getRandomRarity()));
 				}
 				if (drop == 4) {
-					//boots
+					e.getDrops().add(ItemGenerator.generateBoots(5, getRandomRarity()));
 				}
 				if ((drop == 5) || (drop == 6)) {
 					e.getDrops().add(ItemGenerator.generateAxe(5, getRandomRarity()));
@@ -284,7 +284,36 @@ public class MobHandler implements Listener {
 	public void setupArmor(LivingEntity l, int tier) {
 		switch (tier) {
 		case 1:
-			
+			int armor6 = Utils.ir(0, 3);
+			switch (armor6) {
+			case 1:
+				l.getEquipment().setLeggings(new ItemStack(Material.LEATHER_LEGGINGS));
+				l.getEquipment().setBoots(new ItemStack(Material.LEATHER_BOOTS));
+				l.getEquipment().setHelmet(getSkull(tier));
+			case 2:
+				l.getEquipment().setHelmet(getSkull(tier));
+				l.getEquipment().setLeggings(new ItemStack(Material.LEATHER_LEGGINGS));
+				l.getEquipment().setChestplate(new ItemStack(Material.LEATHER_CHESTPLATE));
+				l.getEquipment().setBoots(new ItemStack(Material.LEATHER_BOOTS));
+			case 3:
+				l.getEquipment().setHelmet(getSkull(tier));
+				l.getEquipment().setBoots(new ItemStack(Material.LEATHER_BOOTS));
+			}
+			int held6 = Utils.ir(0, 6);
+			switch (held6) {
+			case 1:
+				l.getEquipment().setItemInHand(new ItemStack(Material.WOOD_SWORD));
+			case 2:
+				l.getEquipment().setItemInHand(new ItemStack(Material.WOOD_SWORD));
+			case 3:
+				l.getEquipment().setItemInHand(new ItemStack(Material.WOOD_AXE));
+			case 4:
+				l.getEquipment().setItemInHand(new ItemStack(Material.WOOD_AXE));
+			case 5:
+				l.getEquipment().setItemInHand(new ItemStack(Material.WOOD_SPADE));
+			case 6:
+				l.getEquipment().setItemInHand(new ItemStack(Material.BOW));
+			}
 		case 2:
 			int armor = Utils.ir(0, 3);
 			switch (armor) {

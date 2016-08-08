@@ -33,7 +33,7 @@ public class PSItem {
 	private boolean soulbound = false;
 	private boolean skull = false;
 	private String skullOwner = "matt11matthew";
-	private ItemRarity rarity;
+	private ItemRarity rarity = null;
 	
 	public PSItem(Material material, int amount, short durability) {
 		setType(material);

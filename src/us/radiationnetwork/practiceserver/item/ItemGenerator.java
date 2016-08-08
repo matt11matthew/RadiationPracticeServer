@@ -12,8 +12,8 @@ public class ItemGenerator {
 	
 	public static ItemStack generateAxe(int tier, ItemRarity rarity) {
 		Material type = null;
-		double mindmg = 0;
-		double maxdmg = 0;
+		int mindmg = 0;
+		int maxdmg = 0;
 		String name = "";
 		int knockback_chance = 0;
 		int crit_hit_chance = 0;
@@ -39,11 +39,12 @@ public class ItemGenerator {
 		int blind_max = 0;
 		int edmg_max = 0;
 		int accuracy_max = 0;
-		
+		String tag = "&f";
 		PSItem sword = new PSItem(Material.WOOD_AXE);
 		sword.setUnbreakable(true);
 		switch (tier) {
 		case 1:
+			tag = "&f";
 			type = Material.WOOD_AXE;
 			switch (rarity) {
 			case COMMON:
@@ -77,6 +78,7 @@ public class ItemGenerator {
 			//accuracy_max = 10;
 		case 2:
 			type = Material.STONE_AXE;
+			tag = "&a";
 			switch (rarity) {
 			case COMMON:
 				mindmg = ir(6, 10);
@@ -107,6 +109,7 @@ public class ItemGenerator {
 		    edmg_max = 9;
 		case 3:
 			type = Material.IRON_AXE;
+			tag = "&b";
 			switch (rarity) {
 			case COMMON:
 				mindmg = ir(8, 25);
@@ -137,6 +140,7 @@ public class ItemGenerator {
 		    edmg_max = 15;
 		case 4:
 			type = Material.DIAMOND_AXE;
+			tag = "&d";
 			switch (rarity) {
 			case COMMON:
 				mindmg = ir(21, 60);
@@ -167,6 +171,7 @@ public class ItemGenerator {
 		    edmg_max = 25;
 		case 5:
 			type = Material.GOLD_AXE;
+			tag = "&e";
 			switch (rarity) {
 			case COMMON:
 				mindmg = ir(21, 130);
@@ -230,15 +235,15 @@ public class ItemGenerator {
 			hasKB = true;
 		}
 		if (hasPureDMG) {
-			name = "Pure " + name;
+			name = tag + "Pure " + name;
 			sword.addLore("&cPURE DMG: +" + Utils.ir(0, edmg_max));
 		}
 		if (hasAccuracy) {
-			name = "Accurate " + name;
+			name = tag + "Accurate " + name;
 			sword.addLore("&cACCURACY: " + Utils.ir(0, accuracy_max) + "%");
 		}
 		if (hasKB) {
-			name = "Brute " + name;
+			name = tag + "Brute " + name;
 			sword.addLore("&cKNOCKBACK: " + Utils.ir(0, knockback_max) + "%");
 		}
 		if (hasBlind) {
@@ -246,11 +251,11 @@ public class ItemGenerator {
 			sword.addLore("&cBLIND: " + Utils.ir(0, blind_max) + "%");
 		}
 		if (hasLS) {
-			name = "Vampyric " + name;
+			name = tag + "Vampyric " + name;
 			sword.addLore("&cLIFE STEAL: " + Utils.ir(0, life_steal_max) + "%");
 		}
 		if (hasCrit) {
-			name = "Deadly " + name;
+			name = tag + "Deadly " + name;
 			sword.addLore("&cCRITICAL HIT: " + Utils.ir(0, crit_hit_max) + "%");
 		}
 		if (hasVS) {
@@ -307,8 +312,9 @@ public class ItemGenerator {
 
 	public static ItemStack generateSword(int tier, ItemRarity rarity) {
 		Material type = null;
-		double mindmg = 0;
-		double maxdmg = 0;
+		int mindmg = 0;
+		String tag = "&f";
+		int maxdmg = 0;
 		String name = "";
 		int knockback_chance = 0;
 		int crit_hit_chance = 0;
@@ -339,6 +345,7 @@ public class ItemGenerator {
 		sword.setUnbreakable(true);
 		switch (tier) {
 		case 1:
+			tag = "&f";
 			type = Material.WOOD_SWORD;
 			switch (rarity) {
 			case COMMON:
@@ -371,6 +378,7 @@ public class ItemGenerator {
 			edmg_max = 4;
 			accuracy_max = 10;
 		case 2:
+			tag = "&a";
 			type = Material.STONE_SWORD;
 			switch (rarity) {
 			case COMMON:
@@ -401,6 +409,7 @@ public class ItemGenerator {
 		    blind_max = 7;
 		    edmg_max = 9;
 		case 3:
+			tag = "&b";
 			type = Material.IRON_SWORD;
 			switch (rarity) {
 			case COMMON:
@@ -431,6 +440,7 @@ public class ItemGenerator {
 		    blind_max = 9;
 		    edmg_max = 15;
 		case 4:
+			tag = "&d";
 			type = Material.DIAMOND_SWORD;
 			switch (rarity) {
 			case COMMON:
@@ -476,6 +486,7 @@ public class ItemGenerator {
 				mindmg = ir(51, 200);
 				maxdmg = ir(251, 250);
 			}
+			tag = "&e";
 			name = "&eLegendary Sword";
 			life_steal_chance = 8;
 		   // knockback_chance = 20;
@@ -525,15 +536,15 @@ public class ItemGenerator {
 			hasKB = true;
 		}
 		if (hasPureDMG) {
-			name = "Pure " + name;
+			name = tag + "Pure " + name;
 			sword.addLore("&cPURE DMG: +" + Utils.ir(0, edmg_max));
 		}
 		if (hasAccuracy) {
-			name = "Accurate " + name;
+			name = tag + "Accurate " + name;
 			sword.addLore("&cACCURACY: " + Utils.ir(0, accuracy_max) + "%");
 		}
 		if (hasKB) {
-			name = "Brute " + name;
+			name = tag + "Brute " + name;
 			sword.addLore("&cKNOCKBACK: " + Utils.ir(0, knockback_max) + "%");
 		}
 		if (hasBlind) {
@@ -541,11 +552,11 @@ public class ItemGenerator {
 			sword.addLore("&cBLIND: " + Utils.ir(0, blind_max) + "%");
 		}
 		if (hasLS) {
-			name = "Vampyric " + name;
+			name = tag + "Vampyric " + name;
 			sword.addLore("&cLIFE STEAL: " + Utils.ir(0, life_steal_max) + "%");
 		}
 		if (hasCrit) {
-			name = "Deadly " + name;
+			name = tag + "Deadly " + name;
 			sword.addLore("&cCRITICAL HIT: " + Utils.ir(0, crit_hit_max) + "%");
 		}
 		if (hasVS) {
@@ -600,9 +611,9 @@ public class ItemGenerator {
 		return sword.build();
 	}
 	
-	public static double ir(double max, double min) {
+	public static int ir(int max, int min) {
 		Random r = new Random();
-		return r.nextInt((int) max) + min;
+		return r.nextInt(max) + min;
 	}
 	
 	public static ItemStack generateHelmet(int tier, ItemRarity rarity) {
@@ -640,66 +651,66 @@ public class ItemGenerator {
 			sword.addLore("&cDPS: 3 - 3%");
 			switch (rarity) {
 			case COMMON:
-				hp = ir(5, 5);
+				hp = ir(13, 32);
 			case UNCOMMON:
-				hp = ir(10, 10);
+				hp = ir(40, 45);
 			case RARE:
-				hp = ir(30, 20);
+				hp = ir(35, 85);
 			case UNIQUE:
-				hp = ir(11, 50);
+				hp = ir(31, 120);
 			}
 			sword.addLore("&cHP: +" + hp);
-			hps_max = (int) ir(11, 5);
-			vit_max = (int) ir(5, 1);
+			hps_max = (int) ir(11, 10);
+			vit_max = (int) ir(6, 5);
 		case 3:
 			type = Material.IRON_HELMET;
 			sword.addLore("&cDPS: 4 - 4%");
 			switch (rarity) {
 			case COMMON:
-				hp = ir(5, 5);
+				hp = ir(100, 100);
 			case UNCOMMON:
-				hp = ir(10, 10);
+				hp = ir(100, 200);
 			case RARE:
-				hp = ir(30, 20);
+				hp = ir(50, 300);
 			case UNIQUE:
-				hp = ir(11, 50);
+				hp = ir(81, 350);
 			}
 			sword.addLore("&cHP: +" + hp);
-			hps_max = (int) ir(11, 5);
-			vit_max = (int) ir(5, 1);
+			hps_max = (int) ir(11, 40);
+			vit_max = (int) ir(41, 20);
 		case 4:
 			type = Material.DIAMOND_HELMET;
 			sword.addLore("&cDPS: 6 - 6%");
 			switch (rarity) {
 			case COMMON:
-				hp = ir(5, 5);
+				hp = ir(200, 300);
 			case UNCOMMON:
-				hp = ir(10, 10);
+				hp = ir(200, 500);
 			case RARE:
-				hp = ir(30, 20);
+				hp = ir(300, 700);
 			case UNIQUE:
-				hp = ir(11, 50);
+				hp = ir(201, 1000);
 			}
 			sword.addLore("&cHP: +" + hp);
-			hps_max = (int) ir(11, 5);
-			vit_max = (int) ir(5, 1);
+			hps_max = (int) ir(6, 60);
+			vit_max = (int) ir(91, 60);
 
 		case 5:
 			type = Material.GOLD_HELMET;
 			sword.addLore("&cDPS: 8 - 8%");
 			switch (rarity) {
 			case COMMON:
-				hp = ir(5, 5);
+				hp = ir(300, 700);
 			case UNCOMMON:
-				hp = ir(10, 10);
+				hp = ir(800, 1000);
 			case RARE:
-				hp = ir(30, 20);
+				hp = ir(500, 1800);
 			case UNIQUE:
-				hp = ir(11, 50);
+				hp = ir(701, 2300);
 			}
 			sword.addLore("&cHP: +" + hp);
-			hps_max = (int) ir(11, 5);
-			vit_max = (int) ir(5, 1);
+			hps_max = (int) ir(21, 90);
+			vit_max = (int) ir(161, 150);
 		}
 		int stat = Utils.ir(0, 2);
 		if (stat == 1) {
@@ -715,9 +726,13 @@ public class ItemGenerator {
 			case 1:
 				name = "&fLeather Coif of Fortitude";
 			case 2:
+				name = "&aChainmail Helmet of Fortitude";
 			case 3:
+				name = "&bFull Helmet of Fortitude";
 			case 4:
+				name = "&dAncient Full Helmet of Fortitude";
 			case 5:
+				name = "&eLegendary Full Helmet of Fortitude";
 			}
 			sword.addLore("&cVIT: +" + Utils.ir(0, vit_max));
 		}
@@ -726,9 +741,436 @@ public class ItemGenerator {
 			case 1:
 				name = "&fMending Leather Coif";
 			case 2:
+				name = "&aMending Medium Helmet";
 			case 3:
+				name = "&bMending Full Helmet";
 			case 4:
+				name = "&dMending Ancient Full Helmet";
 			case 5:
+				name = "&eMending Legendary Full Helmet";
+			}
+			sword.addLore("&cHP REGEN: +" + Utils.ir(0, hps_max) + "HP/s");
+		}
+		sword.setType(type);
+		sword.setName(name);
+		sword.setRarity(rarity);
+		return sword.build();
+	}
+	
+	public static ItemStack generateChestplate(int tier, ItemRarity rarity) {
+		Material type = Material.LEATHER_CHESTPLATE;
+		
+		double hp = 0;
+		String name = "";
+		boolean hasVit = false;
+		boolean hasHps = false;
+		
+		int hps_max = 0;
+		int vit_max = 0;
+		
+		PSItem sword = new PSItem(Material.LEATHER_CHESTPLATE);
+		sword.setUnbreakable(true);
+		switch (tier) {
+		case 1:
+			type = Material.LEATHER_CHESTPLATE;
+			sword.addLore("&cDPS: 1 - 1%");
+			switch (rarity) {
+			case COMMON:
+				hp = ir(11, 10);
+			case UNCOMMON:
+				hp = ir(39, 21);
+			case RARE:
+				hp = ir(50, 50);
+			case UNIQUE:
+				hp = ir(51, 100);
+			}
+			sword.addLore("&cHP: +" + hp);
+			hps_max = (int) ir(11, 5);
+			vit_max = (int) ir(5, 1);
+		case 2:
+			type = Material.CHAINMAIL_CHESTPLATE;
+			sword.addLore("&cDPS: 3 - 3%");
+			switch (rarity) {
+			case COMMON:
+				hp = ir(40, 60);
+			case UNCOMMON:
+				hp = ir(100, 100);
+			case RARE:
+				hp = ir(100, 200);
+			case UNIQUE:
+				hp = ir(101, 300);
+			}
+			sword.addLore("&cHP: +" + hp);
+			hps_max = (int) ir(11, 10);
+			vit_max = (int) ir(6, 5);
+		case 3:
+			type = Material.IRON_CHESTPLATE;
+			sword.addLore("&cDPS: 6 - 6%");
+			switch (rarity) {
+			case COMMON:
+				hp = ir(150, 200);
+			case UNCOMMON:
+				hp = ir(150, 350);
+			case RARE:
+				hp = ir(300, 500);
+			case UNIQUE:
+				hp = ir(51, 800);
+			}
+			sword.addLore("&cHP: +" + hp);
+			hps_max = (int) ir(11, 40);
+			vit_max = (int) ir(41, 20);
+		case 4:
+			type = Material.DIAMOND_CHESTPLATE;
+			sword.addLore("&cDPS: 12 - 12%");
+			switch (rarity) {
+			case COMMON:
+				hp = ir(200, 600);
+			case UNCOMMON:
+				hp = ir(700, 800);
+			case RARE:
+				hp = ir(800, 1500);
+			case UNIQUE:
+				hp = ir(201, 2300);
+			}
+			sword.addLore("&cHP: +" + hp);
+			hps_max = (int) ir(6, 60);
+			vit_max = (int) ir(91, 60);
+
+		case 5:
+			type = Material.GOLD_CHESTPLATE;
+			sword.addLore("&cDPS: 16 - 16%");
+			switch (rarity) {
+			case COMMON:
+				hp = ir(1000, 1500);
+			case UNCOMMON:
+				hp = ir(1500, 2500);
+			case RARE:
+				hp = ir(1500, 4000);
+			case UNIQUE:
+				hp = ir(501, 5500);
+			}
+			sword.addLore("&cHP: +" + hp);
+			hps_max = (int) ir(21, 90);
+			vit_max = (int) ir(161, 150);
+		}
+		int stat = Utils.ir(0, 2);
+		if (stat == 1) {
+			hasHps = true;
+		}
+		else if (stat == 2) {
+			hasVit = true;
+		} else {
+			hasVit = true;
+		}
+		if (hasVit) {
+			switch (tier) {
+			case 1:
+				name = "&fLeather Chestplate of Fortitude";
+			case 2:
+				name = "&aChainmail of Fortitude";
+			case 3:
+				name = "&bPlatemail of Fortitude";
+			case 4:
+				name = "&dMagic Platemail of Fortitude";
+			case 5:
+				name = "&eLegendary Full Platemail of Fortitude";
+			}
+			sword.addLore("&cVIT: +" + Utils.ir(0, vit_max));
+		}
+		if (hasHps) {
+			switch (tier) {
+			case 1:
+				name = "&fMending Leather Chestplate";
+			case 2:
+				name = "&aMending Chainmail";
+			case 3:
+				name = "&bMending Platemail";
+			case 4:
+				name = "&dMending Magic Platemail";
+			case 5:
+				name = "&eMending Legendary Platemail";
+			}
+			sword.addLore("&cHP REGEN: +" + Utils.ir(0, hps_max) + "HP/s");
+		}
+		sword.setType(type);
+		sword.setName(name);
+		sword.setRarity(rarity);
+		return sword.build();
+	}
+	
+	public static ItemStack generateLeggings(int tier, ItemRarity rarity) {
+		Material type = Material.LEATHER_LEGGINGS;
+		
+		double hp = 0;
+		String name = "";
+		boolean hasVit = false;
+		boolean hasHps = false;
+		
+		int hps_max = 0;
+		int vit_max = 0;
+		
+		PSItem sword = new PSItem(Material.LEATHER_LEGGINGS);
+		sword.setUnbreakable(true);
+		switch (tier) {
+		case 1:
+			type = Material.LEATHER_LEGGINGS;
+			sword.addLore("&cDPS: 1 - 1%");
+			switch (rarity) {
+			case COMMON:
+				hp = ir(11, 10);
+			case UNCOMMON:
+				hp = ir(39, 21);
+			case RARE:
+				hp = ir(50, 50);
+			case UNIQUE:
+				hp = ir(51, 100);
+			}
+			sword.addLore("&cHP: +" + hp);
+			hps_max = (int) ir(11, 5);
+			vit_max = (int) ir(5, 1);
+		case 2:
+			type = Material.CHAINMAIL_LEGGINGS;
+			sword.addLore("&cDPS: 3 - 3%");
+			switch (rarity) {
+			case COMMON:
+				hp = ir(40, 60);
+			case UNCOMMON:
+				hp = ir(100, 100);
+			case RARE:
+				hp = ir(100, 200);
+			case UNIQUE:
+				hp = ir(101, 300);
+			}
+			sword.addLore("&cHP: +" + hp);
+			hps_max = (int) ir(11, 10);
+			vit_max = (int) ir(6, 5);
+		case 3:
+			type = Material.IRON_LEGGINGS;
+			sword.addLore("&cDPS: 6 - 6%");
+			switch (rarity) {
+			case COMMON:
+				hp = ir(150, 200);
+			case UNCOMMON:
+				hp = ir(150, 350);
+			case RARE:
+				hp = ir(300, 500);
+			case UNIQUE:
+				hp = ir(51, 800);
+			}
+			sword.addLore("&cHP: +" + hp);
+			hps_max = (int) ir(11, 40);
+			vit_max = (int) ir(41, 20);
+		case 4:
+			type = Material.DIAMOND_LEGGINGS;
+			sword.addLore("&cDPS: 12 - 12%");
+			switch (rarity) {
+			case COMMON:
+				hp = ir(200, 600);
+			case UNCOMMON:
+				hp = ir(700, 800);
+			case RARE:
+				hp = ir(800, 1500);
+			case UNIQUE:
+				hp = ir(201, 2300);
+			}
+			sword.addLore("&cHP: +" + hp);
+			hps_max = (int) ir(6, 60);
+			vit_max = (int) ir(91, 60);
+
+		case 5:
+			type = Material.GOLD_LEGGINGS;
+			sword.addLore("&cDPS: 16 - 16%");
+			switch (rarity) {
+			case COMMON:
+				hp = ir(1000, 1500);
+			case UNCOMMON:
+				hp = ir(1500, 2500);
+			case RARE:
+				hp = ir(1500, 4000);
+			case UNIQUE:
+				hp = ir(501, 5500);
+			}
+			sword.addLore("&cHP: +" + hp);
+			hps_max = (int) ir(21, 90);
+			vit_max = (int) ir(161, 150);
+		}
+		int stat = Utils.ir(0, 2);
+		if (stat == 1) {
+			hasHps = true;
+		}
+		else if (stat == 2) {
+			hasVit = true;
+		} else {
+			hasVit = true;
+		}
+		if (hasVit) {
+			switch (tier) {
+			case 1:
+				name = "&fLeather Leggings of Fortitude";
+			case 2:
+				name = "&aChainmail Leggings of Fortitude";
+			case 3:
+				name = "&bLeggings of Fortitude";
+			case 4:
+				name = "&dMagic Leggings of Fortitude";
+			case 5:
+				name = "&eLegendary Full Leggings of Fortitude";
+			}
+			sword.addLore("&cVIT: +" + Utils.ir(0, vit_max));
+		}
+		if (hasHps) {
+			switch (tier) {
+			case 1:
+				name = "&fMending Leather Leggings";
+			case 2:
+				name = "&aMending Chainmail Leggings";
+			case 3:
+				name = "&bMending Leggings";
+			case 4:
+				name = "&dMending Magic Leggings";
+			case 5:
+				name = "&eMending Legendary Leggings";
+			}
+			sword.addLore("&cHP REGEN: +" + Utils.ir(0, hps_max) + "HP/s");
+		}
+		sword.setType(type);
+		sword.setName(name);
+		sword.setRarity(rarity);
+		return sword.build();
+	}
+	
+	public static ItemStack generateBoots(int tier, ItemRarity rarity) {
+		Material type = Material.LEATHER_BOOTS;
+		
+		double hp = 0;
+		String name = "";
+		boolean hasVit = false;
+		boolean hasHps = false;
+		
+		int hps_max = 0;
+		int vit_max = 0;
+		
+		PSItem sword = new PSItem(Material.LEATHER_BOOTS);
+		sword.setUnbreakable(true);
+		switch (tier) {
+		case 1:
+			type = Material.LEATHER_BOOTS;
+			sword.addLore("&cDPS: 1 - 1%");
+			switch (rarity) {
+			case COMMON:
+				hp = ir(5, 5);
+			case UNCOMMON:
+				hp = ir(10, 10);
+			case RARE:
+				hp = ir(30, 20);
+			case UNIQUE:
+				hp = ir(11, 50);
+			}
+			sword.addLore("&cHP: +" + hp);
+			hps_max = (int) ir(11, 5);
+			vit_max = (int) ir(5, 1);
+		case 2:
+			type = Material.CHAINMAIL_BOOTS;
+			sword.addLore("&cDPS: 3 - 3%");
+			switch (rarity) {
+			case COMMON:
+				hp = ir(13, 32);
+			case UNCOMMON:
+				hp = ir(40, 45);
+			case RARE:
+				hp = ir(35, 85);
+			case UNIQUE:
+				hp = ir(31, 120);
+			}
+			sword.addLore("&cHP: +" + hp);
+			hps_max = (int) ir(11, 10);
+			vit_max = (int) ir(6, 5);
+		case 3:
+			type = Material.IRON_BOOTS;
+			sword.addLore("&cDPS: 4 - 4%");
+			switch (rarity) {
+			case COMMON:
+				hp = ir(100, 100);
+			case UNCOMMON:
+				hp = ir(100, 200);
+			case RARE:
+				hp = ir(50, 300);
+			case UNIQUE:
+				hp = ir(81, 350);
+			}
+			sword.addLore("&cHP: +" + hp);
+			hps_max = (int) ir(11, 40);
+			vit_max = (int) ir(41, 20);
+		case 4:
+			type = Material.DIAMOND_BOOTS;
+			sword.addLore("&cDPS: 6 - 6%");
+			switch (rarity) {
+			case COMMON:
+				hp = ir(200, 300);
+			case UNCOMMON:
+				hp = ir(200, 500);
+			case RARE:
+				hp = ir(300, 700);
+			case UNIQUE:
+				hp = ir(201, 1000);
+			}
+			sword.addLore("&cHP: +" + hp);
+			hps_max = (int) ir(6, 60);
+			vit_max = (int) ir(91, 60);
+
+		case 5:
+			type = Material.GOLD_BOOTS;
+			sword.addLore("&cDPS: 8 - 8%");
+			switch (rarity) {
+			case COMMON:
+				hp = ir(300, 700);
+			case UNCOMMON:
+				hp = ir(800, 1000);
+			case RARE:
+				hp = ir(500, 1800);
+			case UNIQUE:
+				hp = ir(701, 2300);
+			}
+			sword.addLore("&cHP: +" + hp);
+			hps_max = (int) ir(21, 90);
+			vit_max = (int) ir(161, 150);
+		}
+		int stat = Utils.ir(0, 2);
+		if (stat == 1) {
+			hasHps = true;
+		}
+		else if (stat == 2) {
+			hasVit = true;
+		} else {
+			hasVit = true;
+		}
+		if (hasVit) {
+			switch (tier) {
+			case 1:
+				name = "&fLeather Boots of Fortitude";
+			case 2:
+				name = "&aChainmail Boots of Fortitude";
+			case 3:
+				name = "&bFull Boots of Fortitude";
+			case 4:
+				name = "&dAncient Full Boots of Fortitude";
+			case 5:
+				name = "&eLegendary Full Boots of Fortitude";
+			}
+			sword.addLore("&cVIT: +" + Utils.ir(0, vit_max));
+		}
+		if (hasHps) {
+			switch (tier) {
+			case 1:
+				name = "&fMending Leather Boots";
+			case 2:
+				name = "&aMending Medium Boots";
+			case 3:
+				name = "&bMending Full Boots";
+			case 4:
+				name = "&dMending Ancient Full Boots";
+			case 5:
+				name = "&eMending Legendary Full Boots";
 			}
 			sword.addLore("&cHP REGEN: +" + Utils.ir(0, hps_max) + "HP/s");
 		}
