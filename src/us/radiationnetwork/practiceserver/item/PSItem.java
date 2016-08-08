@@ -40,6 +40,21 @@ public class PSItem {
 		setAmount(amount);
 		setDurability(durability);
 	}
+	
+	public PSItem(ItemStack item) {
+		ItemMeta im = item.getItemMeta();
+		setAmount(item.getAmount());
+		setDurability(item.getDurability());
+		if (im.hasDisplayName()) {
+			setName(im.getDisplayName());
+		} 
+		if (im.hasLore()) {
+			setLore(im.getLore());
+		}
+		if (Utils.getItemRarity(item) != null) {
+			setRarity(Utils.getItemRarity(item));
+		}
+	}
 
 	public PSItem(Material material, int amount) {
 		setType(material);
@@ -125,7 +140,6 @@ public class PSItem {
 		}
 	}
 
-
 	public Material getType() {
 		return material;
 	}
@@ -139,31 +153,40 @@ public class PSItem {
 		return name;
 	}
 
-
 	public void setName(String name) {
 		this.name = name;
 	}
-
+	
+	public void removeStats() {
+		if (item_lore.contains("DMG")) {
+			String dmg = item_lore.get(0);
+			item_lore.clear();
+			item_lore.add(dmg);
+		}
+		if (item_lore.contains("HP")) {
+			String dps = item_lore.get(0);
+			String hp = item_lore.get(1);
+			item_lore.clear();
+			item_lore.add(dps);
+			item_lore.add(hp);
+		}
+	}
 
 	public int getAmount() {
 		return amount;
 	}
 
-
 	public void setAmount(int amount) {
 		this.amount = amount;
 	}
-
 
 	public short getDurability() {
 		return durability;
 	}
 
-
 	public void setDurability(short durability) {
 		this.durability = durability;
 	}
-
 
 	public List<String> getLore() {
 		return item_lore;
@@ -182,16 +205,13 @@ public class PSItem {
 		this.item_lore = lore;
 	}
 
-
 	public boolean isUnbreakable() {
 		return unbreakable;
 	}
 
-
 	public void setUnbreakable(boolean unbreakable) {
 		this.unbreakable = unbreakable;
 	}
-
 
 	public boolean isGlow() {
 		return glow;

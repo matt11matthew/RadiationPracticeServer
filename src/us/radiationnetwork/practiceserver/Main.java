@@ -1,7 +1,9 @@
 package us.radiationnetwork.practiceserver;
 
 import org.bukkit.Bukkit;
+import org.bukkit.Material;
 import org.bukkit.entity.Player;
+import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import us.radiationnetwork.practiceserver.command.commands.CommandFVendor;
@@ -12,8 +14,10 @@ import us.radiationnetwork.practiceserver.command.commands.CommandToggleDebug;
 import us.radiationnetwork.practiceserver.command.commands.CommandTogglePvP;
 import us.radiationnetwork.practiceserver.command.commands.CommandZone;
 import us.radiationnetwork.practiceserver.dmg.DamageHandler;
+import us.radiationnetwork.practiceserver.enums.ItemRarity;
 import us.radiationnetwork.practiceserver.fish.SpeedFish;
 import us.radiationnetwork.practiceserver.health.HealthHandler;
+import us.radiationnetwork.practiceserver.item.PSItem;
 import us.radiationnetwork.practiceserver.menus.FVendor;
 import us.radiationnetwork.practiceserver.menus.IVendor;
 import us.radiationnetwork.practiceserver.mobs.MobHandler;

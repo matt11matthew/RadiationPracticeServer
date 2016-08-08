@@ -13,6 +13,7 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
 import us.radiationnetwork.practiceserver.Main;
+import us.radiationnetwork.practiceserver.enums.ItemRarity;
 
 public class Utils {
 
@@ -106,6 +107,7 @@ public class Utils {
 						String raw = ((String)lore.get(i)).split("DPS: ")[1];
 						raw = ChatColor.stripColor(raw);
 						raw = raw.replaceAll(" ", "");
+						raw = raw.replaceAll("%", "");
 						int min = Integer.parseInt(raw.split("-")[0]);
 						int max = Integer.parseInt(raw.split("-")[1]);
 						int total = Utils.ir(min, max);
@@ -208,6 +210,19 @@ public class Utils {
 			return 5;
 		}
 		return 0;
+	}
+
+	public static ItemRarity getItemRarity(ItemStack is) {
+		if (StatUtils.hasStat(is, "Common")) {
+			return ItemRarity.COMMON;
+		} else if (StatUtils.hasStat(is, "Uncommon")) {
+			return ItemRarity.UNCOMMON;
+		} else if (StatUtils.hasStat(is, "Rare")) {
+			return ItemRarity.RARE;
+		} else if (StatUtils.hasStat(is, "Unique")) {
+			return ItemRarity.UNCOMMON;
+		}
+		return null;
 	}
 }
 			

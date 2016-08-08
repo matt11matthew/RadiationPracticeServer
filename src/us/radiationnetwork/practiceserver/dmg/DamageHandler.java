@@ -1,6 +1,7 @@
 package us.radiationnetwork.practiceserver.dmg;
 
 import org.bukkit.Effect;
+import org.bukkit.EntityEffect;
 import org.bukkit.Sound;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
@@ -88,8 +89,8 @@ public class DamageHandler implements Listener {
 		double dmg = 0.0D;
 		if (StatUtils.hasStat(wep, "DMG")) {
 			String raw = Utils.getStringFromLore(wep, "DMG: ");
-			int min = Utils.convertStringToInteger(raw.split("-")[0]);
-			int max = Utils.convertStringToInteger(raw.split("-")[1]);
+			int min = Utils.convertStringToInteger(raw.split("-")[0].trim());
+			int max = Utils.convertStringToInteger(raw.split("-")[1].trim());
 			dmg = Utils.ir(min, max);
 		} else {
 			dmg = 1.0D;
@@ -107,15 +108,17 @@ public class DamageHandler implements Listener {
 			if (dmg == -1) {
 				return;
 			} else {
-				if (dmg > l.getHealth()) {
-					l.setHealth(0);
+				l.playEffect(EntityEffect.HURT);
+				if (dmg >= l.getHealth()) {
+					l.playEffect(EntityEffect.DEATH);
+					l.damage(l.getHealth());
 					if (FileManager.isTogglePvP(p.getName()))  {
-						p.sendMessage(Utils.colorCodes("&c            " + (int) dmg + "&c&l DMG -> &r" + l.getCustomName() + "[0]"));
+						p.sendMessage(Utils.colorCodes("&c            " + (int) dmg + "&c&l DMG -> &r" + l.getCustomName() + " [0]"));
 					}
 				} else {
 					l.setHealth((l.getHealth() - dmg));
 					if (FileManager.isTogglePvP(p.getName()))  {
-						p.sendMessage(Utils.colorCodes("&c            " + (int) dmg + "&c&l DMG -> &r" + l.getCustomName() + "[" + (int) l.getHealth() + "]"));
+						p.sendMessage(Utils.colorCodes("&c            " + (int) dmg + "&c&l DMG -> &r" + l.getCustomName() + " [" + (int) l.getHealth() + "]"));
 					}
 				}
 			}
