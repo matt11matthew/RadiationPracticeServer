@@ -32,6 +32,7 @@ public class Main extends JavaPlugin {
 		registerCommands();
 		task();
 		BossBarUtils.setHPAboveHead();
+		hpRegenTask();
 		
 	}
 	
@@ -70,6 +71,16 @@ public class Main extends JavaPlugin {
 		for (Player pl : Bukkit.getServer().getOnlinePlayers()) {
 			BossBarUtils.removeBar(pl);
 		}
+	}
+	
+	public void hpRegenTask() {
+		Bukkit.getScheduler().scheduleSyncRepeatingTask(this, new Runnable() {
+			public void run() {
+				for (Player pl : Bukkit.getServer().getOnlinePlayers()) {
+					HealthHandler.hpRegen(pl);
+				}
+			}
+		}, 20L, 20L);
 	}
 	
 	public void task() {

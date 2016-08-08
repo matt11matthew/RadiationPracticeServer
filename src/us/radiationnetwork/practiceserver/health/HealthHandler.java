@@ -25,6 +25,20 @@ public class HealthHandler implements Listener {
 		}.runTaskLater(Main.getInstance(), 1L);
 	}
 	
+	public static void hpRegen(Player player) {
+		double hps = 5.0D;
+		double add_hps = getHPS(player);
+		if (add_hps > 0.0D) {
+			hps += add_hps;
+		}
+		if ((player.getHealth() + hps) > player.getMaxHealth()) {
+			player.setHealth(player.getMaxHealth());
+		} else {
+			double new_hp = (player.getHealth() + hps);
+			player.setHealth(new_hp);
+		}
+	}
+	
 	public void hpCheck(Player p) {
 		double vit = getVIT(p);
 		double a = 50.0D;
@@ -66,6 +80,31 @@ public class HealthHandler implements Listener {
 		if ((p.getEquipment().getBoots() != null) && (p.getEquipment().getBoots().getItemMeta().hasLore())) {
 			if (StatUtils.hasStat(p.getEquipment().getBoots(), "VIT")) {
 				vit += (Utils.getStatFromLore(p.getEquipment().getBoots(), "VIT: +", "", "+"));
+			}
+		}
+		return vit;
+	}
+	
+	public static double getHPS(Player p) {
+		double vit = 0.0D;
+		if ((p.getEquipment().getHelmet() != null) && (p.getEquipment().getHelmet().getItemMeta().hasLore())) {
+			if (StatUtils.hasStat(p.getEquipment().getHelmet(), "HP REGEN")) {
+				vit += (Utils.getStatFromLore(p.getEquipment().getHelmet(), "HP REGEN: ", "HP/s", ""));
+			}
+		}
+		if ((p.getEquipment().getChestplate() != null) && (p.getEquipment().getChestplate().getItemMeta().hasLore())) {
+			if (StatUtils.hasStat(p.getEquipment().getChestplate(), "HP REGEN")) {
+				vit += (Utils.getStatFromLore(p.getEquipment().getChestplate(), "HP REGEN: ", "HP/s", ""));
+			}
+		}
+		if ((p.getEquipment().getLeggings() != null) && (p.getEquipment().getLeggings().getItemMeta().hasLore())) {
+			if (StatUtils.hasStat(p.getEquipment().getLeggings(), "HP REGEN")) {
+				vit += (Utils.getStatFromLore(p.getEquipment().getLeggings(), "HP REGEN: ", "HP/s", ""));
+			}
+		}
+		if ((p.getEquipment().getBoots() != null) && (p.getEquipment().getBoots().getItemMeta().hasLore())) {
+			if (StatUtils.hasStat(p.getEquipment().getBoots(), "HP REGEN")) {
+				vit += (Utils.getStatFromLore(p.getEquipment().getBoots(), "HP REGEN: ", "HP/s", ""));
 			}
 		}
 		return vit;
