@@ -218,16 +218,16 @@ public class MobHandler implements Listener {
 				setUp(s, 1);
 				break;
 			case "T2":
-				setUp(s, 1);
+				setUp(s, 2);
 				break;
 			case "T3":
-				setUp(s, 1);
+				setUp(s, 3);
 				break;
 			case "T4":
-				setUp(s, 1);
+				setUp(s, 4);
 				break;
 			case "T5":
-				setUp(s, 1);
+				setUp(s, 5);
 				break;
 			case "null":
 				break;

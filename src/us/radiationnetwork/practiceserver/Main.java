@@ -74,6 +74,7 @@ public class Main extends JavaPlugin {
 	}
 	
 	public void removeBossBar() {
+		
 		for (Player pl : Bukkit.getServer().getOnlinePlayers()) {
 			BossBarUtils.removeBar(pl);
 		}
@@ -82,6 +83,7 @@ public class Main extends JavaPlugin {
 	public void hpRegenTask() {
 		Bukkit.getScheduler().scheduleSyncRepeatingTask(this, new Runnable() {
 			public void run() {
+				
 				for (Player pl : Bukkit.getServer().getOnlinePlayers()) {
 					HealthHandler.hpRegen(pl);
 				}
@@ -92,6 +94,7 @@ public class Main extends JavaPlugin {
 	public void task() {
 		Bukkit.getScheduler().scheduleSyncRepeatingTask(this, new Runnable() {
 			public void run() {
+				
 				for (Player pl : Bukkit.getServer().getOnlinePlayers()) {
 					BossBarUtils.sendBar(pl);
 				}

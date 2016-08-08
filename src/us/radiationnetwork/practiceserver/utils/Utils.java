@@ -78,9 +78,9 @@ public class Utils {
 			if (lore != null) {
 				
 				for (int i = 0; i < lore.size(); i++) {
-					if (((String)lore.get(i)).contains(value)) {
+					if (((String)lore.get(0)).contains(value)) {
 					
-							String vals = ((String)lore.get(i)).split(value)[1];
+							String vals = ((String)lore.get(0)).split(value)[1];
 							vals = ChatColor.stripColor(vals).trim();
 							vals = vals.replaceAll(" ", "");
 							returnVal = vals;

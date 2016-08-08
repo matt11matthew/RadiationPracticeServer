@@ -1,7 +1,10 @@
 package us.radiationnetwork.practiceserver.dmg;
 
+import java.util.Random;
+
 import org.bukkit.Effect;
 import org.bukkit.EntityEffect;
+import org.bukkit.Material;
 import org.bukkit.Sound;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
@@ -16,6 +19,7 @@ import us.radiationnetwork.practiceserver.health.HealthHandler;
 import us.radiationnetwork.practiceserver.storage.FileManager;
 import us.radiationnetwork.practiceserver.utils.RegionUtils;
 import us.radiationnetwork.practiceserver.utils.StatUtils;
+import us.radiationnetwork.practiceserver.utils.Unicodes;
 import us.radiationnetwork.practiceserver.utils.Utils;
 import us.radiationnetwork.practiceserver.zones.Zone;
 
@@ -25,7 +29,7 @@ public class DamageHandler implements Listener {
 		if ((RegionUtils.getZone(l.getLocation()) == Zone.SAFE) || (RegionUtils.getZone(p.getLocation()) == Zone.SAFE)) {
 			return -1;	
 		}
-		ItemStack wep = p.getItemInHand();
+		ItemStack wep = p.getEquipment().getItemInMainHand();
 		double dmg = 0.0D;
 		double crit = 0;
 		if (StatUtils.hasStat(wep, "DMG")) {
@@ -44,11 +48,30 @@ public class DamageHandler implements Listener {
 			}
 			if (StatUtils.hasStat(wep, "POISON DMG")) {
 				dmg += Utils.getStatFromLore(wep, "POISON DMG: +", "", "");
-				l.getWorld().playEffect(l.getEyeLocation(), Effect.POTION_BREAK, 8196);
+				l.getWorld().playEffect(l.getEyeLocation(), Effect.POTION_BREAK, 40);
 				l.addPotionEffect(new PotionEffect(PotionEffectType.POISON, 10, 1));
 			}
+			if (StatUtils.hasStat(wep, "LIFE STEAL")) {
+				double ls = Utils.getStatFromLore(wep, "LIFE STEAK: ", "%", "");
+				double pcnt = ls / 100.0D;
+				int life = 0;
+				if ((pcnt * dmg) > 0) {
+					life = (int) (pcnt * dmg);
+				} else {
+					life = 1;
+				}
+				l.getWorld().playEffect(l.getEyeLocation(), Effect.STEP_SOUND, Material.REDSTONE_BLOCK);
+				if (p.getHealth() < p.getMaxHealth() - life) {
+					p.setHealth(p.getHealth() + life);
+				} else if (p.getHealth() >= p.getMaxHealth() - life) {
+					p.setHealth(p.getMaxHealth());
+				}
+				if (FileManager.isDebug(p.getName())) {
+					p.sendMessage(Utils.colorCodes("&a&l            +&a" + life + " &lHP&7 [" + (int) p.getHealth() + "/" + (int) p.getMaxHealth() + "HP]"));
+				}
+			}
 			if (HealthHandler.getDPS(p) > 0) {
-				double dps = HealthHandler.getDPS(p);
+				double dps = HealthHandler.getDPS(p) / 2;
 				double divide = dps / 100.0D;
 				double pre = dmg * divide;
 				int cleaned = (int)(dmg + pre);
@@ -56,7 +79,7 @@ public class DamageHandler implements Listener {
 			}
 			if (HealthHandler.getVIT(p) > 0) {
 				if (Utils.isSword(wep)) {
-					double vit = HealthHandler.getVIT(p);
+					double vit = HealthHandler.getVIT(p) / 2;
 					if (vit > 0.0D) {
 						double divide = vit / 7500.0D;
 				        double pre = dmg * divide;
@@ -72,9 +95,10 @@ public class DamageHandler implements Listener {
 				crit += 5;
 			}
 			if (crit > 0) {
-				if (100 <= crit) {
+				Random r = new Random();
+				if (r.nextInt(100) <= crit) {
 					dmg *= 2;
-					p.playSound(l.getLocation(), Sound.BLOCK_WOOD_PRESSUREPLATE_CLICK_OFF, 1.0F, 0.65F);
+					p.playSound(p.getLocation(), Sound.BLOCK_WOOD_BUTTON_CLICK_ON, 1.0F, 0.65F);
 				}
 			}
 			
@@ -109,16 +133,18 @@ public class DamageHandler implements Listener {
 				return;
 			} else {
 				l.playEffect(EntityEffect.HURT);
+				p.playSound(l.getLocation(), Sound.ENTITY_GENERIC_HURT, 1.0F, 1.0F);
 				if (dmg >= l.getHealth()) {
 					l.playEffect(EntityEffect.DEATH);
 					l.damage(l.getHealth());
-					if (FileManager.isTogglePvP(p.getName()))  {
-						p.sendMessage(Utils.colorCodes("&c            " + (int) dmg + "&c&l DMG -> &r" + l.getCustomName() + " [0]"));
+					if (FileManager.isDebug(p.getName()))  {
+						p.sendMessage(Utils.colorCodes("&c            " + (int) dmg + "&c&l DMG -" + Unicodes.DEBUG_ARROW.get() + " &r" + l.getCustomName() + " [0]"));
 					}
 				} else {
 					l.setHealth((l.getHealth() - dmg));
-					if (FileManager.isTogglePvP(p.getName()))  {
-						p.sendMessage(Utils.colorCodes("&c            " + (int) dmg + "&c&l DMG -> &r" + l.getCustomName() + " [" + (int) l.getHealth() + "]"));
+					l.damage(0);
+					if (FileManager.isDebug(p.getName()))  {
+						p.sendMessage(Utils.colorCodes("&c            " + (int) dmg + "&c&l DMG -" + Unicodes.DEBUG_ARROW.get() + " &r" + l.getCustomName() + " [" + (int) l.getHealth() + "]"));
 					}
 				}
 			}
