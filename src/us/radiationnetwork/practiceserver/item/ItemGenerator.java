@@ -1,6 +1,5 @@
 package us.radiationnetwork.practiceserver.item;
 
-import java.sql.PseudoColumnUsage;
 import java.util.Random;
 
 import org.bukkit.Bukkit;
@@ -768,7 +767,332 @@ public class ItemGenerator {
 				}
 				sword.addLore("&cHP REGEN: +" + Utils.ir(0, hps_max) + " HP/s");
 			}
-			sword.setType(type);
+			sword.setName(name);
+			sword.setRarity(Utils.getItemRarity(is));
+			return sword.build();
+		}
+		if (Utils.isLeggings(is)) {
+			PSItem sword = new PSItem(is);
+			Material type = Material.LEATHER_LEGGINGS;
+			
+			int hp = 0;
+			String name = "";
+			boolean hasVit = false;
+			boolean hasHps = false;
+			
+			int hps_max = 0;
+			int vit_max = 0;
+			sword.setUnbreakable(true);
+			switch (tier) {
+			case 1:
+				type = Material.LEATHER_LEGGINGS;
+				switch (Utils.getItemRarity(is)) {
+				case COMMON:
+					hp = ir(11, 10);
+					break;
+				case UNCOMMON:
+					hp = ir(39, 21);
+					break;
+				case RARE:
+					hp = ir(50, 50);
+					break;
+				case UNIQUE:
+					hp = ir(51, 100);
+					break;
+				}
+				hps_max = (int) ir(11, 5);
+				vit_max = (int) ir(5, 1);
+				break;
+			case 2:
+				type = Material.CHAINMAIL_LEGGINGS;
+				switch (Utils.getItemRarity(is)) {
+				case COMMON:
+					hp = ir(40, 60);
+					break;
+				case UNCOMMON:
+					hp = ir(100, 100);
+					break;
+				case RARE:
+					hp = ir(100, 200);
+					break;
+				case UNIQUE:
+					hp = ir(101, 300);
+					break;
+				}
+				hps_max = (int) ir(11, 10);
+				vit_max = (int) ir(6, 5);
+				break;
+			case 3:
+				type = Material.IRON_LEGGINGS;
+				switch (Utils.getItemRarity(is)) {
+				case COMMON:
+					hp = ir(150, 200);
+					break;
+				case UNCOMMON:
+					hp = ir(150, 350);
+					break;
+				case RARE:
+					hp = ir(300, 500);
+					break;
+				case UNIQUE:
+					hp = ir(51, 800);
+					break;
+				}
+				hps_max = (int) ir(11, 40);
+				vit_max = (int) ir(41, 20);
+				break;
+			case 4:
+				type = Material.DIAMOND_LEGGINGS;
+				switch (Utils.getItemRarity(is)) {
+				case COMMON:
+					hp = ir(200, 600);
+					break;
+				case UNCOMMON:
+					hp = ir(700, 800);
+					break;
+				case RARE:
+					hp = ir(800, 1500);
+					break;
+				case UNIQUE:
+					hp = ir(201, 2300);
+					break;
+				}
+				hps_max = (int) ir(6, 60);
+				vit_max = (int) ir(91, 60);
+				break;
+
+			case 5:
+				type = Material.GOLD_LEGGINGS;
+				switch (Utils.getItemRarity(is)) {
+				case COMMON:
+					hp = ir(1000, 1500);
+					break;
+				case UNCOMMON:
+					hp = ir(1500, 2500);
+					break;
+				case RARE:
+					hp = ir(1500, 4000);
+					break;
+				case UNIQUE:
+					hp = ir(501, 5500);
+					break;
+				}
+				hps_max = (int) ir(21, 90);
+				vit_max = (int) ir(161, 150);
+				break;
+			}
+			int stat = Utils.ir(0, 2);
+			if (stat == 1) {
+				hasHps = true;
+			}
+			else if (stat == 2) {
+				hasVit = true;
+			} else {
+				hasVit = true;
+			}
+			if (hasVit) {
+				switch (tier) {
+				case 1:
+					name = "&fLeather Leggings of Fortitude";
+					break;
+				case 2:
+					name = "&aChainmail Leggings of Fortitude";
+					break;
+				case 3:
+					name = "&bPlatemail Leggings of Fortitude";
+					break;
+				case 4:
+					name = "&dAncient Full Leggings of Fortitude";
+					break;
+				case 5:
+					name = "&eLegendary Full Leggings of Fortitude";
+					break;
+				}
+				sword.addLore("&cVIT: +" + Utils.ir(0, vit_max));
+			}
+			if (hasHps) {
+				switch (tier) {
+				case 1:
+					name = "&fMending Leather Leggings";
+					break;
+				case 2:
+					name = "&aMending Chainmail Leggings";
+					break;
+				case 3:
+					name = "&bMending Full Leggings";
+					break;
+				case 4:
+					name = "&dMending Ancient Full Leggings";
+					break;
+				case 5:
+					name = "&eMending Legendary Full Leggings";
+					break;
+				}
+				sword.addLore("&cHP REGEN: +" + Utils.ir(0, hps_max) + " HP/s");
+			}
+			sword.setName(name);
+			sword.setRarity(Utils.getItemRarity(is));
+			return sword.build();
+		}
+		if (Utils.isChestplate(is)) {
+			PSItem sword = new PSItem(is);
+			Material type = Material.LEATHER_CHESTPLATE;
+			
+			int hp = 0;
+			String name = "";
+			boolean hasVit = false;
+			boolean hasHps = false;
+			
+			int hps_max = 0;
+			int vit_max = 0;
+			sword.setUnbreakable(true);
+			switch (tier) {
+			case 1:
+				type = Material.LEATHER_CHESTPLATE;
+				switch (Utils.getItemRarity(is)) {
+				case COMMON:
+					hp = ir(11, 10);
+					break;
+				case UNCOMMON:
+					hp = ir(39, 21);
+					break;
+				case RARE:
+					hp = ir(50, 50);
+					break;
+				case UNIQUE:
+					hp = ir(51, 100);
+					break;
+				}
+				hps_max = (int) ir(11, 5);
+				vit_max = (int) ir(5, 1);
+				break;
+			case 2:
+				type = Material.CHAINMAIL_CHESTPLATE;
+				switch (Utils.getItemRarity(is)) {
+				case COMMON:
+					hp = ir(40, 60);
+					break;
+				case UNCOMMON:
+					hp = ir(100, 100);
+					break;
+				case RARE:
+					hp = ir(100, 200);
+					break;
+				case UNIQUE:
+					hp = ir(101, 300);
+					break;
+				}
+				hps_max = (int) ir(11, 10);
+				vit_max = (int) ir(6, 5);
+				break;
+			case 3:
+				type = Material.IRON_CHESTPLATE;
+				switch (Utils.getItemRarity(is)) {
+				case COMMON:
+					hp = ir(150, 200);
+					break;
+				case UNCOMMON:
+					hp = ir(150, 350);
+					break;
+				case RARE:
+					hp = ir(300, 500);
+					break;
+				case UNIQUE:
+					hp = ir(51, 800);
+					break;
+				}
+				hps_max = (int) ir(11, 40);
+				vit_max = (int) ir(41, 20);
+				break;
+			case 4:
+				type = Material.DIAMOND_CHESTPLATE;
+				switch (Utils.getItemRarity(is)) {
+				case COMMON:
+					hp = ir(200, 600);
+					break;
+				case UNCOMMON:
+					hp = ir(700, 800);
+					break;
+				case RARE:
+					hp = ir(800, 1500);
+					break;
+				case UNIQUE:
+					hp = ir(201, 2300);
+					break;
+				}
+				hps_max = (int) ir(6, 60);
+				vit_max = (int) ir(91, 60);
+				break;
+
+			case 5:
+				type = Material.GOLD_CHESTPLATE;
+				switch (Utils.getItemRarity(is)) {
+				case COMMON:
+					hp = ir(1000, 1500);
+					break;
+				case UNCOMMON:
+					hp = ir(1500, 2500);
+					break;
+				case RARE:
+					hp = ir(1500, 4000);
+					break;
+				case UNIQUE:
+					hp = ir(501, 5500);
+					break;
+				}
+				hps_max = (int) ir(21, 90);
+				vit_max = (int) ir(161, 150);
+				break;
+			}
+			int stat = Utils.ir(0, 2);
+			if (stat == 1) {
+				hasHps = true;
+			}
+			else if (stat == 2) {
+				hasVit = true;
+			} else {
+				hasVit = true;
+			}
+			if (hasVit) {
+				switch (tier) {
+				case 1:
+					name = "&fLeather Chestplate of Fortitude";
+					break;
+				case 2:
+					name = "&aChainmail of Fortitude";
+					break;
+				case 3:
+					name = "&bPlatemail of Fortitude";
+					break;
+				case 4:
+					name = "&dAncient Full Platemail of Fortitude";
+					break;
+				case 5:
+					name = "&eLegendary Full Platemail of Fortitude";
+					break;
+				}
+				sword.addLore("&cVIT: +" + Utils.ir(0, vit_max));
+			}
+			if (hasHps) {
+				switch (tier) {
+				case 1:
+					name = "&fMending Leather Chestplate";
+					break;
+				case 2:
+					name = "&aMending Chainmail";
+					break;
+				case 3:
+					name = "&bMending Full Platemail";
+					break;
+				case 4:
+					name = "&dMending Ancient Full Platemail";
+					break;
+				case 5:
+					name = "&eMending Legendary Full Platemail";
+					break;
+				}
+				sword.addLore("&cHP REGEN: +" + Utils.ir(0, hps_max) + " HP/s");
+			}
 			sword.setName(name);
 			sword.setRarity(Utils.getItemRarity(is));
 			return sword.build();
@@ -856,11 +1180,11 @@ public class ItemGenerator {
 				}
 				sword.addLore("&cHP REGEN: +" + Utils.ir(0, hps_max) + " HP/s");
 			}
-			sword.setType(type);
 			sword.setName(name);
 			sword.setRarity(Utils.getItemRarity(is));
 			return sword.build();
 		}
+		return is;
 	}
 	
 	public static ItemStack generateHelmet(int tier, ItemRarity rarity) {
