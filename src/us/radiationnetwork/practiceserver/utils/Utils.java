@@ -8,6 +8,7 @@ import java.util.Random;
 
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
+import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
@@ -206,7 +207,27 @@ public class Utils {
 		if (name.contains(ChatColor.LIGHT_PURPLE.toString())) {
 			return 4;
 		}
-		if (name.contains(ChatColor.GOLD.toString())) {
+		if (name.contains(ChatColor.YELLOW.toString())) {
+			return 5;
+		}
+		return 0;
+	}
+	
+	public static int getTier(LivingEntity l) {
+		String name = l.getCustomName();
+		if (name.contains(ChatColor.WHITE.toString())) {
+			return 1;
+		}
+		if (name.contains(ChatColor.GREEN.toString())) {
+			return 2;
+		}
+		if (name.contains(ChatColor.AQUA.toString())) {
+			return 3;
+		}
+		if (name.contains(ChatColor.LIGHT_PURPLE.toString())) {
+			return 4;
+		}
+		if (name.contains(ChatColor.YELLOW.toString())) {
 			return 5;
 		}
 		return 0;

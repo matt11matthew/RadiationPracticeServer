@@ -1,6 +1,7 @@
 package us.radiationnetwork.practiceserver.player;
 
 import org.bukkit.Material;
+import org.bukkit.attribute.Attribute;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -25,6 +26,7 @@ public class PlayerListener implements Listener {
 		}
 		player.setHealthScale(20.0D);
 		player.setHealthScaled(true);
+		player.getAttribute(Attribute.GENERIC_ATTACK_SPEED).setBaseValue(30);
 		e.setJoinMessage(null);
 	}
 	

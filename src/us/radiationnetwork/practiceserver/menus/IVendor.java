@@ -152,13 +152,13 @@ public class IVendor implements Listener {
 			if (StatUtils.hasStat(cur, "Price")) {
 				double price = GemUtils.getPrice(cur);
 				Player p = (Player) e.getWhoClicked();
-				buy(p, removePrice(cur), price);
+				buy(p, cur, price);
 				
 			}
 		}
 	}
 
-	public ItemStack removePrice(ItemStack is) {
+	public void removePrice(ItemStack is) {
 		if (StatUtils.hasStat(is, "Price")) {
 			double price = GemUtils.getPrice(is);
 			ItemMeta im = is.getItemMeta();
@@ -166,9 +166,7 @@ public class IVendor implements Listener {
 			lore.remove(Utils.colorCodes("&aPrice: &f" + (int) price + "g"));
 			im.setLore(lore);
 			is.setItemMeta(im);
-			return is;
 		}
-		return is;
 	}
 	
 	
@@ -184,7 +182,11 @@ public class IVendor implements Listener {
 			} else {
 				p.sendMessage(Utils.colorCodes("&c-" + (int) i + "&lG"));
 				//p.playSound(p.getLocation(), Sound.ENTITY_EXPERIENCE_ORB_PICKUP, 1.0F, 1.0F);
-				p.getInventory().setItem(p.getInventory().firstEmpty(), item);
+				PSItem orb = new PSItem(item.getType());
+				orb.setLore(item.getItemMeta().getLore());
+				orb.setName(item.getItemMeta().getDisplayName());
+				orb.removeLore(orb.getLore().size() - 1);
+				p.getInventory().setItem(p.getInventory().firstEmpty(), orb.build());
 				return;
 			}
 		} else {

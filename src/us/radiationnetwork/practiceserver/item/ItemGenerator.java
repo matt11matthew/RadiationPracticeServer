@@ -196,9 +196,7 @@ public class ItemGenerator {
 			switch (rarity) {
 			case COMMON:
 				mindmg = ir(21, 130);
-				Bukkit.getServer().broadcastMessage(mindmg + "");
 				maxdmg = ir((199 - mindmg + 1), mindmg);
-				Bukkit.getServer().broadcastMessage(maxdmg + "");
 				break;
 			case UNCOMMON:
 				mindmg = ir(31, 130);

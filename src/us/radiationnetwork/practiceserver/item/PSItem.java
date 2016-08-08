@@ -293,4 +293,9 @@ public class PSItem {
 	public void setRarity(ItemRarity rarity) {
 		this.rarity = rarity;
 	}
+
+	public void removeLore(int size) {
+		item_lore.remove(size);
+		
+	}
 }

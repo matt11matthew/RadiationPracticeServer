@@ -1,5 +1,6 @@
 package us.radiationnetwork.practiceserver.npcs;
 
+import org.bukkit.ChatColor;
 import org.bukkit.entity.HumanEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -36,6 +37,12 @@ public class NPCHandler implements Listener {
 					break;
 				case "Banker":
 					p.sendMessage(Utils.colorCodes("&7Banker: &fUse these bank chests to store your precious items."));
+					break;
+				case "Beta Vendor":
+					p.sendMessage(Utils.colorCodes("&7Beta Vendor: &fWhere did you find me?"));
+					break;
+				default:
+					p.sendMessage(Utils.colorCodes("&7" + ChatColor.stripColor(npc.getName()) + ": &fCome back to me later!"));
 					break;
 				}
 			}

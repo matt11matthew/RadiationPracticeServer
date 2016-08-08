@@ -6,16 +6,19 @@ import org.bukkit.Effect;
 import org.bukkit.EntityEffect;
 import org.bukkit.Material;
 import org.bukkit.Sound;
+import org.bukkit.entity.Arrow;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
+import org.bukkit.event.entity.EntityTargetEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 
 import us.radiationnetwork.practiceserver.health.HealthHandler;
+import us.radiationnetwork.practiceserver.item.ItemGenerator;
 import us.radiationnetwork.practiceserver.storage.FileManager;
 import us.radiationnetwork.practiceserver.utils.RegionUtils;
 import us.radiationnetwork.practiceserver.utils.StatUtils;
@@ -123,7 +126,107 @@ public class DamageHandler implements Listener {
 	}
 
 	@EventHandler
+	public void onTarget(EntityTargetEvent e) {
+		if (!(e.getTarget() instanceof Player)) {
+			e.setCancelled(true);
+		}
+	}
+	
+	@EventHandler
 	public void onDMG(EntityDamageByEntityEvent e) {
+		if ((e.getEntity() instanceof Player) && ((e.getDamager() instanceof Arrow)) && (!(e.getDamager() instanceof Player))) {
+			Arrow a = (Arrow) e.getDamager();
+			if (!(a.getShooter() instanceof Player)) {
+				Player p = (Player) e.getEntity();
+				LivingEntity l = (LivingEntity) a.getShooter();
+				int tier = Utils.getTier(l);
+				e.setCancelled(true);
+				if ((RegionUtils.getZone(a.getLocation()) == Zone.SAFE) || (RegionUtils.getZone(p.getLocation()) == Zone.SAFE)) {
+					return;	
+				}
+				p.setVelocity(l.getLocation().getDirection().multiply(0.4));
+				p.playEffect(EntityEffect.HURT);
+				p.playSound(p.getLocation(), Sound.ENTITY_GENERIC_HURT, 1.0F, 1.0F);
+				double dmg = 0.0D;
+				switch (tier) {
+				case 1:
+					dmg = ItemGenerator.ir(15, 10);
+					break;
+				case 2:
+					dmg = ItemGenerator.ir(40, 20);
+					break;
+				case 3:
+					dmg = ItemGenerator.ir(70, 30);
+					break;
+				case 4:
+					dmg = ItemGenerator.ir(140, 80);
+					break;
+				case 5:
+					dmg = ItemGenerator.ir(220, 160);
+					break;
+				}
+				l.setNoDamageTicks(0);
+				
+				p.setNoDamageTicks(0);
+				if (dmg >= p.getHealth()) {
+					p.damage(p.getHealth());
+					if (FileManager.isDebug(p.getName())) {
+						p.sendMessage(Utils.colorCodes("&c            -" + (int) dmg + "&lHP &7[-0%A -> -0&lDMG&7] &a[0&lHP&a]"));
+					}
+					p.spigot().respawn();
+				} else {
+					p.setHealth((p.getHealth() - dmg));
+					if (FileManager.isDebug(p.getName())) {
+						p.sendMessage(Utils.colorCodes("&c            -" + (int) dmg + "&lHP &7[-0%A -> -0&lDMG&7] &a[" + (int) p.getHealth() + "&lHP&a]"));
+					}
+				}
+			}
+		}
+		if ((e.getEntity() instanceof Player) && (!(e.getDamager() instanceof Arrow)) && (!(e.getDamager() instanceof Player))) {
+			Player p = (Player) e.getEntity();
+			LivingEntity l = (LivingEntity) e.getDamager();
+			int tier = Utils.getTier(l);
+			e.setCancelled(true);
+			if ((RegionUtils.getZone(l.getLocation()) == Zone.SAFE) || (RegionUtils.getZone(p.getLocation()) == Zone.SAFE)) {
+				return;	
+			}
+			p.setVelocity(l.getLocation().getDirection().multiply(0.4));
+			p.playEffect(EntityEffect.HURT);
+			p.playSound(p.getLocation(), Sound.ENTITY_GENERIC_HURT, 1.0F, 1.0F);
+			double dmg = 0.0D;
+			switch (tier) {
+			case 1:
+				dmg = ItemGenerator.ir(8, 3);
+				break;
+			case 2:
+				dmg = ItemGenerator.ir(15, 7);
+				break;
+			case 3:
+				dmg = ItemGenerator.ir(30, 12);
+				break;
+			case 4:
+				dmg = ItemGenerator.ir(80, 60);
+				break;
+			case 5:
+				dmg = ItemGenerator.ir(120, 60);
+				break;
+			}
+			l.setNoDamageTicks(0);
+			
+			p.setNoDamageTicks(0);
+			if (dmg >= p.getHealth()) {
+				p.damage(p.getHealth());
+				if (FileManager.isDebug(p.getName())) {
+					p.sendMessage(Utils.colorCodes("&c            -" + (int) dmg + "&lHP &7[-0%A -> -0&lDMG&7] &a[0&lHP&a]"));
+				}
+				p.spigot().respawn();
+			} else {
+				p.setHealth((p.getHealth() - dmg));
+				if (FileManager.isDebug(p.getName())) {
+					p.sendMessage(Utils.colorCodes("&c            -" + (int) dmg + "&lHP &7[-0%A -> -0&lDMG&7] &a[" + (int) p.getHealth() + "&lHP&a]"));
+				}
+			}
+		}
 		if ((e.getDamager() instanceof Player) && (!(e.getEntity() instanceof Player))) {
 			Player p = (Player) e.getDamager();
 			LivingEntity l = (LivingEntity) e.getEntity();
@@ -132,6 +235,9 @@ public class DamageHandler implements Listener {
 			if (dmg == -1) {
 				return;
 			} else {
+				l.setNoDamageTicks(0);
+				p.setNoDamageTicks(0);
+				l.setVelocity(p.getLocation().getDirection().multiply(0.4));
 				l.playEffect(EntityEffect.HURT);
 				p.playSound(l.getLocation(), Sound.ENTITY_GENERIC_HURT, 1.0F, 1.0F);
 				if (dmg >= l.getHealth()) {
