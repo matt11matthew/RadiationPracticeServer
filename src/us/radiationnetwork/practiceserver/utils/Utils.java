@@ -69,6 +69,31 @@ public class Utils {
 		return returnVal;
 	}
 	
+	public static String getStringFromLore(ItemStack item, String value) {
+		String returnVal = "";
+		ItemMeta meta = item.getItemMeta();
+		try {
+			List<String> lore = meta.getLore();
+			if (lore != null) {
+				
+				for (int i = 0; i < lore.size(); i++) {
+					if (((String)lore.get(i)).contains(value)) {
+					
+							String vals = ((String)lore.get(i)).split(value)[1];
+							vals = ChatColor.stripColor(vals).trim();
+							vals = vals.replaceAll(" ", "");
+							returnVal = vals;
+					}
+				}
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return returnVal;
+	}
+
+	
+	
 	public static double getDPSFromLore(ItemStack item) {
 		double returnVal = 0.0D;
 		ItemMeta meta = item.getItemMeta();
