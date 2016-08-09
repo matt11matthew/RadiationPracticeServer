@@ -119,6 +119,15 @@ public class PSItem {
 			addLore("&7&oUntradable");
 		}
 		if (plus > 0) {
+			if (name.contains("]")) {
+				name = name.substring(name.indexOf("]") + 1, name.length());
+			}
+			if (name.startsWith(" ")) {
+				name = name.substring(1, name.length());
+				//setPlus(EnchantHandler.getPlus(name));
+				//setName(getName().split("] ")[1].trim());
+			}
+	
 			setName("&c[+" + plus + "] " + name);
 			if (plus >= 4) {
 				setGlow(true);

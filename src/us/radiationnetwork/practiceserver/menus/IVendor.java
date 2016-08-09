@@ -158,7 +158,7 @@ public class IVendor implements Listener {
 		}
 	}
 
-	public void removePrice(ItemStack is) {
+	public static void removePrice(ItemStack is) {
 		if (StatUtils.hasStat(is, "Price")) {
 			double price = GemUtils.getPrice(is);
 			ItemMeta im = is.getItemMeta();
