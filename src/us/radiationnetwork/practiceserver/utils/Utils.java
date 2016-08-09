@@ -173,11 +173,11 @@ public class Utils {
 		return returnVal;
 	}
 	
-	public boolean isArmor(ItemStack currentItem) {
+	public static boolean isArmor(ItemStack currentItem) {
 		return ((currentItem.getType().toString().contains("CHESTPLATE")) || (currentItem.getType().toString().contains("HELMET")) || (currentItem.getType().toString().contains("LEGGINGS")) || (currentItem.getType().toString().contains("BOOTS")));
 	}
 	
-	public boolean isWeapon(ItemStack currentItem) {
+	public static boolean isWeapon(ItemStack currentItem) {
 		return ((currentItem.getType().toString().contains("SWORD")) || (currentItem.getType().toString().contains("AXE")) || (currentItem.getType().toString().contains("BOW")));
 	}
 	

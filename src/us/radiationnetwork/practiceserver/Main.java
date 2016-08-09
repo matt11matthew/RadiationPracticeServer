@@ -14,6 +14,7 @@ import us.radiationnetwork.practiceserver.command.commands.CommandToggleDebug;
 import us.radiationnetwork.practiceserver.command.commands.CommandTogglePvP;
 import us.radiationnetwork.practiceserver.command.commands.CommandZone;
 import us.radiationnetwork.practiceserver.dmg.DamageHandler;
+import us.radiationnetwork.practiceserver.enchants.EnchantHandler;
 import us.radiationnetwork.practiceserver.enums.ItemRarity;
 import us.radiationnetwork.practiceserver.fish.SpeedFish;
 import us.radiationnetwork.practiceserver.health.HealthHandler;
@@ -67,6 +68,7 @@ public class Main extends JavaPlugin {
 		APIUtils.registerListener(new NPCHandler());
 		APIUtils.registerListener(new MobHandler());
 		APIUtils.registerListener(new DamageHandler());
+		APIUtils.registerListener(new EnchantHandler());
 	}
 
 	public static Main getInstance() {

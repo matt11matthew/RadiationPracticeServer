@@ -12,6 +12,7 @@ import org.bukkit.inventory.meta.SkullMeta;
 import org.bukkit.potion.Potion;
 import org.bukkit.potion.PotionType;
 
+import us.radiationnetwork.practiceserver.enchants.EnchantHandler;
 import us.radiationnetwork.practiceserver.enums.ItemRarity;
 import us.radiationnetwork.practiceserver.enums.ItemType;
 import us.radiationnetwork.practiceserver.utils.StatUtils;
@@ -57,6 +58,10 @@ public class PSItem {
 		}
 		if (Utils.getItemRarity(item) != null) {
 			setRarity(Utils.getItemRarity(item));
+		}
+		if (EnchantHandler.getPlus(item) > 0) {
+			setPlus(EnchantHandler.getPlus(item));
+			setName(name.split("]")[1].trim());
 		}
 	}
 
