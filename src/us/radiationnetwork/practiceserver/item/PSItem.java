@@ -13,6 +13,8 @@ import org.bukkit.potion.Potion;
 import org.bukkit.potion.PotionType;
 
 import us.radiationnetwork.practiceserver.enums.ItemRarity;
+import us.radiationnetwork.practiceserver.enums.ItemType;
+import us.radiationnetwork.practiceserver.utils.StatUtils;
 import us.radiationnetwork.practiceserver.utils.Utils;
 
 
@@ -34,6 +36,8 @@ public class PSItem {
 	private boolean skull = false;
 	private String skullOwner = "matt11matthew";
 	private ItemRarity rarity = null;
+	private int plus = 0;
+	
 	
 	public PSItem(Material material, int amount, short durability) {
 		setType(material);
@@ -70,12 +74,50 @@ public class PSItem {
 		setType(material);
 	}
 	
+	public void enchant(ItemType itemType, int times) {
+		int i = 0;
+		while (i < times) {
+			enchant(itemType);
+			i++;
+		}
+	}
+	
+	public void enchant(ItemType itemType) {
+		switch (itemType) {
+		case ARMOR:
+			int hp = (int) Utils.getStatFromLore(item_lore, "HP: +", "", "");
+			double new_hp = (hp * 1.05);
+			setLoreLine(2, "&CHP: +" + (int) new_hp);
+			setPlus((getPlus() + 1));
+			break;
+		case WEAPON:
+			if (StatUtils.hasStat(item_lore, "DMG")) {
+				String raw = Utils.getStringFromLore(item_lore, "DMG: ");
+				double min = Utils.convertStringToInteger(raw.split("-")[0].trim());
+				double max = Utils.convertStringToInteger(raw.split("-")[1].trim());
+				double new_min = (min * 1.05);
+				double new_max = (max * 1.05);
+				setLoreLine(1, "&cDMG: " + (int) new_min + " - " + (int) new_max);
+				setPlus((getPlus() + 1));
+				break;
+			}
+			break;
+		}
+		
+	}
+	
 	public ItemStack build() {
 		if (soulbound) {
 			addLore("&4Soulbound");
 		}
 		if (untradable) {
 			addLore("&7&oUntradable");
+		}
+		if (plus > 0) {
+			setName("&c[+" + plus + "] " + name);
+			if (plus >= 4) {
+				setGlow(true);
+			}
 		}
 		if (potion) {
 			Potion pot = new Potion(potionEffect, potionLevel, splash);
@@ -297,5 +339,13 @@ public class PSItem {
 	public void removeLore(int size) {
 		item_lore.remove(size);
 		
+	}
+
+	public int getPlus() {
+		return plus;
+	}
+
+	public void setPlus(int plus) {
+		this.plus = plus;
 	}
 }

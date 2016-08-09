@@ -23,4 +23,20 @@ public class StatUtils {
 		}
 		return has;
 	}
+	
+	public static boolean hasStat(List<String> lore, String stat) {
+		boolean has = false;
+		try {
+			if (lore != null) {
+				for (int i = 0; i < lore.size(); i++) {
+					if (((String)lore.get(i)).contains(stat)) {
+						has = true;
+					}
+				}
+			}
+		} catch (Exception e) {
+			has = false;
+		}
+		return has;
+	}
 }

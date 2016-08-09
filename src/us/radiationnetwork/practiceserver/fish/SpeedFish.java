@@ -115,6 +115,12 @@ public class SpeedFish implements Listener {
 		if ((action == Action.RIGHT_CLICK_AIR) || (action == Action.RIGHT_CLICK_BLOCK)) {
 			if ((p.getItemInHand() != null) && (p.getItemInHand().hasItemMeta()) && (p.getItemInHand().getType() == Material.COOKED_FISH)) {
 				String name = p.getItemInHand().getItemMeta().getDisplayName();
+				if (p.hasPotionEffect(PotionEffectType.SPEED)) return;
+				if (block.getType() == Material.FURNACE) return;
+				if (block.getType() == Material.BURNING_FURNACE) return;
+				if (block.getType() == Material.LAVA) return;
+				if (block.getType() == Material.STATIONARY_LAVA) return;
+				if (block.getType() == Material.FIRE) return;
 				if (name.equalsIgnoreCase(getFishCooked(1).getItemMeta().getDisplayName())) {
 					eat(p, 1);
 					removeFish(p);

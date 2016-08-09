@@ -39,6 +39,36 @@ public class Utils {
 		return i;
 	}
 	
+	public static double getStatFromLore(List<String> lore, String value, String value2, String plus) {
+		double returnVal = 0.0D;
+		try {
+			if (lore != null) {
+				
+				for (int i = 0; i < lore.size(); i++) {
+					if (((String)lore.get(i)).contains(value)) {
+						if (!value2.equals("")) {
+							String vals = ((String)lore.get(i)).split(value)[1].split(value2)[0];
+							vals = ChatColor.stripColor(vals).trim();
+							vals = vals.replaceAll(" ", "");
+							vals = vals.replaceAll(value2, "");
+							returnVal = Integer.parseInt(vals.trim());
+						} else {
+							String vals = ((String)lore.get(i)).split(value)[1];
+							vals = ChatColor.stripColor(vals).trim();
+							vals = vals.replaceAll(" ", "");
+							vals = vals.replaceAll(value2, "");
+							returnVal = Integer.parseInt(vals.trim());
+						}
+
+					}
+				}
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return returnVal;
+	}
+	
 	public static double getStatFromLore(ItemStack item, String value, String value2, String plus) {
 		double returnVal = 0.0D;
 		ItemMeta meta = item.getItemMeta();
@@ -76,6 +106,27 @@ public class Utils {
 		ItemMeta meta = item.getItemMeta();
 		try {
 			List<String> lore = meta.getLore();
+			if (lore != null) {
+				
+				for (int i = 0; i < lore.size(); i++) {
+					if (((String)lore.get(0)).contains(value)) {
+					
+							String vals = ((String)lore.get(0)).split(value)[1];
+							vals = ChatColor.stripColor(vals).trim();
+							vals = vals.replaceAll(" ", "");
+							returnVal = vals;
+					}
+				}
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return returnVal;
+	}
+	
+	public static String getStringFromLore(List<String> lore, String value) {
+		String returnVal = "";
+		try {
 			if (lore != null) {
 				
 				for (int i = 0; i < lore.size(); i++) {

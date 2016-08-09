@@ -3,10 +3,13 @@ package us.radiationnetwork.practiceserver.health;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
+import org.bukkit.event.entity.EntityRegainHealthEvent;
+import org.bukkit.event.entity.FoodLevelChangeEvent;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.scheduler.BukkitRunnable;
 
 import us.radiationnetwork.practiceserver.Main;
+import us.radiationnetwork.practiceserver.dmg.DamageHandler;
 import us.radiationnetwork.practiceserver.utils.StatUtils;
 import us.radiationnetwork.practiceserver.utils.Utils;
 
@@ -25,7 +28,20 @@ public class HealthHandler implements Listener {
 		}.runTaskLater(Main.getInstance(), 1L);
 	}
 	
+	@EventHandler
+	public void onHeal(EntityRegainHealthEvent e) {
+		e.setCancelled(true);
+	}
+	
+	@EventHandler
+	public void onFood(FoodLevelChangeEvent e) {
+		e.setCancelled(true);
+	}
+	
 	public static void hpRegen(Player player) {
+		if (DamageHandler.tagged.contains(player)) {
+			return;
+		}
 		double hps = 5.0D;
 		double add_hps = getHPS(player);
 		if (add_hps > 0.0D) {

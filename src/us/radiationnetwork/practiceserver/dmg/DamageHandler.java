@@ -1,5 +1,7 @@
 package us.radiationnetwork.practiceserver.dmg;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 import org.bukkit.Effect;
@@ -16,17 +18,20 @@ import org.bukkit.event.entity.EntityTargetEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
+import org.bukkit.scheduler.BukkitRunnable;
 
+import us.radiationnetwork.practiceserver.Main;
 import us.radiationnetwork.practiceserver.health.HealthHandler;
 import us.radiationnetwork.practiceserver.item.ItemGenerator;
 import us.radiationnetwork.practiceserver.storage.FileManager;
 import us.radiationnetwork.practiceserver.utils.RegionUtils;
 import us.radiationnetwork.practiceserver.utils.StatUtils;
-import us.radiationnetwork.practiceserver.utils.Unicodes;
 import us.radiationnetwork.practiceserver.utils.Utils;
 import us.radiationnetwork.practiceserver.zones.Zone;
 
 public class DamageHandler implements Listener {
+	
+	public static List<Player> tagged = new ArrayList<Player>();
 	
 	public double getFinalDMGMob(Player p, LivingEntity l) {
 		if ((RegionUtils.getZone(l.getLocation()) == Zone.SAFE) || (RegionUtils.getZone(p.getLocation()) == Zone.SAFE)) {
@@ -124,12 +129,34 @@ public class DamageHandler implements Listener {
 		}
 		return dmg;
 	}
+	
+	public double getRawDMG(List<String> lore) {
+		double dmg = 0.0D;
+		if (StatUtils.hasStat(lore, "DMG")) {
+			String raw = Utils.getStringFromLore(lore, "DMG: ");
+			int min = Utils.convertStringToInteger(raw.split("-")[0].trim());
+			int max = Utils.convertStringToInteger(raw.split("-")[1].trim());
+			dmg = Utils.ir(min, max);
+		} else {
+			dmg = 1.0D;
+		}
+		return dmg;
+	}
 
 	@EventHandler
 	public void onTarget(EntityTargetEvent e) {
 		if (!(e.getTarget() instanceof Player)) {
 			e.setCancelled(true);
 		}
+	}
+	
+	public void tag(Player p) {
+		tagged.add(p);
+		new BukkitRunnable() {
+			public void run() {
+				tagged.remove(p);
+			}
+		}.runTaskLater(Main.plugin, (20L * 10L));
 	}
 	
 	@EventHandler
@@ -168,6 +195,7 @@ public class DamageHandler implements Listener {
 				l.setNoDamageTicks(0);
 				
 				p.setNoDamageTicks(0);
+				tag(p);
 				if (dmg >= p.getHealth()) {
 					p.damage(p.getHealth());
 					if (FileManager.isDebug(p.getName())) {
@@ -214,6 +242,7 @@ public class DamageHandler implements Listener {
 			l.setNoDamageTicks(0);
 			
 			p.setNoDamageTicks(0);
+			tag(p);
 			if (dmg >= p.getHealth()) {
 				p.damage(p.getHealth());
 				if (FileManager.isDebug(p.getName())) {
@@ -237,6 +266,7 @@ public class DamageHandler implements Listener {
 			} else {
 				l.setNoDamageTicks(0);
 				p.setNoDamageTicks(0);
+				tag(p);
 				l.setVelocity(p.getLocation().getDirection().multiply(0.4));
 				l.playEffect(EntityEffect.HURT);
 				p.playSound(l.getLocation(), Sound.ENTITY_GENERIC_HURT, 1.0F, 1.0F);
@@ -244,13 +274,13 @@ public class DamageHandler implements Listener {
 					l.playEffect(EntityEffect.DEATH);
 					l.damage(l.getHealth());
 					if (FileManager.isDebug(p.getName()))  {
-						p.sendMessage(Utils.colorCodes("&c            " + (int) dmg + "&c&l DMG -" + Unicodes.DEBUG_ARROW.get() + " &r" + l.getCustomName() + " [0]"));
+						p.sendMessage(Utils.colorCodes("&c            " + (int) dmg + "&c&l DMG -> &r" + l.getCustomName() + " [0]"));
 					}
 				} else {
 					l.setHealth((l.getHealth() - dmg));
 					l.damage(0);
 					if (FileManager.isDebug(p.getName()))  {
-						p.sendMessage(Utils.colorCodes("&c            " + (int) dmg + "&c&l DMG -" + Unicodes.DEBUG_ARROW.get() + " &r" + l.getCustomName() + " [" + (int) l.getHealth() + "]"));
+						p.sendMessage(Utils.colorCodes("&c            " + (int) dmg + "&c&l DMG -> &r" + l.getCustomName() + " [" + (int) l.getHealth() + "]"));
 					}
 				}
 			}
