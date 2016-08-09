@@ -13,34 +13,51 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
 import us.radiationnetwork.practiceserver.enums.ItemType;
+import us.radiationnetwork.practiceserver.item.ItemGenerator;
 import us.radiationnetwork.practiceserver.item.PSItem;
 import us.radiationnetwork.practiceserver.menus.IVendor;
 import us.radiationnetwork.practiceserver.utils.Utils;
 
 public class EnchantHandler implements Listener {
 	
+	public static boolean isOrb(ItemStack is) {
+		ItemStack orb = IVendor.getWeaponEnchantPriced(0);
+		IVendor.removePrice(orb);
+		orb.setAmount(is.getAmount());
+		return (is.equals(orb)) ? true : false;
+	}
+	
 	public static boolean canEnchant(ItemStack scroll, ItemStack item) {
 		ItemStack t1scrollwep = IVendor.getWeaponEnchantPriced(1);
 		IVendor.removePrice(t1scrollwep);
+		t1scrollwep.setAmount(scroll.getAmount());
 		ItemStack t2scrollwep = IVendor.getWeaponEnchantPriced(2);
 		IVendor.removePrice(t2scrollwep);
+		t2scrollwep.setAmount(scroll.getAmount());
 		ItemStack t3scrollwep = IVendor.getWeaponEnchantPriced(3);
 		IVendor.removePrice(t3scrollwep);
+		t3scrollwep.setAmount(scroll.getAmount());
 		ItemStack t4scrollwep = IVendor.getWeaponEnchantPriced(4);
 		IVendor.removePrice(t4scrollwep);
+		t4scrollwep.setAmount(scroll.getAmount());
 		ItemStack t5scrollwep = IVendor.getWeaponEnchantPriced(5);
 		IVendor.removePrice(t5scrollwep);
-		
+		t5scrollwep.setAmount(scroll.getAmount());
 		ItemStack t1scrollarmor = IVendor.getArmorEnchantPriced(1);
 		IVendor.removePrice(t1scrollarmor);
+		t1scrollarmor.setAmount(scroll.getAmount());
 		ItemStack t2scrollarmor = IVendor.getArmorEnchantPriced(2);
 		IVendor.removePrice(t2scrollarmor);
+		t2scrollarmor.setAmount(scroll.getAmount());
 		ItemStack t3scrollarmor = IVendor.getArmorEnchantPriced(3);
 		IVendor.removePrice(t3scrollarmor);
+		t3scrollarmor.setAmount(scroll.getAmount());
 		ItemStack t4scrollarmor = IVendor.getArmorEnchantPriced(4);
 		IVendor.removePrice(t4scrollarmor);
+		t4scrollarmor.setAmount(scroll.getAmount());
 		ItemStack t5scrollarmor = IVendor.getArmorEnchantPriced(5);
 		IVendor.removePrice(t5scrollarmor);
+		t5scrollarmor.setAmount(scroll.getAmount());
 		
 		if (scroll.equals(t1scrollarmor)) {
 			if (Utils.isArmor(item)) {
@@ -103,6 +120,35 @@ public class EnchantHandler implements Listener {
 			}
 		}
 		return false;
+	}
+	
+	@EventHandler
+	public void onOrb(InventoryClickEvent e) {
+		if (e.getSlotType() == SlotType.OUTSIDE) return;
+		Player p = (Player) e.getWhoClicked();
+		if (e.getClickedInventory().equals(p.getInventory())) {
+			if ((e.getCurrentItem() != null) && (e.getCursor() != null)) {
+				ItemStack cur = e.getCurrentItem();
+				ItemStack cursor = e.getCursor();
+				if (isOrb(cursor)) {
+					if ((Utils.isArmor(cur)) || (Utils.isWeapon(cur))) {
+						ItemStack new_cur = ItemGenerator.rerollStats(Utils.getTier(cur), cur);
+						if (new_cur.equals(cur)) {
+							//fail
+						} else {
+							//fw
+	
+						}
+						if (cursor.getAmount() > 1) {
+							cursor.setAmount((cursor.getAmount() - 1));
+						} else {
+							e.setCursor(new ItemStack(Material.AIR));
+						}
+						e.setCurrentItem(new_cur);
+					}
+				}
+			}
+		}
 	}
 	
 	@EventHandler

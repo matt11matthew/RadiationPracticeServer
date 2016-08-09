@@ -9,6 +9,7 @@ import org.bukkit.event.player.PlayerInteractEntityEvent;
 
 import us.radiationnetwork.practiceserver.menus.FVendor;
 import us.radiationnetwork.practiceserver.menus.IVendor;
+import us.radiationnetwork.practiceserver.menus.PickaxeVendor;
 import us.radiationnetwork.practiceserver.utils.Utils;
 
 public class NPCHandler implements Listener {
@@ -33,7 +34,8 @@ public class NPCHandler implements Listener {
 					p.sendMessage(Utils.colorCodes("&7Fisherman: &fPlease store your gems in your bank before buying items from me."));
 					break;
 				case "Pickaxe Vendor":
-					p.sendMessage(Utils.colorCodes("&7Pickaxe Vendor: &fCome back to me later!"));
+					PickaxeVendor.open(p);
+					p.sendMessage(Utils.colorCodes("&7Pickaxe Vendor: &fPlease store your gems in your bank before buying items from me."));
 					break;
 				case "Banker":
 					p.sendMessage(Utils.colorCodes("&7Banker: &fUse these bank chests to store your precious items."));

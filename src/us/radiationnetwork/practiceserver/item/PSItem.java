@@ -38,6 +38,7 @@ public class PSItem {
 	private String skullOwner = "matt11matthew";
 	private ItemRarity rarity = null;
 	private int plus = 0;
+	private int price = 0;
 	
 	
 	public PSItem(Material material, int amount, short durability) {
@@ -118,16 +119,16 @@ public class PSItem {
 		if (untradable) {
 			addLore("&7&oUntradable");
 		}
+		if (price > 0) {
+			item_lore.add("&aPrice: &f" + price + "g");
+		}
 		if (plus > 0) {
 			if (name.contains("]")) {
 				name = name.substring(name.indexOf("]") + 1, name.length());
 			}
 			if (name.startsWith(" ")) {
 				name = name.substring(1, name.length());
-				//setPlus(EnchantHandler.getPlus(name));
-				//setName(getName().split("] ")[1].trim());
 			}
-	
 			setName("&c[+" + plus + "] " + name);
 			if (plus >= 4) {
 				setGlow(true);
@@ -214,12 +215,12 @@ public class PSItem {
 	}
 	
 	public void removeStats() {
-		if (item_lore.contains("DMG")) {
+		if (StatUtils.hasStat(item_lore, "DMG")) {
 			String dmg = item_lore.get(0);
 			item_lore.clear();
 			item_lore.add(dmg);
 		}
-		if (item_lore.contains("HP")) {
+		if (StatUtils.hasStat(item_lore, "HP")) {
 			String dps = item_lore.get(0);
 			String hp = item_lore.get(1);
 			item_lore.clear();
@@ -361,5 +362,13 @@ public class PSItem {
 
 	public void setPlus(int plus) {
 		this.plus = plus;
+	}
+
+	public int getPrice() {
+		return price;
+	}
+
+	public void setPrice(int price) {
+		this.price = price;
 	}
 }

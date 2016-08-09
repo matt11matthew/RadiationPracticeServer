@@ -11,10 +11,15 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDeathEvent;
 import org.bukkit.event.entity.EntitySpawnEvent;
+import org.bukkit.event.player.AsyncPlayerChatEvent;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 
+import com.avaje.ebeaninternal.server.lib.sql.PstmtCache;
+
+import us.radiationnetwork.practiceserver.enchants.EnchantHandler;
 import us.radiationnetwork.practiceserver.enums.ItemRarity;
 import us.radiationnetwork.practiceserver.item.ItemGenerator;
 import us.radiationnetwork.practiceserver.item.PSItem;
@@ -36,6 +41,8 @@ public class MobHandler implements Listener {
 		  }
 		return ItemRarity.UNIQUE;
 	  }
+	  
+	  
 	  
 	@EventHandler
 	public void onDeath(EntityDeathEvent e) {
@@ -205,6 +212,24 @@ public class MobHandler implements Listener {
 				
 			}
 		}
+	}
+	
+	
+	@EventHandler
+	public void onChat(AsyncPlayerChatEvent e) {
+		Player p = e.getPlayer();
+		ItemStack wep = p.getItemInHand();
+		PSItem sword = new PSItem(wep.getType());
+		ItemMeta im = wep.getItemMeta();
+		sword.setPlus(EnchantHandler.getPlus(wep));
+		if (im.hasDisplayName()) {
+			sword.setName(im.getDisplayName());
+		}
+		if (im.hasLore()) {
+			sword.setLore(im.getLore());
+		}
+		sword.setRarity(Utils.getItemRarity(wep));
+		p.setItemInHand(ItemGenerator.rerollStats(5, wep));
 	}
 	
 	@EventHandler
