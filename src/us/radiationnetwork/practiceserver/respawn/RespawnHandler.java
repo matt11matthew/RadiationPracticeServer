@@ -3,7 +3,8 @@ package us.radiationnetwork.practiceserver.respawn;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.bukkit.Material;
+import javax.print.attribute.standard.PDLOverrideSupported;
+
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -12,6 +13,8 @@ import org.bukkit.inventory.ItemStack;
 
 import us.radiationnetwork.practiceserver.enums.Alignment;
 import us.radiationnetwork.practiceserver.storage.FileManager;
+import us.radiationnetwork.practiceserver.utils.StatUtils;
+import us.radiationnetwork.practiceserver.utils.Utils;
 
 public class RespawnHandler implements Listener {
 	
@@ -20,14 +23,20 @@ public class RespawnHandler implements Listener {
 		Player p = e.getEntity();
 		e.setKeepInventory(true);
 		e.setKeepLevel(true);
-		List<ItemStack> drops = new ArrayList<ItemStack>();
 		Alignment alignment = FileManager.getAlignment(p.getName());
-		drops.addAll(getDrops(p, alignment));
-		for (ItemStack drop : drops) {
-			p.getInventory().removeItem(drop);
-			p.getWorld().dropItemNaturally(p.getLocation(), drop);
+		try {
+			if (getDrops(p, alignment).isEmpty()) {
+				p.spigot().respawn();
+				return;
+			}
+			for (ItemStack drop : getDrops(p, alignment)) {
+				p.getInventory().removeItem(drop);
+				p.getWorld().dropItemNaturally(p.getLocation(), drop);
+			}
+			p.spigot().respawn();
+		} catch (Exception ee) {
+			ee.printStackTrace();
 		}
-		p.spigot().respawn();
 	}
 
 	public List<ItemStack> getDrops(Player p, Alignment alignment) {
@@ -36,23 +45,32 @@ public class RespawnHandler implements Listener {
 		case CHAOTIC:
 			for (int i = 0; i < p.getInventory().getContents().length; i++) {
 				ItemStack item = p.getInventory().getItem(i);
-				if (item.getType() == Material.AIR) continue;
+				if (item == null) continue;
 				drops.add(item);
 			}
 			break;
 		case LAWFUL:
-			for (int i = 0; i < p.getInventory().getContents().length; i++) {
+			for (int i = 0; i < p.getInventory().getSize(); i++) {
 				ItemStack item = p.getInventory().getItem(i);
-				if (item.getType() == Material.AIR) continue;
+				if (item == null) continue;
 				drops.add(item);
 				if (p.getEquipment().getHelmet() != null) {
 					drops.remove(p.getEquipment().getHelmet());
+				}
+				if (Utils.isPickaxe(p.getInventory().getItem(i))) {
+					drops.remove(p.getInventory().getItem(i));
 				}
 				if (p.getEquipment().getChestplate() != null) {
 					drops.remove(p.getEquipment().getChestplate());
 				}
 				if (p.getEquipment().getLeggings() != null) {
 					drops.remove(p.getEquipment().getLeggings());
+				}
+				if (StatUtils.hasStat(p.getInventory().getItem(i), "Untradable")) {
+					drops.remove(p.getInventory().getItem(i));
+				}
+				if (StatUtils.hasStat(p.getInventory().getItem(i), "Soulbound")) {
+					drops.remove(p.getInventory().getItem(i));
 				}
 				if (p.getEquipment().getBoots() != null) {
 					drops.remove(p.getEquipment().getBoots());
@@ -65,13 +83,22 @@ public class RespawnHandler implements Listener {
 		case NEUTRAL:
 			for (int i = 0; i < p.getInventory().getContents().length; i++) {
 				ItemStack item = p.getInventory().getItem(i);
-				if (item.getType() == Material.AIR) continue;
+				if (item == null) continue;
 				drops.add(item);
 				if (p.getEquipment().getHelmet() != null) {
 					drops.remove(p.getEquipment().getHelmet());
 				}
 				if (p.getEquipment().getChestplate() != null) {
 					drops.remove(p.getEquipment().getChestplate());
+				}
+				if (Utils.isPickaxe(p.getInventory().getItem(i))) {
+					drops.remove(p.getInventory().getItem(i));
+				}
+				if (StatUtils.hasStat(p.getInventory().getItem(i), "Untradable")) {
+					drops.remove(p.getInventory().getItem(i));
+				}
+				if (StatUtils.hasStat(p.getInventory().getItem(i), "Soulbound")) {
+					drops.remove(p.getInventory().getItem(i));
 				}
 				if (p.getEquipment().getLeggings() != null) {
 					drops.remove(p.getEquipment().getLeggings());

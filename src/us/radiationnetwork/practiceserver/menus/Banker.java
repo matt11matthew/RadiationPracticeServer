@@ -43,7 +43,7 @@ public class Banker implements Listener {
 			if (e.getInventory().contains(Material.EMERALD)) {
 				for (int i = 0; i < e.getInventory().getSize(); i++) {
 					if (e.getInventory().getItem(i) != null) {
-						if ((e.getInventory().getItem(i) != null) && (i != GEM_SLOT)) {
+						if ((e.getInventory().getItem(i) != null) && (i != GEM_SLOT) && (e.getInventory().getItem(i).getType() == Material.EMERALD)) {
 							int amt = e.getInventory().getItem(i).getAmount();
 							Player p = (Player) e.getWhoClicked();
 							e.getInventory().removeItem(e.getInventory().getItem(i));
@@ -51,6 +51,7 @@ public class Banker implements Listener {
 							p.playSound(p.getLocation(), Sound.ENTITY_EXPERIENCE_ORB_PICKUP, 1.0F, 1.0F);
 							e.getInventory().setItem(GEM_SLOT, getBankGem(p));
 							p.sendMessage(Utils.colorCodes("&a&l+&a" + amt + "&lG&a, &lNew Balance: &a" + FileManager.getGems(p.getName()) + " Gem(s)"));
+							p.updateInventory();
 						}
 					}
 				}
