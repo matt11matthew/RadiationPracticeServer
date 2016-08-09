@@ -38,6 +38,7 @@ public class NPCHandler implements Listener {
 					p.sendMessage(Utils.colorCodes("&7Pickaxe Vendor: &fPlease store your gems in your bank before buying items from me."));
 					break;
 				case "Banker":
+					p.openInventory(p.getEnderChest());
 					p.sendMessage(Utils.colorCodes("&7Banker: &fUse these bank chests to store your precious items."));
 					break;
 				case "Beta Vendor":

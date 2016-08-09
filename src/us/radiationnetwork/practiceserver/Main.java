@@ -15,6 +15,7 @@ import us.radiationnetwork.practiceserver.dmg.DamageHandler;
 import us.radiationnetwork.practiceserver.enchants.EnchantHandler;
 import us.radiationnetwork.practiceserver.fish.SpeedFish;
 import us.radiationnetwork.practiceserver.health.HealthHandler;
+import us.radiationnetwork.practiceserver.menus.Banker;
 import us.radiationnetwork.practiceserver.menus.FVendor;
 import us.radiationnetwork.practiceserver.menus.IVendor;
 import us.radiationnetwork.practiceserver.menus.PickaxeVendor;
@@ -69,6 +70,7 @@ public class Main extends JavaPlugin {
 		APIUtils.registerListener(new EnchantHandler());
 		APIUtils.registerListener(new RespawnHandler());
 		APIUtils.registerListener(new PickaxeVendor());
+		APIUtils.registerListener(new Banker());
 	}
 
 	public static Main getInstance() {
