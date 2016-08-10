@@ -116,30 +116,37 @@ public class SpeedFish implements Listener {
 			if ((p.getItemInHand() != null) && (p.getItemInHand().hasItemMeta()) && (p.getItemInHand().getType() == Material.COOKED_FISH)) {
 				String name = p.getItemInHand().getItemMeta().getDisplayName();
 				if (p.hasPotionEffect(PotionEffectType.SPEED)) return;
-				if (block.getType() == Material.FURNACE) return;
-				if (block.getType() == Material.BURNING_FURNACE) return;
-				if (block.getType() == Material.LAVA) return;
-				if (block.getType() == Material.STATIONARY_LAVA) return;
-				if (block.getType() == Material.FIRE) return;
+				if ((block != null) && (block.getType() != Material.AIR)) {
+					if (block.getType() == Material.FURNACE) return;
+					if (block.getType() == Material.BURNING_FURNACE) return;
+					if (block.getType() == Material.LAVA) return;
+					if (block.getType() == Material.STATIONARY_LAVA) return;
+					if (block.getType() == Material.FIRE) return;
+				}
 				if (name.equalsIgnoreCase(getFishCooked(1).getItemMeta().getDisplayName())) {
 					eat(p, 1);
-					removeFish(p);
+					e.setCancelled(true);
+					return;
 				}
 				if (name.equalsIgnoreCase(getFishCooked(2).getItemMeta().getDisplayName())) {
 					eat(p, 2);
-					removeFish(p);
+					e.setCancelled(true);
+					return;
 				}
 				if (name.equalsIgnoreCase(getFishCooked(3).getItemMeta().getDisplayName())) {
 					eat(p, 3);
-					removeFish(p);
+					e.setCancelled(true);
+					return;
 				}
 				if (name.equalsIgnoreCase(getFishCooked(4).getItemMeta().getDisplayName())) {
 					eat(p, 4);
-					removeFish(p);
+					e.setCancelled(true);
+					return;
 				}
 				if (name.equalsIgnoreCase(getFishCooked(5).getItemMeta().getDisplayName())) {
 					eat(p, 5);
-					removeFish(p);
+					e.setCancelled(true);
+					return;
 				}
 			} else if ((p.getItemInHand() != null) && (p.getItemInHand().hasItemMeta()) && (p.getItemInHand().getType() == Material.RAW_FISH)) {
 				if ((block != null) && (block.getType() != Material.AIR)) {
@@ -175,15 +182,21 @@ public class SpeedFish implements Listener {
 		switch (i) {
 		case 1:
 			p.addPotionEffect(new PotionEffect(PotionEffectType.SPEED, (20 * 15), 0));
+			break;
 		case 2:
 			p.addPotionEffect(new PotionEffect(PotionEffectType.SPEED, (20 * 30), 0));
+			break;
 		case 3:
 			p.addPotionEffect(new PotionEffect(PotionEffectType.SPEED, (20 * 60), 1));
+			break;
 		case 4:
 			p.addPotionEffect(new PotionEffect(PotionEffectType.SPEED, (20 * 15), 2));
+			break;
 		case 5:
 			p.addPotionEffect(new PotionEffect(PotionEffectType.SPEED, (20 * 30), 2));
+			break;
 		}
+		removeFish(p);
 		p.playSound(p.getLocation(), Sound.ENTITY_GENERIC_EAT, 1.0F, 1.0F);
 	}
 

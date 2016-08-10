@@ -19,6 +19,7 @@ import us.radiationnetwork.practiceserver.menus.Banker;
 import us.radiationnetwork.practiceserver.menus.FVendor;
 import us.radiationnetwork.practiceserver.menus.IVendor;
 import us.radiationnetwork.practiceserver.menus.PickaxeVendor;
+import us.radiationnetwork.practiceserver.mining.MiningHandler;
 import us.radiationnetwork.practiceserver.mobs.MobHandler;
 import us.radiationnetwork.practiceserver.npcs.NPCHandler;
 import us.radiationnetwork.practiceserver.player.PlayerListener;
@@ -38,11 +39,13 @@ public class Main extends JavaPlugin {
 		task();
 		BossBarUtils.setHPAboveHead();
 		hpRegenTask();
+		MiningHandler.respawnOreTask();
 		
 	}
 	
 	public void onDisable() {
 		removeBossBar();
+		MiningHandler.reboot();
 	}
 
 	private void registerCommands() {
@@ -71,6 +74,7 @@ public class Main extends JavaPlugin {
 		APIUtils.registerListener(new RespawnHandler());
 		APIUtils.registerListener(new PickaxeVendor());
 		APIUtils.registerListener(new Banker());
+		APIUtils.registerListener(new MiningHandler());
 	}
 
 	public static Main getInstance() {

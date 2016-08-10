@@ -3,8 +3,6 @@ package us.radiationnetwork.practiceserver.respawn;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.print.attribute.standard.PDLOverrideSupported;
-
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -50,7 +48,7 @@ public class RespawnHandler implements Listener {
 			}
 			break;
 		case LAWFUL:
-			for (int i = 0; i < p.getInventory().getSize(); i++) {
+			for (int i = 0; i < p.getInventory().getContents().length; i++) {
 				ItemStack item = p.getInventory().getItem(i);
 				if (item == null) continue;
 				drops.add(item);
@@ -58,7 +56,13 @@ public class RespawnHandler implements Listener {
 					drops.remove(p.getEquipment().getHelmet());
 				}
 				if (Utils.isPickaxe(p.getInventory().getItem(i))) {
-					drops.remove(p.getInventory().getItem(i));
+					for (int ii = 1; i < p.getInventory().getSize(); ii++) {
+						if (p.getInventory().getItem(ii) != null) {
+							if (Utils.isPickaxe(p.getInventory().getItem(ii))) {
+								drops.remove(p.getInventory().getItem(ii));
+							}
+						}
+					}
 				}
 				if (p.getEquipment().getChestplate() != null) {
 					drops.remove(p.getEquipment().getChestplate());
@@ -67,16 +71,29 @@ public class RespawnHandler implements Listener {
 					drops.remove(p.getEquipment().getLeggings());
 				}
 				if (StatUtils.hasStat(p.getInventory().getItem(i), "Untradable")) {
-					drops.remove(p.getInventory().getItem(i));
+					for (int ii = 1; i < p.getInventory().getSize(); ii++) {
+						if (p.getInventory().getItem(ii) != null) {
+							if (StatUtils.hasStat(p.getInventory().getItem(ii), "Untradable")) {
+								drops.remove(p.getInventory().getItem(ii));
+							}
+						}
+					}
 				}
 				if (StatUtils.hasStat(p.getInventory().getItem(i), "Soulbound")) {
-					drops.remove(p.getInventory().getItem(i));
+					for (int ii = 1; i < p.getInventory().getSize(); ii++) {
+						if (p.getInventory().getItem(ii) != null) {
+							if (StatUtils.hasStat(p.getInventory().getItem(ii), "Soulbound")) {
+								drops.remove(p.getInventory().getItem(ii));
+							}
+						}
+					}
 				}
 				if (p.getEquipment().getBoots() != null) {
 					drops.remove(p.getEquipment().getBoots());
 				}
 				if (p.getInventory().getItem(0) != null) {
 					drops.remove(p.getInventory().getItem(0));
+					
 				}
 			}
 			break;
@@ -92,13 +109,31 @@ public class RespawnHandler implements Listener {
 					drops.remove(p.getEquipment().getChestplate());
 				}
 				if (Utils.isPickaxe(p.getInventory().getItem(i))) {
-					drops.remove(p.getInventory().getItem(i));
+					for (int ii = 1; i < p.getInventory().getSize(); ii++) {
+						if (p.getInventory().getItem(ii) != null) {
+							if (Utils.isPickaxe(p.getInventory().getItem(ii))) {
+								drops.remove(p.getInventory().getItem(ii));
+							}
+						}
+					}
 				}
 				if (StatUtils.hasStat(p.getInventory().getItem(i), "Untradable")) {
-					drops.remove(p.getInventory().getItem(i));
+					for (int ii = 1; i < p.getInventory().getSize(); ii++) {
+						if (p.getInventory().getItem(ii) != null) {
+							if (StatUtils.hasStat(p.getInventory().getItem(ii), "Untradable")) {
+								drops.remove(p.getInventory().getItem(ii));
+							}
+						}
+					}
 				}
 				if (StatUtils.hasStat(p.getInventory().getItem(i), "Soulbound")) {
-					drops.remove(p.getInventory().getItem(i));
+					for (int ii = 1; i < p.getInventory().getSize(); ii++) {
+						if (p.getInventory().getItem(ii) != null) {
+							if (StatUtils.hasStat(p.getInventory().getItem(ii), "Soulbound")) {
+								drops.remove(p.getInventory().getItem(ii));
+							}
+						}
+					}
 				}
 				if (p.getEquipment().getLeggings() != null) {
 					drops.remove(p.getEquipment().getLeggings());

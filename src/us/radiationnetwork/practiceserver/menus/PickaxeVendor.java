@@ -88,6 +88,7 @@ public class PickaxeVendor implements Listener {
 				orb.setLore(item.getItemMeta().getLore());
 				orb.setName(item.getItemMeta().getDisplayName());
 				orb.removeLore(orb.getLore().size() - 1);
+				orb.setUnbreakable(true);
 				p.getInventory().setItem(p.getInventory().firstEmpty(), orb.build());
 				return;
 			}
