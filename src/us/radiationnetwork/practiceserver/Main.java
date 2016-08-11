@@ -19,6 +19,7 @@ import us.radiationnetwork.practiceserver.command.commands.CommandTogglePvP;
 import us.radiationnetwork.practiceserver.command.commands.CommandZone;
 import us.radiationnetwork.practiceserver.dmg.DamageHandler;
 import us.radiationnetwork.practiceserver.enchants.EnchantHandler;
+import us.radiationnetwork.practiceserver.enums.Alignment;
 import us.radiationnetwork.practiceserver.fish.SpeedFish;
 import us.radiationnetwork.practiceserver.health.HealthHandler;
 import us.radiationnetwork.practiceserver.menus.Banker;
@@ -55,7 +56,7 @@ public class Main extends JavaPlugin {
 		mobTask();
 		bcTask();
 		offHandFix();
-		
+		alignmentTimeTask();
 	}
 	
 	public void onDisable() {
@@ -170,6 +171,44 @@ public class Main extends JavaPlugin {
 				}
 			}
 		}, 5L, 5L);
+	}
+	
+	public void alignmentTimeTask() {
+		Bukkit.getScheduler().scheduleSyncRepeatingTask(this, new Runnable() {
+			public void run() {
+				
+				for (Player pl : Bukkit.getServer().getOnlinePlayers()) {
+					switch (FileManager.getAlignment(pl.getName())) {
+					case LAWFUL:
+						break;
+					case NEUTRAL:
+						int time = FileManager.getAlignmentTime(pl.getName());
+						if (time > 0) {
+							time--;
+							FileManager.setAlignmentTime(pl.getName(), time);
+							break;
+						} else {
+							FileManager.setAlignmentTime(pl.getName(), 0);
+							new DamageHandler().setAlignment(pl, Alignment.LAWFUL);
+							break;
+						}
+					case CHAOTIC:
+						int chaoticTime = FileManager.getAlignmentTime(pl.getName());
+						if (chaoticTime > 0) {
+							chaoticTime--;
+							FileManager.setAlignmentTime(pl.getName(), chaoticTime);
+							break;
+						} else {
+							FileManager.setAlignmentTime(pl.getName(), 60);
+							new DamageHandler().setAlignment(pl, Alignment.NEUTRAL);
+							break;
+						}
+					default:
+						break;
+					}
+				}
+			}
+		}, 20L, 20L);
 	}
 	
 	public void combatTimeTask() {

@@ -1,6 +1,7 @@
 package us.radiationnetwork.practiceserver.dmg;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Random;
 
@@ -35,13 +36,23 @@ public class DamageHandler implements Listener {
 	
 	public static List<Player> tagged = new ArrayList<Player>();
 	public static List<Player> nodmg = new ArrayList<Player>();
-	
+	public static HashMap<Player, Integer> flags = new HashMap<Player, Integer>();
 	
 	public double getFinalDMGMob(Player p, LivingEntity l) {
 		if ((RegionUtils.getZone(l.getLocation()) == Zone.SAFE) || (RegionUtils.getZone(p.getLocation()) == Zone.SAFE)) {
 			return -1;	
 		}
 		if (nodmg.contains(p)) {
+			if (!flags.containsKey(p)) {
+				flags.put(p, 1);
+			} else {
+				int time = flags.get(p);
+				time++;
+				flags.put(p, time);
+				if (flags.get(p) >= 20) {
+					flag(p);
+				}
+			}
 			return -1;
 		}
 		ItemStack wep = p.getEquipment().getItemInMainHand();
@@ -124,8 +135,28 @@ public class DamageHandler implements Listener {
 		return dmg;
 	}
 	
+	public void flag(Player p) {
+		for (Player pl : Bukkit.getServer().getOnlinePlayers()) {
+			int lvl = flags.get(p);
+			if ((lvl == 20) || (lvl == 100) || (lvl == 200) || (lvl == 500) || (lvl == 1000)) {
+				pl.sendMessage(Utils.colorCodes("&c[NoCheat] &a" + p.getName() + " AutoClicker &c&l(" + flags.get(p) + "LVL)"));
+			}
+		}
+		return;
+	}
+	
 	public double getFinalDMGPlayer(Player p, LivingEntity l) {
 		if (nodmg.contains(p)) {
+			if (!flags.containsKey(p)) {
+				flags.put(p, 1);
+			} else {
+				int time = flags.get(p);
+				time++;
+				flags.put(p, time);
+				if (flags.get(p) >= 20) {
+					flag(p);
+				}
+			}
 			return -1;
 		}
 		if ((RegionUtils.getZone(l.getLocation()) == Zone.SAFE) || (RegionUtils.getZone(p.getLocation()) == Zone.SAFE)) {
@@ -266,7 +297,7 @@ public class DamageHandler implements Listener {
 			public void run() {
 				nodmg.remove(p);
 			}
-		}.runTaskLater(Main.getInstance(), 5L);
+		}.runTaskLater(Main.getInstance(), 2L);
 	}
 	
 	@EventHandler
@@ -556,11 +587,6 @@ public class DamageHandler implements Listener {
 				}
 				break;
 			case NEUTRAL:
-				if (death) {
-					setAlignmentTime(p, 60);
-					break;	
-				}
-				setAlignmentTime(p, 60);
 				break;
 			}
 		case LAWFUL:
@@ -574,14 +600,14 @@ public class DamageHandler implements Listener {
 					setAlignment(p, Alignment.CHAOTIC);
 					setAlignmentTime(p, (getTime(p) + 300));
 					break;
-				}
-				break;
-			case NEUTRAL:
-				if (death) {
+				} else {
 					setAlignment(p, Alignment.NEUTRAL);
 					setAlignmentTime(p, 60);
 					break;
 				}
+			case NEUTRAL:
+				setAlignment(p, Alignment.NEUTRAL);
+				setAlignmentTime(p, 60);
 				break;
 			
 			}
@@ -597,14 +623,14 @@ public class DamageHandler implements Listener {
 					setAlignment(p, Alignment.CHAOTIC);
 					setAlignmentTime(p, (getTime(p) + 300));
 					break;
-				}
-				break;
-			case NEUTRAL:
-				if (death) {
+				} else {
 					setAlignment(p, Alignment.NEUTRAL);
 					setAlignmentTime(p, 60);
 					break;
 				}
+			case NEUTRAL:
+				setAlignment(p, Alignment.NEUTRAL);
+				setAlignmentTime(p, 60);
 				break;
 			}
 			break;

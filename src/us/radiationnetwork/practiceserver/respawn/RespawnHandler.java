@@ -3,6 +3,7 @@ package us.radiationnetwork.practiceserver.respawn;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -46,6 +47,22 @@ public class RespawnHandler implements Listener {
 			for (int i = 0; i < p.getInventory().getContents().length; i++) {
 				ItemStack item = p.getInventory().getItem(i);
 				if (item == null) continue;
+				if (p.getEquipment().getHelmet() != null) {
+					drops.add(p.getEquipment().getHelmet());
+					p.getEquipment().setHelmet(new ItemStack(Material.AIR));
+				}
+				if (p.getEquipment().getChestplate() != null) {
+					drops.add(p.getEquipment().getChestplate());
+					p.getEquipment().setChestplate(new ItemStack(Material.AIR));
+				}
+				if (p.getEquipment().getLeggings() != null) {
+					drops.add(p.getEquipment().getLeggings());
+					p.getEquipment().setLeggings(new ItemStack(Material.AIR));
+				}
+				if (p.getEquipment().getBoots() != null) {
+					drops.add(p.getEquipment().getBoots());
+					p.getEquipment().setBoots(new ItemStack(Material.AIR));
+				}
 				drops.add(item);
 			}
 			break;
