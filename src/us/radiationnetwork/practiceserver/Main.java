@@ -57,6 +57,9 @@ public class Main extends JavaPlugin {
 		bcTask();
 		offHandFix();
 		alignmentTimeTask();
+		LootBuffHandler.enable();
+		LootBuffHandler.checkLootbuffs();
+		checkLootbuffTask();
 	}
 	
 	public void onDisable() {
@@ -228,5 +231,30 @@ public class Main extends JavaPlugin {
 				}
 			}
 		}, 20L, 20L);
+	}
+	
+	public void checkLootbuffTask() {
+		Bukkit.getScheduler().scheduleSyncRepeatingTask(this, new Runnable() {
+			public void run() {
+				LootBuffHandler.checkLootbuffs();
+			}
+		}, 1200L, 1200L);
+	}
+
+	public void logError(StackTraceElement[] stackTrace, String message, Throwable cause) {
+		System.out.println("====================================");
+		System.out.println("An error has happened");
+		System.out.println("Message: ");
+		System.out.println(message);
+		System.out.println("");
+		System.out.println("");
+		System.out.println("Cause: ");
+		System.out.println(cause);
+		System.out.println("");
+		System.out.println("");
+		System.out.println("StackTrace: ");
+		System.out.println(stackTrace);
+		System.out.println("");
+		System.out.println("====================================");
 	}
 }

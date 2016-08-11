@@ -1,11 +1,13 @@
 package us.radiationnetwork.practiceserver.player;
 
 import org.bukkit.Material;
+import org.bukkit.Sound;
 import org.bukkit.attribute.Attribute;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
+import org.bukkit.event.player.PlayerPickupItemEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 
 import us.radiationnetwork.practiceserver.item.PSItem;
@@ -36,6 +38,16 @@ public class PlayerListener implements Listener {
 	@EventHandler
 	public void onQuit(PlayerQuitEvent e) {
 		e.setQuitMessage(null);
+	}
+	
+	@EventHandler
+	public void onPickup(PlayerPickupItemEvent e) {
+		Player player = e.getPlayer();
+		if (e.getItem().getItemStack().getType() == Material.EMERALD) {
+			int amount = e.getItem().getItemStack().getAmount();
+			player.sendMessage(Utils.colorCodes("&a&l            +&a" + amount + "&lG"));
+			player.playSound(player.getLocation(), Sound.ENTITY_EXPERIENCE_ORB_PICKUP, 1.0F, 1.0F);
+		}
 	}
 
 	public void kit(Player player) {

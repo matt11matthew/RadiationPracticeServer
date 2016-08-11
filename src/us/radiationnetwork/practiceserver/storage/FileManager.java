@@ -41,6 +41,10 @@ public class FileManager {
 		return loadFile("uuids", Main.getInstance().getDataFolder() + File.separator);
 	}
 	
+	public static FileConfiguration getLootbuffs() {
+		return loadFile("Lootbuffs", Main.getInstance().getDataFolder() + File.separator);
+	}
+	
 	public static String getUUID(String name) {
 		return (getUUIDCatching().isConfigurationSection(name)) ? getUUIDCatching().getString(name + ".uuid") : null;
 	}
@@ -92,6 +96,63 @@ public class FileManager {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+	}
+	
+	public static void setLootbuffTime(String lb, long time) {
+		FileConfiguration c = getLootbuffs();
+		File f = new File(Main.getInstance().getDataFolder() + File.separator, "Lootbuffs.yml");
+		c.set(lb + ".Time", time);
+		try {
+			c.save(f);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public static void setCurrentLootbuff(String lb, long time) {
+		FileConfiguration c = getLootbuffs();
+		File f = new File(Main.getInstance().getDataFolder() + File.separator, "Lootbuffs.yml");
+		c.set("CurrentLB", lb);
+		c.set(lb + ".Time", time);
+		try {
+			c.save(f);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public static void setupLootbuffs() {
+		File f = new File(Main.getInstance().getDataFolder() + File.separator, "Lootbuffs.yml");
+		if (!f.exists()) {
+			FileConfiguration c = getLootbuffs();
+			c.set("CurrentLB", "none");
+			c.set("loot.Time", 0);
+			c.set("uq.Time", 0);
+			try {
+				c.save(f);
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+	}
+	
+	public static void setCurrentLootbuff(String lb) {
+		FileConfiguration c = getLootbuffs();
+		File f = new File(Main.getInstance().getDataFolder() + File.separator, "Lootbuffs.yml");
+		c.set("CurrentLB", lb);
+		try {
+			c.save(f);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public static long getLootbuffTime(String lb) {
+		return getLootbuffs().getLong(lb + ".Time");
+	}
+	
+	public static String getCurrentLootbuff() {
+		return getLootbuffs().getString("CurrentLB");
 	}
 	
 	public static void setAlignmentTime(String name, int time) {

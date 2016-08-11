@@ -27,7 +27,7 @@ public class CommandAddUniqueLootbuff extends PSCommand {
 		}
 	}
 
-	private ItemStack getLootbuff() {
+	public ItemStack getLootbuff() {
 		PSItem lootbuff = new PSItem(Material.DIAMOND);
 		lootbuff.setName("&aGlobal &e&oUnique &aLootbuff &7(&c50%&7) &7(&c30M&7)");
 		lootbuff.addLore("&7(RIGHT-CLICK)");
