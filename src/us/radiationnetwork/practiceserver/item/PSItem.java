@@ -40,7 +40,6 @@ public class PSItem {
 	private int plus = 0;
 	private int price = 0;
 	
-	
 	public PSItem(Material material, int amount, short durability) {
 		setType(material);
 		setAmount(amount);

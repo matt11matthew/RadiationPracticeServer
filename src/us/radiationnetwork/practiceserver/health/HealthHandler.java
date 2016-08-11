@@ -17,7 +17,7 @@ public class HealthHandler implements Listener {
 	
 	@EventHandler
 	public void onInventoryClickEvent(InventoryClickEvent e) {
-		Player p = (Player) e.getWhoClicked();
+		final Player p = (Player) e.getWhoClicked();
 		new BukkitRunnable() {
 			
 			@Override

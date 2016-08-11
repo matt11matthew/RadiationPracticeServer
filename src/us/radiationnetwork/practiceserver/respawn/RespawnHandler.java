@@ -19,8 +19,10 @@ public class RespawnHandler implements Listener {
 	@EventHandler
 	public void onDeath(PlayerDeathEvent e) {
 		Player p = e.getEntity();
+		e.setDeathMessage(null);
 		e.setKeepInventory(true);
 		e.setKeepLevel(true);
+		e.getDrops().clear();
 		Alignment alignment = FileManager.getAlignment(p.getName());
 		try {
 			if (getDrops(p, alignment).isEmpty()) {
@@ -56,7 +58,7 @@ public class RespawnHandler implements Listener {
 					drops.remove(p.getEquipment().getHelmet());
 				}
 				if (Utils.isPickaxe(p.getInventory().getItem(i))) {
-					for (int ii = 1; i < p.getInventory().getSize(); ii++) {
+					for (int ii = 1; ii < p.getInventory().getSize(); ii++) {
 						if (p.getInventory().getItem(ii) != null) {
 							if (Utils.isPickaxe(p.getInventory().getItem(ii))) {
 								drops.remove(p.getInventory().getItem(ii));
@@ -71,7 +73,7 @@ public class RespawnHandler implements Listener {
 					drops.remove(p.getEquipment().getLeggings());
 				}
 				if (StatUtils.hasStat(p.getInventory().getItem(i), "Untradable")) {
-					for (int ii = 1; i < p.getInventory().getSize(); ii++) {
+					for (int ii = 1; ii < p.getInventory().getSize(); ii++) {
 						if (p.getInventory().getItem(ii) != null) {
 							if (StatUtils.hasStat(p.getInventory().getItem(ii), "Untradable")) {
 								drops.remove(p.getInventory().getItem(ii));
@@ -80,7 +82,7 @@ public class RespawnHandler implements Listener {
 					}
 				}
 				if (StatUtils.hasStat(p.getInventory().getItem(i), "Soulbound")) {
-					for (int ii = 1; i < p.getInventory().getSize(); ii++) {
+					for (int ii = 1; ii < p.getInventory().getSize(); ii++) {
 						if (p.getInventory().getItem(ii) != null) {
 							if (StatUtils.hasStat(p.getInventory().getItem(ii), "Soulbound")) {
 								drops.remove(p.getInventory().getItem(ii));
@@ -109,7 +111,7 @@ public class RespawnHandler implements Listener {
 					drops.remove(p.getEquipment().getChestplate());
 				}
 				if (Utils.isPickaxe(p.getInventory().getItem(i))) {
-					for (int ii = 1; i < p.getInventory().getSize(); ii++) {
+					for (int ii = 1; ii < p.getInventory().getSize(); ii++) {
 						if (p.getInventory().getItem(ii) != null) {
 							if (Utils.isPickaxe(p.getInventory().getItem(ii))) {
 								drops.remove(p.getInventory().getItem(ii));
@@ -118,7 +120,7 @@ public class RespawnHandler implements Listener {
 					}
 				}
 				if (StatUtils.hasStat(p.getInventory().getItem(i), "Untradable")) {
-					for (int ii = 1; i < p.getInventory().getSize(); ii++) {
+					for (int ii = 1; ii < p.getInventory().getSize(); ii++) {
 						if (p.getInventory().getItem(ii) != null) {
 							if (StatUtils.hasStat(p.getInventory().getItem(ii), "Untradable")) {
 								drops.remove(p.getInventory().getItem(ii));
@@ -127,7 +129,7 @@ public class RespawnHandler implements Listener {
 					}
 				}
 				if (StatUtils.hasStat(p.getInventory().getItem(i), "Soulbound")) {
-					for (int ii = 1; i < p.getInventory().getSize(); ii++) {
+					for (int ii = 1; ii < p.getInventory().getSize(); ii++) {
 						if (p.getInventory().getItem(ii) != null) {
 							if (StatUtils.hasStat(p.getInventory().getItem(ii), "Soulbound")) {
 								drops.remove(p.getInventory().getItem(ii));

@@ -399,7 +399,7 @@ public class ItemGenerator {
 				break;
 			}
 
-			name = "&fHatchet";
+			name = "&fShortsword";
 			
 			//knockback_chance = 3;
 			crit_hit_chance = 2;
@@ -748,15 +748,15 @@ public class ItemGenerator {
 					break;
 				}
 
-				name = "&fHatchet";
+				name = "&fShortsword";
 				
 				//knockback_chance = 3;
-				crit_hit_chance = 2;
+				crit_hit_chance = 12;
 				//blind_chance = 3;
-				edmg_chance = 6;
+				edmg_chance = 16;
 				//vs_modifier_chance = 6;
 				//accuracy_chance = 8;
-				life_steal_chance = 2;
+				life_steal_chance = 12;
 				//life_steal_max = 30;
 				//knockback_max = 3;
 				//crit_hit_max = 2;
@@ -786,11 +786,11 @@ public class ItemGenerator {
 					break;
 				}
 				name = "&aBroadsword";
-			    life_steal_chance = 4;
+			    life_steal_chance = 14;
 			   // knockback_chance = 10;
-			    crit_hit_chance = 5;
+			    crit_hit_chance = 15;
 			    //blind_chance = 5;
-			    edmg_chance = 9; 
+			    edmg_chance = 19; 
 			   // vs_modifier_chance = 9;
 			    //accuracy_chance = 12;
 			    //accuracy_max = 12;
@@ -822,11 +822,11 @@ public class ItemGenerator {
 					break;
 				}
 				name = "&bMagic Sword";
-				life_steal_chance = 5;
+				life_steal_chance = 15;
 			    //knockback_chance = 13;
-			    crit_hit_chance = 8;
+			    crit_hit_chance = 18;
 			    //blind_chance = 8;
-			    edmg_chance = 10;  
+			    edmg_chance = 15;  
 			   // vs_modifier_chance = 10; 
 			   // accuracy_chance = 15;
 			   // accuracy_max = 25;
@@ -858,9 +858,9 @@ public class ItemGenerator {
 					break;
 				}
 				name = "&dAncient Sword";
-				life_steal_chance = 10;
+				life_steal_chance = 15;
 			   // knockback_chance = 16;
-			    crit_hit_chance = 9;
+			    crit_hit_chance = 19;
 			   // blind_chance = 9;
 			    edmg_chance = 15; 
 			   // vs_modifier_chance = 12;		  
@@ -894,9 +894,9 @@ public class ItemGenerator {
 					break;
 				}
 				name = "&eLegendary Sword";
-				life_steal_chance = 8;
+				life_steal_chance = 18;
 			   // knockback_chance = 20;
-			    crit_hit_chance = 7;
+			    crit_hit_chance = 15;
 			    //blind_chance = 11;
 			    edmg_chance = 20;     
 			    //vs_modifier_chance = 15;	      
@@ -1091,17 +1091,17 @@ public class ItemGenerator {
 				name = "&fHatchet";
 				
 				//knockback_chance = 3;
-				crit_hit_chance = 2;
+				crit_hit_chance = 10;
 				//blind_chance = 3;
-				edmg_chance = 6;
+				edmg_chance = 10;
 				//vs_modifier_chance = 6;
 				//accuracy_chance = 8;
-				life_steal_chance = 2;
+				life_steal_chance = 10;
 				//life_steal_max = 30;
 				//knockback_max = 3;
 				//crit_hit_max = 2;
 				//blind_max = 5;
-				edmg_max = 4;
+				edmg_max = 5;
 				//accuracy_max = 10;
 				break;
 			case 2:
@@ -1126,11 +1126,11 @@ public class ItemGenerator {
 					break;
 				}
 				name = "&aGreat Axe";
-			    life_steal_chance = 4;
+			    life_steal_chance = 22;
 			   // knockback_chance = 10;
-			    crit_hit_chance = 5;
+			    crit_hit_chance = 16;
 			    //blind_chance = 5;
-			    edmg_chance = 9; 
+			    edmg_chance = 34; 
 			   // vs_modifier_chance = 9;
 			    //accuracy_chance = 12;
 			    //accuracy_max = 12;
@@ -1162,11 +1162,11 @@ public class ItemGenerator {
 					break;
 				}
 				name = "&bWar Axe";
-				life_steal_chance = 5;
+				life_steal_chance = 15;
 			    //knockback_chance = 13;
-			    crit_hit_chance = 8;
+			    crit_hit_chance = 13;
 			    //blind_chance = 8;
-			    edmg_chance = 10;  
+			    edmg_chance = 40;  
 			   // vs_modifier_chance = 10; 
 			   // accuracy_chance = 15;
 			   // accuracy_max = 25;
@@ -1198,9 +1198,9 @@ public class ItemGenerator {
 					break;
 				}
 				name = "&dAncient Axe";
-				life_steal_chance = 10;
+				life_steal_chance = 20;
 			   // knockback_chance = 16;
-			    crit_hit_chance = 9;
+			    crit_hit_chance = 19;
 			   // blind_chance = 9;
 			    edmg_chance = 15; 
 			   // vs_modifier_chance = 12;		  
@@ -1234,11 +1234,11 @@ public class ItemGenerator {
 					break;
 				}
 				name = "&eLegendary Axe";
-				life_steal_chance = 8;
+				life_steal_chance = 18;
 			   // knockback_chance = 20;
-			    crit_hit_chance = 7;
+			    crit_hit_chance = 25;
 			    //blind_chance = 11;
-			    edmg_chance = 20;     
+			    edmg_chance = 25;     
 			    //vs_modifier_chance = 15;	      
 			    //accuracy_chance = 15;
 			    accuracy_max = 35;
@@ -1398,11 +1398,11 @@ public class ItemGenerator {
 				vit_max = (int) ir(41, 20);
 				break;
 			case 4:
-				hps_max = (int) ir(6, 60);
+				hps_max = (int) ir(20, 60);
 				vit_max = (int) ir(91, 60);
 				break;
 			case 5:
-				hps_max = (int) ir(21, 90);
+				hps_max = (int) ir(31, 90);
 				vit_max = (int) ir(161, 150);
 				break;
 			}
@@ -1815,7 +1815,7 @@ public class ItemGenerator {
 			}
 			sword.setRarity(Utils.getItemRarity(is));
 			Material type = Material.LEATHER_HELMET;
-			
+			sword.removeStats();
 			int hp = 0;
 			String name = "";
 			boolean hasVit = false;

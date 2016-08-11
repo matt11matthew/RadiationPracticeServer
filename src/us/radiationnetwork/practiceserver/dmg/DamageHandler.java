@@ -34,10 +34,15 @@ import us.radiationnetwork.practiceserver.zones.Zone;
 public class DamageHandler implements Listener {
 	
 	public static List<Player> tagged = new ArrayList<Player>();
+	public static List<Player> nodmg = new ArrayList<Player>();
+	
 	
 	public double getFinalDMGMob(Player p, LivingEntity l) {
 		if ((RegionUtils.getZone(l.getLocation()) == Zone.SAFE) || (RegionUtils.getZone(p.getLocation()) == Zone.SAFE)) {
 			return -1;	
+		}
+		if (nodmg.contains(p)) {
+			return -1;
 		}
 		ItemStack wep = p.getEquipment().getItemInMainHand();
 		double dmg = 0.0D;
@@ -120,6 +125,9 @@ public class DamageHandler implements Listener {
 	}
 	
 	public double getFinalDMGPlayer(Player p, LivingEntity l) {
+		if (nodmg.contains(p)) {
+			return -1;
+		}
 		if ((RegionUtils.getZone(l.getLocation()) == Zone.SAFE) || (RegionUtils.getZone(p.getLocation()) == Zone.SAFE)) {
 			return -1;	
 		}
@@ -243,13 +251,22 @@ public class DamageHandler implements Listener {
 		}
 	}
 	
-	public void tag(Player p) {
+	public void tag(final Player p) {
 		tagged.add(p);
 		new BukkitRunnable() {
 			public void run() {
 				tagged.remove(p);
 			}
 		}.runTaskLater(Main.plugin, (20L * 10L));
+	}
+	
+	public void noDMG(final Player p) {
+		nodmg.add(p);
+		new BukkitRunnable() {
+			public void run() {
+				nodmg.remove(p);
+			}
+		}.runTaskLater(Main.getInstance(), 5L);
 	}
 	
 	@EventHandler
@@ -356,6 +373,7 @@ public class DamageHandler implements Listener {
 			Player l = (Player) e.getEntity();
 			double dmg = getFinalDMGPlayer(p, l);
 			e.setCancelled(true);
+			noDMG(p);
 			if (dmg == -1) {
 				return;
 			} else {
@@ -397,6 +415,7 @@ public class DamageHandler implements Listener {
 			LivingEntity l = (LivingEntity) e.getEntity();
 			double dmg = getFinalDMGMob(p, l);
 			e.setCancelled(true);
+			noDMG(p);
 			if (dmg == -1) {
 				return;
 			} else {

@@ -9,17 +9,13 @@ import org.bukkit.entity.Player;
 import org.bukkit.entity.Skeleton;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
+import org.bukkit.event.entity.CreatureSpawnEvent;
 import org.bukkit.event.entity.EntityDeathEvent;
-import org.bukkit.event.entity.EntitySpawnEvent;
-import org.bukkit.event.player.AsyncPlayerChatEvent;
+import org.bukkit.event.player.PlayerSwapHandItemsEvent;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 
-import com.avaje.ebeaninternal.server.lib.sql.PstmtCache;
-
-import us.radiationnetwork.practiceserver.enchants.EnchantHandler;
 import us.radiationnetwork.practiceserver.enums.ItemRarity;
 import us.radiationnetwork.practiceserver.item.ItemGenerator;
 import us.radiationnetwork.practiceserver.item.PSItem;
@@ -53,7 +49,7 @@ public class MobHandler implements Listener {
 			e.setDroppedExp(0);
 			e.getDrops().clear();
 			if (name.contains(ChatColor.WHITE.toString())) {
-				int drop = ItemGenerator.ir(20, 1);
+				int drop = ItemGenerator.ir(80, 1);
 				int gems =  ItemGenerator.ir(2, 1);
 				int amt = (int) ItemGenerator.ir(5, 1);
 				if (gems == 1) {
@@ -83,7 +79,7 @@ public class MobHandler implements Listener {
 				}
 			}
 			if (name.contains(ChatColor.GREEN.toString())) {
-				int drop = ItemGenerator.ir(40, 1);
+				int drop = ItemGenerator.ir(100, 1);
 				int gems =  ItemGenerator.ir(2, 1);
 				int amt = (int) ItemGenerator.ir(7, 10);
 				if (gems == 1) {
@@ -113,7 +109,7 @@ public class MobHandler implements Listener {
 				}
 			}
 			if (name.contains(ChatColor.AQUA.toString())) {
-				int drop = ItemGenerator.ir(60, 1);
+				int drop = ItemGenerator.ir(120, 1);
 				int gems =  ItemGenerator.ir(2, 1);
 				int amt = (int) ItemGenerator.ir(17, 16);
 				if (gems == 1) {
@@ -143,7 +139,7 @@ public class MobHandler implements Listener {
 				}
 			}
 			if (name.contains(ChatColor.LIGHT_PURPLE.toString())) {
-				int drop = ItemGenerator.ir(80, 1);
+				int drop = ItemGenerator.ir(160, 1);
 				int gems =  ItemGenerator.ir(2, 1);
 				int amt = (int) ItemGenerator.ir(33, 32);
 				if (gems == 1) {
@@ -173,7 +169,7 @@ public class MobHandler implements Listener {
 				}
 			}
 			if (name.contains(ChatColor.YELLOW.toString())) {
-				int drop = ItemGenerator.ir(10, 1);
+				int drop = ItemGenerator.ir(200, 1);
 				int gems =  ItemGenerator.ir(2, 1);
 				int stacks = ItemGenerator.ir(3, 1);
 				int amt = (int) ItemGenerator.ir(17, 16);
@@ -214,26 +210,13 @@ public class MobHandler implements Listener {
 		}
 	}
 	
-	
 	@EventHandler
-	public void onChat(AsyncPlayerChatEvent e) {
-		Player p = e.getPlayer();
-		ItemStack wep = p.getItemInHand();
-		PSItem sword = new PSItem(wep.getType());
-		ItemMeta im = wep.getItemMeta();
-		sword.setPlus(EnchantHandler.getPlus(wep));
-		if (im.hasDisplayName()) {
-			sword.setName(im.getDisplayName());
-		}
-		if (im.hasLore()) {
-			sword.setLore(im.getLore());
-		}
-		sword.setRarity(Utils.getItemRarity(wep));
-		p.setItemInHand(ItemGenerator.rerollStats(5, wep));
+	public void onItemChange(PlayerSwapHandItemsEvent e) {
+		e.setCancelled(true);
 	}
 	
 	@EventHandler
-	public void onSpawn(EntitySpawnEvent e) {
+	public void onSpawn(CreatureSpawnEvent e) {
 		if (e.getEntity() instanceof Skeleton) {
 			Skeleton s = (Skeleton) e.getEntity();
 			if (s.getCustomName() == null) return;
@@ -256,11 +239,13 @@ public class MobHandler implements Listener {
 				break;
 			case "null":
 				break;
+			default:
+				break;
 			}
 		}
 	}
 	
-	public void setUp(LivingEntity l, int tier) {
+	public static void setUp(LivingEntity l, int tier) {
 		String name = "";
 		switch (l.getType()) {
 		case SKELETON:
@@ -311,14 +296,14 @@ public class MobHandler implements Listener {
 			health = random.nextInt(2501) + 2500;
 			break;
 		case 5:
-			health = random.nextInt(1) + 2;
+			health = random.nextInt(8000) + 4001;
 			break;
 		}
 		l.setMaxHealth(health);
 		l.setHealth(l.getMaxHealth());
 	}
 
-	public void setupArmor(LivingEntity l, int tier) {
+	public static void setupArmor(LivingEntity l, int tier) {
 		switch (tier) {
 		case 1:
 			int armor6 = ItemGenerator.ir(3, 1);
@@ -507,7 +492,7 @@ public class MobHandler implements Listener {
 		
 	}
 
-	public ItemStack getSkull(int tier) {
+	public static ItemStack getSkull(int tier) {
 		PSItem skull = new PSItem(Material.SKULL_ITEM);
 		skull.setSkull(true);
 		switch (tier) {

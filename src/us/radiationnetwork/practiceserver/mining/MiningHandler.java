@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 
 import org.bukkit.Bukkit;
+import org.bukkit.GameMode;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
@@ -11,7 +12,13 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockBreakEvent;
+import org.bukkit.event.block.BlockPlaceEvent;
+import org.bukkit.event.block.LeavesDecayEvent;
+import org.bukkit.event.player.AsyncPlayerChatEvent;
+import org.bukkit.event.server.ServerListPingEvent;
 import org.bukkit.inventory.ItemStack;
+
+import com.avaje.ebean.config.MatchingNamingConvention;
 
 import us.radiationnetwork.practiceserver.Main;
 import us.radiationnetwork.practiceserver.item.ItemGenerator;
@@ -23,6 +30,43 @@ public class MiningHandler implements Listener {
 	
 	public static HashMap<Location, Material> ores = new HashMap<Location, Material>();
 	public static HashMap<Location, Integer> ore_respawn = new HashMap<Location, Integer>();
+	
+	
+	@EventHandler
+	public void onBlockBreak(BlockBreakEvent e) {
+		Player p = e.getPlayer();
+		if (!(p.isOp()) && (p.getGameMode() != GameMode.CREATIVE)) {
+			e.setCancelled(true);
+		}
+	}
+	
+	@EventHandler
+	public void onBlockPlace(BlockPlaceEvent e) {
+		Player p = e.getPlayer();
+		if (!(p.isOp()) && (p.getGameMode() != GameMode.CREATIVE)) {
+			e.setCancelled(true);
+		}
+	}
+	
+	@EventHandler
+	public void onLeafDecay(LeavesDecayEvent e) {
+		e.setCancelled(true);
+	}
+	
+	@EventHandler
+	public void onChat(AsyncPlayerChatEvent e) {
+		Player p = e.getPlayer();
+		String name = p.getDisplayName();
+		name = name.replaceAll("<", "");
+		name = name.replaceAll(">", "");
+		e.setFormat(name + ": " + e.getMessage());
+	}
+	
+	@EventHandler
+	public void onServerListPing(ServerListPingEvent e) {
+		e.setMotd(Utils.colorCodes("&f&lRadiation PracticeServer\n&f&l1.0.0 Alpha"));
+	}
+	
 	
 	@EventHandler
 	public void onBreak(BlockBreakEvent e) {

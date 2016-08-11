@@ -32,6 +32,8 @@ public class ZoneHandler implements Listener {
 			}
 		}
 	}
+	
+	
 
 	public boolean canEnterZone(Player p, Zone to_zone) {
 		Alignment alignment = FileManager.getAlignment(p.getName());

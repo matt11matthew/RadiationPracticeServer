@@ -28,6 +28,7 @@ public class PlayerListener implements Listener {
 		player.setHealthScaled(true);
 		player.getAttribute(Attribute.GENERIC_ATTACK_SPEED).setBaseValue(30);
 		e.setJoinMessage(null);
+		player.sendMessage(Utils.colorCodes("&aType /buy to view the shop! Where you can buy features like /bank"));
 	}
 	
 	@EventHandler
