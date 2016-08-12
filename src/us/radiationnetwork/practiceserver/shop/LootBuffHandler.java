@@ -1,6 +1,7 @@
 package us.radiationnetwork.practiceserver.shop;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import org.bukkit.Bukkit;
@@ -9,9 +10,11 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
+import org.bukkit.event.player.PlayerCommandPreprocessEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.scheduler.BukkitRunnable;
 
 import us.radiationnetwork.practiceserver.Main;
 import us.radiationnetwork.practiceserver.command.commands.CommandAddLootbuff;
@@ -22,6 +25,8 @@ import us.radiationnetwork.practiceserver.utils.Utils;
 public class LootBuffHandler implements Listener {
 	
 	public static List<String> buffs = new ArrayList<String>();
+	public List<String> bannedCommands = new ArrayList<String>(Arrays.asList("/bukkit:", "/minecraft:", "/icanhasbukkit", "/pl", "/pl", "/?", "/help", "/spawn"));
+	
 	
 	@EventHandler
 	public void onInteract(PlayerInteractEvent e) {
@@ -78,14 +83,33 @@ public class LootBuffHandler implements Listener {
 	}
 	
 	@EventHandler
-	public void onJoin(PlayerJoinEvent e) {
+	public void onBukkitCommand(PlayerCommandPreprocessEvent e) {
 		Player p = e.getPlayer();
-		if (!buffs.isEmpty()) {
-			if (buffs.contains("loot")) {
-				p.sendMessage(Utils.colorCodes("&6Global lootbuff is activated " + Utils.parseMilis(FileManager.getLootbuffTime("loot"))));
-			} else if (buffs.contains("uq")) {
-				p.sendMessage(Utils.colorCodes("&6Global &e&oUnique &6lootbuff is activated " + Utils.parseMilis(FileManager.getLootbuffTime("uq"))));
+		if (!p.isOp()) {
+			String msg = e.getMessage();
+			for (String bannedCmds : bannedCommands) {
+				if (bannedCmds.startsWith(msg)) {
+					e.setCancelled(true);
+				}
 			}
+		}
+	}
+	
+	@EventHandler
+	public void onJoin(PlayerJoinEvent e) {
+		final Player p = e.getPlayer();
+		if (!buffs.isEmpty()) {
+			new BukkitRunnable() {
+				
+				public void run() {
+					if (buffs.contains("loot")) {
+						p.sendMessage(Utils.colorCodes("&6Global Lootbuff is Activated " + Utils.parseMilis(FileManager.getLootbuffTime("loot"))));
+					} else if (buffs.contains("uq")) {
+						p.sendMessage(Utils.colorCodes("&6Global &e&oUnique &6Lootbuff is Activated " + Utils.parseMilis(FileManager.getLootbuffTime("uq"))));
+					}
+					
+				}
+			}.runTaskLater(Main.getInstance(), 10L);
 		}
 	}
 }

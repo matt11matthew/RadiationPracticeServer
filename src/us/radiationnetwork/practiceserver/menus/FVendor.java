@@ -29,7 +29,7 @@ public class FVendor implements Listener {
 			t1fish.addLore("&cSPEED (I) BUFF &7(15s)");
 			t1fish.addLore("&c-10% HUNGER &7(instant)");
 			t1fish.addLore("&7&oA T1 Feesh.");
-			t1fish.addLore("&aPrice: &f" + "100g");
+			t1fish.setPrice(100);
 			return t1fish.build();
 		case 2:
 			PSItem t2fish = new PSItem(Material.RAW_FISH);
@@ -37,7 +37,7 @@ public class FVendor implements Listener {
 			t2fish.addLore("&cSPEED (I) BUFF &7(30s)");
 			t2fish.addLore("&c-20% HUNGER &7(instant)");
 			t2fish.addLore("&7&oA T3 Feesh.");
-			t2fish.addLore("&aPrice: &f" + "200g");
+			t2fish.setPrice(200);
 			return t2fish.build();
 		case 3:
 			PSItem t3fish = new PSItem(Material.RAW_FISH);
@@ -45,7 +45,7 @@ public class FVendor implements Listener {
 			t3fish.addLore("&cSPEED (I) BUFF &7(60s)");
 			t3fish.addLore("&c-30% HUNGER &7(instant)");
 			t3fish.addLore("&7&oA beautiful jumping fish.");
-			t3fish.addLore("&aPrice: &f" + "300g");
+			t3fish.setPrice(300);
 			return t3fish.build();
 		case 4:
 			PSItem t4fish = new PSItem(Material.RAW_FISH);
@@ -53,7 +53,7 @@ public class FVendor implements Listener {
 			t4fish.addLore("&cSPEED (III) BUFF &7(15s)");
 			t4fish.addLore("&c-40% HUNGER &7(instant)");
 			t4fish.addLore("&7&oA large red crustacean.");
-			t4fish.addLore("&aPrice: &f" + "400g");
+			t4fish.setPrice(400);
 			return t4fish.build();
 		case 5:
 			PSItem t5fish = new PSItem(Material.RAW_FISH);
@@ -61,7 +61,7 @@ public class FVendor implements Listener {
 			t5fish.addLore("&cSPEED (III) BUFF &7(30s)");
 			t5fish.addLore("&c-50% HUNGER &7(instant)");
 			t5fish.addLore("&7&oAn elongated fish with a long bill.");
-			t5fish.addLore("&aPrice: &f" + "500g");
+			t5fish.setPrice(500);
 			return t5fish.build();
 		}
 		return null;

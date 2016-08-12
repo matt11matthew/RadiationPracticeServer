@@ -19,6 +19,7 @@ import org.bukkit.potion.PotionEffectType;
 import us.radiationnetwork.practiceserver.enums.ItemRarity;
 import us.radiationnetwork.practiceserver.item.ItemGenerator;
 import us.radiationnetwork.practiceserver.item.PSItem;
+import us.radiationnetwork.practiceserver.shop.LootBuffHandler;
 import us.radiationnetwork.practiceserver.utils.Utils;
 
 public class MobHandler implements Listener {
@@ -49,7 +50,14 @@ public class MobHandler implements Listener {
 			e.setDroppedExp(0);
 			e.getDrops().clear();
 			if (name.contains(ChatColor.WHITE.toString())) {
-				int drop = ItemGenerator.ir(80, 1);
+				int drop = 0;
+				if (LootBuffHandler.buffs.contains("loot")) {
+					drop = ItemGenerator.ir(70, 1);
+				} else if (LootBuffHandler.buffs.contains("uq")) {
+					drop = ItemGenerator.ir(40, 1);
+				} else {
+					ItemGenerator.ir(80, 1);
+				}
 				int gems =  ItemGenerator.ir(2, 1);
 				int amt = (int) ItemGenerator.ir(5, 1);
 				if (gems == 1) {
@@ -79,7 +87,14 @@ public class MobHandler implements Listener {
 				}
 			}
 			if (name.contains(ChatColor.GREEN.toString())) {
-				int drop = ItemGenerator.ir(100, 1);
+				int drop = 0;
+				if (LootBuffHandler.buffs.contains("loot")) {
+					drop = ItemGenerator.ir(80, 1);
+				} else if (LootBuffHandler.buffs.contains("uq")) {
+					drop = ItemGenerator.ir(50, 1);
+				} else {
+					drop = ItemGenerator.ir(100, 1);
+				}
 				int gems =  ItemGenerator.ir(2, 1);
 				int amt = (int) ItemGenerator.ir(7, 10);
 				if (gems == 1) {
@@ -109,7 +124,14 @@ public class MobHandler implements Listener {
 				}
 			}
 			if (name.contains(ChatColor.AQUA.toString())) {
-				int drop = ItemGenerator.ir(120, 1);
+				int drop = 0;
+				if (LootBuffHandler.buffs.contains("loot")) {
+					drop = ItemGenerator.ir(100, 1);;
+				} else if (LootBuffHandler.buffs.contains("uq")) {
+					drop = ItemGenerator.ir(60, 1);
+				} else {
+					drop = ItemGenerator.ir(120, 1);
+				}
 				int gems =  ItemGenerator.ir(2, 1);
 				int amt = (int) ItemGenerator.ir(17, 16);
 				if (gems == 1) {
@@ -139,7 +161,14 @@ public class MobHandler implements Listener {
 				}
 			}
 			if (name.contains(ChatColor.LIGHT_PURPLE.toString())) {
-				int drop = ItemGenerator.ir(160, 1);
+				int drop = 0;
+				if (LootBuffHandler.buffs.contains("loot")) {
+					drop = ItemGenerator.ir(120, 1);
+				} else if (LootBuffHandler.buffs.contains("uq")) {
+					drop = ItemGenerator.ir(80, 1);
+				} else {
+					drop = ItemGenerator.ir(160, 1);
+				}
 				int gems =  ItemGenerator.ir(2, 1);
 				int amt = (int) ItemGenerator.ir(33, 32);
 				if (gems == 1) {
@@ -169,7 +198,14 @@ public class MobHandler implements Listener {
 				}
 			}
 			if (name.contains(ChatColor.YELLOW.toString())) {
-				int drop = ItemGenerator.ir(200, 1);
+				int drop = 0;
+				if (LootBuffHandler.buffs.contains("loot")) {
+					drop = ItemGenerator.ir(160, 1);
+				} else if (LootBuffHandler.buffs.contains("uq")) {
+					drop = ItemGenerator.ir(100, 1);
+				} else {
+					drop = ItemGenerator.ir(200, 1);
+				}
 				int gems =  ItemGenerator.ir(2, 1);
 				int stacks = ItemGenerator.ir(3, 1);
 				int amt = (int) ItemGenerator.ir(17, 16);

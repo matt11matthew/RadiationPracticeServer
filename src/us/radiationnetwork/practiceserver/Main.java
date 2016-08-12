@@ -9,6 +9,8 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import us.radiationnetwork.practiceserver.command.commands.CommandAddLootbuff;
+import us.radiationnetwork.practiceserver.command.commands.CommandAddSub;
+import us.radiationnetwork.practiceserver.command.commands.CommandAddSubPlus;
 import us.radiationnetwork.practiceserver.command.commands.CommandAddUniqueLootbuff;
 import us.radiationnetwork.practiceserver.command.commands.CommandFVendor;
 import us.radiationnetwork.practiceserver.command.commands.CommandIVendor;
@@ -60,6 +62,7 @@ public class Main extends JavaPlugin {
 		LootBuffHandler.enable();
 		LootBuffHandler.checkLootbuffs();
 		checkLootbuffTask();
+		PlayerListener.setupTeams();
 	}
 	
 	public void onDisable() {
@@ -80,6 +83,9 @@ public class Main extends JavaPlugin {
 		
 		APIUtils.registerCommand("addlootbuff", new CommandAddLootbuff());
 		APIUtils.registerCommand("adduniquebuff", new CommandAddUniqueLootbuff());
+		
+		APIUtils.registerCommand("addsub", new CommandAddSub());
+		APIUtils.registerCommand("addsubplus", new CommandAddSubPlus());
 	}
 
 	private void registerListeners() {
@@ -117,6 +123,8 @@ public class Main extends JavaPlugin {
 				
 				for (Player pl : Bukkit.getServer().getOnlinePlayers()) {
 					HealthHandler.hpRegen(pl);
+					PlayerListener.setupTag(pl);
+				
 				}
 			}
 		}, 20L, 20L);

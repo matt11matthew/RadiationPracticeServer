@@ -51,42 +51,22 @@ public class Utils {
 	}
 	
 	public static String parseMilis(long l) {
-		long day = TimeUnit.MILLISECONDS.toDays(l);
 		long min = TimeUnit.MILLISECONDS.toMinutes(l);
-		long hour = TimeUnit.MILLISECONDS.toHours(l) - TimeUnit.MILLISECONDS.toHours(System.currentTimeMillis());
-		if (hour - TimeUnit.MILLISECONDS.toHours(System.currentTimeMillis()) > 0) {
-			hour = hour - TimeUnit.MILLISECONDS.toHours(System.currentTimeMillis());
-		}
-		if (day - TimeUnit.MILLISECONDS.toDays(System.currentTimeMillis()) > 0) {
-			day = day - TimeUnit.MILLISECONDS.toDays(System.currentTimeMillis());
-		}
 		if (min - TimeUnit.MILLISECONDS.toMinutes(System.currentTimeMillis()) > 0) {
 			min = min - TimeUnit.MILLISECONDS.toMinutes(System.currentTimeMillis());
 		}
-		if (day == 1) {
-			return day + " Day";
-		} else if (day > 1) {
-			return day + " Days";
-		} else if (min == 1) {
+		if (min == 1) {
 			return min + " Minute";
 		} else if (min > 1) {
 			return min + " Minutes";
-		} else if (hour == 1) {
-			return hour + " Hour";
-		} else if (hour > 1) {
-			return hour + " Hours";
 		}
 		return null;
 	}
 	
 	public static long convertStringToMillis(String s) {
 		try {
-			if (s.contains("day")) {
-				return System.currentTimeMillis() + TimeUnit.DAYS.toMillis(convertStringToInt(s.split("day")[0]));
-			} else if (s.contains("minute")) {
+			if (s.contains("minute")) {
 				return System.currentTimeMillis() + TimeUnit.MINUTES.toMillis(convertStringToInt(s.split("minute")[0]));
-			} else if (s.contains("hour")) {
-				return System.currentTimeMillis() + TimeUnit.HOURS.toMillis(convertStringToInt(s.split("hour")[0]));
 			}
 			return 0;
 		} catch (Exception e) {

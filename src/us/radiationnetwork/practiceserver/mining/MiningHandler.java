@@ -54,17 +54,8 @@ public class MiningHandler implements Listener {
 	}
 	
 	@EventHandler
-	public void onChat(AsyncPlayerChatEvent e) {
-		Player p = e.getPlayer();
-		String name = p.getDisplayName();
-		name = name.replaceAll("<", "");
-		name = name.replaceAll(">", "");
-		e.setFormat(name + ": " + e.getMessage());
-	}
-	
-	@EventHandler
 	public void onServerListPing(ServerListPingEvent e) {
-		e.setMotd(Utils.colorCodes("&f&lRadiation PracticeServer\n&f&l1.0.0 Alpha"));
+		e.setMotd(Utils.colorCodes("&f&lRadiation PracticeServer\n&f&l1.1.0 Alpha &aFixed 90% of bugs"));
 	}
 	
 	

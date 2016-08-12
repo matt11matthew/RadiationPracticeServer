@@ -12,3 +12,5 @@ commands:
     ivendor:
     adduniquebuff:
     addlootbuff:
+    addsub:
+    addsubplus:

@@ -1,5 +1,6 @@
 package us.radiationnetwork.practiceserver.player;
 
+import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.Sound;
 import org.bukkit.attribute.Attribute;
@@ -9,12 +10,17 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerPickupItemEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
+import org.bukkit.scoreboard.Team;
 
 import us.radiationnetwork.practiceserver.item.PSItem;
 import us.radiationnetwork.practiceserver.storage.FileManager;
 import us.radiationnetwork.practiceserver.utils.Utils;
 
 public class PlayerListener implements Listener {
+	
+	public static Team lawful = null;
+	public static Team neutral = null;
+	public static Team chaotic = null;
 	
 	@EventHandler
 	public void onJoin(PlayerJoinEvent e) {
@@ -31,8 +37,63 @@ public class PlayerListener implements Listener {
 		player.getAttribute(Attribute.GENERIC_ATTACK_SPEED).setBaseValue(30);
 		e.setJoinMessage(null);
 		player.sendMessage(Utils.colorCodes("&aType /buy to view the shop! Where you can buy features like /bank"));
-		player.setPlayerListName(FileManager.getAlignment(player.getName()).getTabColor() + player.getName());
+		//player.setPlayerListName(FileManager.getAlignment(player.getName()).getTabColor() + player.getName());
+		//setupTag(player);
 		
+	}
+	
+	public static void setupTag(Player p) {
+		p.setPlayerListName(FileManager.getAlignment(p.getName()).getTabColor() + p.getName());
+		switch (FileManager.getAlignment(p.getName())) {
+		case CHAOTIC:
+			if (!chaotic.hasPlayer(p)) {
+				//chaotic.removePlayer(p);
+				chaotic.addPlayer(p);
+			}
+			neutral.removePlayer(p);
+			lawful.removePlayer(p);
+			
+			break;
+		case LAWFUL:
+			if (!lawful.hasPlayer(p)) {
+				//lawful.removePlayer(p);
+				lawful.addPlayer(p);
+			}
+			chaotic.removePlayer(p);
+			neutral.removePlayer(p);
+			break;
+		case NEUTRAL:
+			if (!neutral.hasPlayer(p)) {
+				//neutral.removePlayer(p);
+				neutral.addPlayer(p);
+				
+			}
+			chaotic.removePlayer(p);
+			lawful.removePlayer(p);
+			break;
+		default:
+			break;
+		
+		}
+	}
+	
+	
+	public static void setupTeams() {
+		if (Bukkit.getScoreboardManager().getMainScoreboard().getTeam("lawful") != null) {
+			Bukkit.getScoreboardManager().getMainScoreboard().getTeam("lawful").unregister();
+		}
+		if (Bukkit.getScoreboardManager().getMainScoreboard().getTeam("neutral") != null) {
+			Bukkit.getScoreboardManager().getMainScoreboard().getTeam("neutral").unregister();
+		}
+		if (Bukkit.getScoreboardManager().getMainScoreboard().getTeam("chaotic") != null) {
+			Bukkit.getScoreboardManager().getMainScoreboard().getTeam("chaotic").unregister();
+		}
+		lawful = Bukkit.getScoreboardManager().getMainScoreboard().registerNewTeam("lawful");
+		lawful.setPrefix(Utils.colorCodes("&f"));
+		neutral = Bukkit.getScoreboardManager().getMainScoreboard().registerNewTeam("neutral");
+		neutral.setPrefix(Utils.colorCodes("&e"));
+		chaotic = Bukkit.getScoreboardManager().getMainScoreboard().registerNewTeam("chaotic");
+		chaotic.setPrefix(Utils.colorCodes("&c"));
 	}
 	
 	@EventHandler

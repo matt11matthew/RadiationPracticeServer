@@ -138,8 +138,16 @@ public class DamageHandler implements Listener {
 	public void flag(Player p) {
 		for (Player pl : Bukkit.getServer().getOnlinePlayers()) {
 			int lvl = flags.get(p);
+			if ((lvl == 100) || (lvl == 300) || (lvl == 500) || (lvl == 1000)) {
+				if (pl.isOp()) {
+					pl.sendMessage(Utils.colorCodes("&c[NoCheat] &a" + p.getName() + " &chas been kicked for &aAutoClicker &c&l(" + flags.get(p) + "LVL)"));	
+				}
+				p.kickPlayer(Utils.colorCodes("&c[NoCheat]\n&aStop Auto Clicking"));
+			}
 			if ((lvl == 20) || (lvl == 100) || (lvl == 200) || (lvl == 500) || (lvl == 1000)) {
-				pl.sendMessage(Utils.colorCodes("&c[NoCheat] &a" + p.getName() + " AutoClicker &c&l(" + flags.get(p) + "LVL)"));
+				if (pl.isOp()) {
+					pl.sendMessage(Utils.colorCodes("&c[NoCheat] &a" + p.getName() + " AutoClicker &c&l(" + flags.get(p) + "LVL)"));
+				}
 			}
 		}
 		return;
